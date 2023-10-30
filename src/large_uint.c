@@ -2,8 +2,6 @@
 
 #include<cutlery_math.h>
 
-#include<serial_int.h>
-
 int compare_large_uint(large_uint a, large_uint b)
 {
 	int res = 0;
@@ -84,7 +82,7 @@ int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 	return 1;
 }
 
-#include<read_write_int.h>
+#include<serial_int.h>
 
 void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l)
 {
