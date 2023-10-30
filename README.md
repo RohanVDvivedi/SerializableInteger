@@ -7,7 +7,7 @@ This library provides 2 utilities for my downstream projects.
 
 ## Setup instructions
 **Install dependencies :**
- * This project does not have any dependencies.
+ * [Cutlery](https://github.com/RohanVDvivedi/Cutlery)
 
 **Download source code :**
  * `git clone https://github.com/RohanVDvivedi/SerializableInteger.git`
