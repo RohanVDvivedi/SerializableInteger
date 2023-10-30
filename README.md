@@ -21,10 +21,10 @@ This library provides 2 utilities for my downstream projects.
  * ***Once you have installed from source, you may discard the build by*** `make clean`
 
 ## Using The library
- * add `-lserint` linker flag, while compiling your application
+ * add `-lserint -lcutlery` linker flag, while compiling your application
  * do not forget to include appropriate public api headers as and when needed. this includes
-   * `#include<fixed_width_uint.h>`
-   * `#include<serializable_integer.h>`
+   * `#include<large_fixed_width_uint.h>`
+   * `#include<serial_int.h>`
 
 ## Instructions for uninstalling library
 
