@@ -107,7 +107,7 @@ uint64_t get_UINT64_MIN(uint32_t data_size)		{return 0;}
 	if(data_size > sizeof(uint(X)))								\
 		data_size = sizeof(uint(X));							\
 	uint(X) x = INT ## X ## _C(-1);								\
-	x = x >> ((sizeof(uint(X)) - data_size) * CHAR_BIT);	\
+	x = x >> ((sizeof(uint(X)) - data_size) * CHAR_BIT);		\
 	return x;													\
 }
 
