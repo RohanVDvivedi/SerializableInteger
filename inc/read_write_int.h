@@ -2,9 +2,6 @@
 #define READ_WRITE_INT_H
 
 #include<stdint.h>
-#include<inttypes.h>
-
-#include<cutlery_math.h>
 
 /*
 	read functions assume that the serialized integr is stored at data (void*) in little endian format
