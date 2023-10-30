@@ -2,6 +2,8 @@
 
 #include<cutlery_math.h>
 
+#include<serial_int.h>
+
 int compare_large_uint(large_uint a, large_uint b)
 {
 	int res = 0;
@@ -93,7 +95,7 @@ void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l)
 	{
 		uint32_t bytes_to_write = min(sizeof(uint64_t), bytes_size);
 
-		write_uint64(bytes, bytes_to_write, l.limbs[limb_index++]);
+		serialize_uint64(bytes, bytes_to_write, l.limbs[limb_index++]);
 
 		bytes_size -= bytes_to_write;
 		bytes += bytes_to_write;
@@ -111,7 +113,7 @@ large_uint deserialize_large_uint(const char* bytes, uint32_t bytes_size)
 	{
 		uint32_t bytes_to_read = min(sizeof(uint64_t), bytes_size);
 
-		res.limbs[limb_index++] = read_uint64(bytes, bytes_to_read);
+		res.limbs[limb_index++] = deserialize_uint64(bytes, bytes_to_read);
 
 		bytes_size -= bytes_to_read;
 		bytes += bytes_to_read;

@@ -1,13 +1,13 @@
-#ifndef READ_WRITE_INT_H
-#define READ_WRITE_INT_H
+#ifndef SERIAL_INT_H
+#define SERIAL_INT_H
 
 #include<stdint.h>
 
 /*
-	read functions assume that the serialized integr is stored at data (void*) in little endian format
+	deserialize functions assume that the serialized integer is stored at data (void*) in little endian format
 	and it returns data in the byte ordering of the processor
 
-	write functions take in a uintX_t and serialize it into little endian format occupying only data_size number of bytes
+	serialize functions take in a uintX_t and serialize it into little endian format occupying only data_size number of bytes
 
 	It is assumed that you already know the minimum number of bytes required to safely represent the integer
 	and that is what must be passed to these functions.
@@ -29,40 +29,40 @@
 */
 
 /*
-	read_uintX reads min(X/8, data_size) bytes from data as an uintX_t
+	deserialize_uintX reads min(X/8, data_size) bytes from data as an uintX_t
 */
 
-uint8_t read_uint8(const void* data, uint32_t data_size);
-uint16_t read_uint16(const void* data, uint32_t data_size);
-uint32_t read_uint32(const void* data, uint32_t data_size);
-uint64_t read_uint64(const void* data, uint32_t data_size);
+uint8_t deserialize_uint8(const void* data, uint32_t data_size);
+uint16_t deserialize_uint16(const void* data, uint32_t data_size);
+uint32_t deserialize_uint32(const void* data, uint32_t data_size);
+uint64_t deserialize_uint64(const void* data, uint32_t data_size);
 
 /*
-	read_intX reads min(X/8, data_size) bytes from data as an intX_t
+	deserialize_intX reads min(X/8, data_size) bytes from data as an intX_t
 */
 
-int8_t read_int8(const void* data, uint32_t data_size);
-int16_t read_int16(const void* data, uint32_t data_size);
-int32_t read_int32(const void* data, uint32_t data_size);
-int64_t read_int64(const void* data, uint32_t data_size);
+int8_t deserialize_int8(const void* data, uint32_t data_size);
+int16_t deserialize_int16(const void* data, uint32_t data_size);
+int32_t deserialize_int32(const void* data, uint32_t data_size);
+int64_t deserialize_int64(const void* data, uint32_t data_size);
 
 /*
-	write_uintX writes min(X/8, data_size) bytes to data
+	serialize_uintX writes min(X/8, data_size) bytes to data
 */
 
-void write_uint8(void* data, uint32_t data_size, uint8_t x);
-void write_uint16(void* data, uint32_t data_size, uint16_t x);
-void write_uint32(void* data, uint32_t data_size, uint32_t x);
-void write_uint64(void* data, uint32_t data_size, uint64_t x);
+void serialize_uint8(void* data, uint32_t data_size, uint8_t x);
+void serialize_uint16(void* data, uint32_t data_size, uint16_t x);
+void serialize_uint32(void* data, uint32_t data_size, uint32_t x);
+void serialize_uint64(void* data, uint32_t data_size, uint64_t x);
 
 /*
-	write_intX writes min(X/8, data_size) bytes to data
+	serialize_intX writes min(X/8, data_size) bytes to data
 */
 
-void write_int8(void* data, uint32_t data_size, int8_t x);
-void write_int16(void* data, uint32_t data_size, int16_t x);
-void write_int32(void* data, uint32_t data_size, int32_t x);
-void write_int64(void* data, uint32_t data_size, int64_t x);
+void serialize_int8(void* data, uint32_t data_size, int8_t x);
+void serialize_int16(void* data, uint32_t data_size, int16_t x);
+void serialize_int32(void* data, uint32_t data_size, int32_t x);
+void serialize_int64(void* data, uint32_t data_size, int64_t x);
 
 /*
 	uintX_t get_UINTX_MIN(uint32_t data_size) and

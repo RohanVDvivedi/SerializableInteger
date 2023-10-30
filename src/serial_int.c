@@ -8,7 +8,7 @@
 #define uint(X) uint ## X ## _t
 #define sint(X) int ## X ## _t
 
-#define READ_UINT(X)							\
+#define DESERIALIZE_UINT(X)						\
 {												\
 	if(data_size == 0)							\
 		return 0;								\
@@ -23,12 +23,12 @@
 	return x;									\
 }
 
-uint8_t read_uint8(const void* data, uint32_t data_size)	READ_UINT(8)
-uint16_t read_uint16(const void* data, uint32_t data_size)	READ_UINT(16)
-uint32_t read_uint32(const void* data, uint32_t data_size)	READ_UINT(32)
-uint64_t read_uint64(const void* data, uint32_t data_size)	READ_UINT(64)
+uint8_t deserialize_uint8(const void* data, uint32_t data_size)	DESERIALIZE_UINT(8)
+uint16_t deserialize_uint16(const void* data, uint32_t data_size)	DESERIALIZE_UINT(16)
+uint32_t deserialize_uint32(const void* data, uint32_t data_size)	DESERIALIZE_UINT(32)
+uint64_t deserialize_uint64(const void* data, uint32_t data_size)	DESERIALIZE_UINT(64)
 
-#define READ_INT(X)											\
+#define DESERIALIZE_INT(X)									\
 {															\
 	if(data_size == 0)										\
 		return 0;											\
@@ -48,12 +48,12 @@ uint64_t read_uint64(const void* data, uint32_t data_size)	READ_UINT(64)
 	return x;												\
 }
 
-int8_t read_int8(const void* data, uint32_t data_size)		READ_INT(8)
-int16_t read_int16(const void* data, uint32_t data_size)	READ_INT(16)
-int32_t read_int32(const void* data, uint32_t data_size)	READ_INT(32)
-int64_t read_int64(const void* data, uint32_t data_size)	READ_INT(64)
+int8_t deserialize_int8(const void* data, uint32_t data_size)		DESERIALIZE_INT(8)
+int16_t deserialize_int16(const void* data, uint32_t data_size)	DESERIALIZE_INT(16)
+int32_t deserialize_int32(const void* data, uint32_t data_size)	DESERIALIZE_INT(32)
+int64_t deserialize_int64(const void* data, uint32_t data_size)	DESERIALIZE_INT(64)
 
-#define WRITE_UINT(X)								\
+#define SERIALIZE_UINT(X)							\
 {													\
 	if(data_size == 0)								\
 		return;										\
@@ -67,12 +67,12 @@ int64_t read_int64(const void* data, uint32_t data_size)	READ_INT(64)
 	}												\
 }
 
-void write_uint8(void* data, uint32_t data_size, uint8_t x)		WRITE_UINT(8)
-void write_uint16(void* data, uint32_t data_size, uint16_t x)	WRITE_UINT(16)
-void write_uint32(void* data, uint32_t data_size, uint32_t x)	WRITE_UINT(32)
-void write_uint64(void* data, uint32_t data_size, uint64_t x)	WRITE_UINT(64)
+void serialize_uint8(void* data, uint32_t data_size, uint8_t x)		SERIALIZE_UINT(8)
+void serialize_uint16(void* data, uint32_t data_size, uint16_t x)	SERIALIZE_UINT(16)
+void serialize_uint32(void* data, uint32_t data_size, uint32_t x)	SERIALIZE_UINT(32)
+void serialize_uint64(void* data, uint32_t data_size, uint64_t x)	SERIALIZE_UINT(64)
 
-#define WRITE_INT(X)								\
+#define SERIALIZE_INT(X)								\
 {													\
 	if(data_size == 0)								\
 		return;										\
@@ -86,10 +86,10 @@ void write_uint64(void* data, uint32_t data_size, uint64_t x)	WRITE_UINT(64)
 	}												\
 }
 
-void write_int8(void* data, uint32_t data_size, int8_t x)		WRITE_INT(8)
-void write_int16(void* data, uint32_t data_size, int16_t x)		WRITE_INT(16)
-void write_int32(void* data, uint32_t data_size, int32_t x)		WRITE_INT(32)
-void write_int64(void* data, uint32_t data_size, int64_t x)		WRITE_INT(64)
+void serialize_int8(void* data, uint32_t data_size, int8_t x)		SERIALIZE_INT(8)
+void serialize_int16(void* data, uint32_t data_size, int16_t x)		SERIALIZE_INT(16)
+void serialize_int32(void* data, uint32_t data_size, int32_t x)		SERIALIZE_INT(32)
+void serialize_int64(void* data, uint32_t data_size, int64_t x)		SERIALIZE_INT(64)
 
 uint8_t get_UINT8_MIN(uint32_t data_size)		{return 0;}
 uint16_t get_UINT16_MIN(uint32_t data_size)		{return 0;}
