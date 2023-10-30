@@ -24,7 +24,7 @@ This library provides 2 utilities for my downstream projects.
  * add `-lserint -lcutlery` linker flag, while compiling your application
  * do not forget to include appropriate public api headers as and when needed. this includes
    * `#include<large_uint.h>`
-   * `#include<read_write_int.h>`
+   * `#include<serial_int.h>`
 
 ## Instructions for uninstalling library
 
