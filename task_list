@@ -1,0 +1,4 @@
+ * build function to get_min_bits_required_uintN and get_min_bits_required_intN
+ * build function to get_min_bytes_required_uintN and get_min_bytes_required_intN, based on above functions
+ * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer
+ * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
