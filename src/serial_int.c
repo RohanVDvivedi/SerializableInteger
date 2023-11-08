@@ -95,20 +95,29 @@ void serialize_int64(void* data, uint32_t data_size, int64_t x)		SERIALIZE_INT(6
 {													\
 	if(x == 0)										\
 		return 1;									\
-	uint32_t res = sizeof(uint(X)) * CHAR_BIT;      \
-	while(res > 0)		                            \
+	uint32_t res = sizeof(uint(X)) * CHAR_BIT;		\
+	while(res > 0)									\
 	{												\
-		if((x >> (res-1)) & 1)		                \
+		if((x >> (res-1)) & 1)						\
 			break;									\
 		res--;										\
 	}												\
-	return res;                                     \
+	return res;										\
 }
 
 uint32_t get_min_bit_count_uint8(uint8_t x)		MIN_BIT_COUNT_UINT(8)
 uint32_t get_min_bit_count_uint16(uint16_t x)	MIN_BIT_COUNT_UINT(16)
 uint32_t get_min_bit_count_uint32(uint32_t x)	MIN_BIT_COUNT_UINT(32)
 uint32_t get_min_bit_count_uint64(uint64_t x)	MIN_BIT_COUNT_UINT(64)
+
+#define MIN_BIT_COUNT_INT(X)						\
+{													\
+}
+
+uint32_t get_min_bit_count_int8(int8_t x)	MIN_BIT_COUNT_INT(8)
+uint32_t get_min_bit_count_int16(int16_t x)	MIN_BIT_COUNT_INT(16)
+uint32_t get_min_bit_count_int32(int32_t x)	MIN_BIT_COUNT_INT(32)
+uint32_t get_min_bit_count_int64(int64_t x)	MIN_BIT_COUNT_INT(64)
 
 uint8_t get_UINT8_MIN(uint32_t data_size)		{return 0;}
 uint16_t get_UINT16_MIN(uint32_t data_size)		{return 0;}
