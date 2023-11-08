@@ -80,6 +80,21 @@ uint32_t get_min_bit_count_uint32(uint32_t x);
 uint32_t get_min_bit_count_uint64(uint64_t x);
 
 /*
+	get_significant_bit_count_intX -> returns the number of significant bits required to represent a signed int number (discarding the most significant 1s and 0s except for 1 of them), for 0, it will return 1
+	this is equivalent to
+		if(x >= 0)
+			return (sizeof(intX_t) * CHAR_BIT) - (number of most significant 0 bits) + 1
+		else if(x < 0)
+			return (sizeof(intX_t) * CHAR_BIT) - (number of most significant 1 bits) + 1
+	these are the minimum bit count required to represent a unsigned int number
+*/
+
+uint32_t get_min_bit_count_int8(int8_t x);
+uint32_t get_min_bit_count_int16(int16_t x);
+uint32_t get_min_bit_count_int32(int32_t x);
+uint32_t get_min_bit_count_int64(int64_t x);
+
+/*
 	uintX_t get_UINTX_MIN(uint32_t data_size) and
 	uintX_t get_UINTX_MAX(uint32_t data_size)
 	returns minimum and maximum number that can be represented in data_size number of bytes for an unsigned intteger
