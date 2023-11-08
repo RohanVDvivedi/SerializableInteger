@@ -65,6 +65,21 @@ void serialize_int32(void* data, uint32_t data_size, int32_t x);
 void serialize_int64(void* data, uint32_t data_size, int64_t x);
 
 /*
+	get_significant_bit_count_uintX -> returns the number of significant bits required to represent a unsigned int number (discarding the most significant 0s), for 0, it will return 1
+	this is equivalent to 
+		if(x == 0)
+			return 1;
+		else
+			return (sizeof(uintX_t) * CHAR_BIT) - (number of most significant 0 bits)
+	these are the minimum bit count required to represent a unsigned int number
+*/
+
+uint32_t get_min_bit_count_uint8(uint8_t x);
+uint32_t get_min_bit_count_uint16(uint16_t x);
+uint32_t get_min_bit_count_uint32(uint32_t x);
+uint32_t get_min_bit_count_uint64(uint64_t x);
+
+/*
 	uintX_t get_UINTX_MIN(uint32_t data_size) and
 	uintX_t get_UINTX_MAX(uint32_t data_size)
 	returns minimum and maximum number that can be represented in data_size number of bytes for an unsigned intteger
