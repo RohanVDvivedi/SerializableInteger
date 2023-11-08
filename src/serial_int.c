@@ -112,6 +112,15 @@ uint32_t get_min_bit_count_uint64(uint64_t x)	MIN_BIT_COUNT_UINT(64)
 
 #define MIN_BIT_COUNT_INT(X)						\
 {													\
+	uint32_t res = sizeof(sint(X)) * CHAR_BIT;		\
+	int msb = (x >> (res - 1)) & 1;					\
+	while(res > 0)									\
+	{												\
+		if(((x >> (res-1)) & 1) != msb)				\
+			break;									\
+		res--;										\
+	}												\
+	return res + 1;									\
 }
 
 uint32_t get_min_bit_count_int8(int8_t x)	MIN_BIT_COUNT_INT(8)
