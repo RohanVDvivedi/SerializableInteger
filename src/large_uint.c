@@ -176,11 +176,9 @@ int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
 
 void print_large_uint(large_uint l)
 {
-	int to_print = 0;
 	for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)
 	{
 		i--;
-		if(to_print || (i == 0))
-			printf("%016"PRIx64, l.limbs[i]);
+		printf("%016"PRIx64, l.limbs[i]);
 	}
 }
