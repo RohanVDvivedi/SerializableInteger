@@ -1,9 +1,6 @@
 LARGE_UINT refactoring and new features
- * implement bitwise and, or, not and exor function for large_uint
- * implement is_zero function for large_uint
  * implement shift_left and shift_right function for large_uint
  * implement implement multiplication function for large_uint
- * name add and sub functions of large_uint appropriately
  * refactor WALe to use the new add and sub function names
 
 VAR_INT and VAR_UINT
