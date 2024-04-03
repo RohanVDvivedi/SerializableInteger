@@ -50,6 +50,11 @@ int are_equal_large_uint(large_uint a, large_uint b)
 	return compare_large_uint(a, b) == 0;
 }
 
+int is_zero_large_uint(large_uint a)
+{
+	return compare_large_uint(a, LARGE_UINT_ZERO) == 0;
+}
+
 // carry_in must be 0 or 1 only
 static uint64_t add_large_uint_overflow_unsafe_with_carry(large_uint* res, large_uint a, large_uint b, uint64_t carry)
 {

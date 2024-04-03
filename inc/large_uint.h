@@ -25,18 +25,28 @@ struct large_uint
 #define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
 #define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
 
+// returns ~a
 large_uint bitwise_not_large_uint(large_uint a);
 
+// returns a & b
 large_uint bitwise_and_large_uint(large_uint a, large_uint b);
 
+// returns a | b
 large_uint bitwise_or_large_uint(large_uint a, large_uint b);
 
+// returns a ^ b
 large_uint bitwise_xor_large_uint(large_uint a, large_uint b);
 
+// if(a < b) returns -1
+// else if(a == b) returns 0
+// else if(a > b) returns 1
 int compare_large_uint(large_uint a, large_uint b);
 
-// check if two large_uint-s are equal
+// returns a == b
 int are_equal_large_uint(large_uint a, large_uint b);
+
+// returns a == 0
+int is_zero_large_uint(large_uint a);
 
 // adds 2 large_uint-s, does not check for overflow, returns carry bit
 uint64_t add_large_uint_overflow_unsafe(large_uint* res, large_uint a, large_uint b);
