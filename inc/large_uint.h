@@ -22,6 +22,9 @@ struct large_uint
 #define LARGE_UINT_MIN ((large_uint){.limbs = {}})
 #define LARGE_UINT_MAX ((large_uint){.limbs = {UNSIGNED_MAX_VALUE_OF(uint64_t), UNSIGNED_MAX_VALUE_OF(uint64_t)}})
 
+#define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
+#define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
+
 int compare_large_uint(large_uint a, large_uint b);
 
 // check if two large_uint-s are equal
