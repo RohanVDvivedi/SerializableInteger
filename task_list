@@ -1,7 +1,6 @@
 LARGE_UINT refactoring and new features
  * implement shift_left and shift_right function for large_uint
  * implement implement multiplication function for large_uint
- * refactor WALe to use the new add and sub function names
 
 VAR_INT and VAR_UINT
  * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer, use get_min_bit_count_uintX/intX functionality to store only that many bits
