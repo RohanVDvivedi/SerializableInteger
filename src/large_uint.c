@@ -2,6 +2,22 @@
 
 #include<cutlery_math.h>
 
+int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
+{
+	if(bit_index >= LARGE_UINT_MAX_BYTES * CHAR_BIT)
+		return 0;
+	res->limbs[bit_index / BITS_PER_LIMB] |= (UINT64_C(1) << (bit_index % BITS_PER_LIMB));
+	return 1;
+}
+
+int reset_bit_in_large_uint(large_uint* res, uint32_t bit_index)
+{
+	if(bit_index >= LARGE_UINT_MAX_BYTES * CHAR_BIT)
+		return 0;
+	res->limbs[bit_index / BITS_PER_LIMB] &= (~(UINT64_C(1) << (bit_index % BITS_PER_LIMB)));
+	return 1;
+}
+
 large_uint bitwise_not_large_uint(large_uint a)
 {
 	large_uint res;
@@ -103,14 +119,6 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b)
 	return 1;
 }
 
-int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
-{
-	if(bit_index >= LARGE_UINT_MAX_BYTES * CHAR_BIT)
-		return 0;
-	res->limbs[bit_index / (sizeof(uint64_t) * CHAR_BIT)] |= (((uint64_t)1) << (bit_index % (sizeof(uint64_t) * CHAR_BIT)));
-	return 1;
-}
-
 #include<serial_int.h>
 
 void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l)
@@ -172,12 +180,7 @@ void print_large_uint(large_uint l)
 	for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)
 	{
 		i--;
-		to_print = to_print || (!!(l.limbs[i]));
 		if(to_print || (i == 0))
-		{
-			printf("%llu", (unsigned long long int)(l.limbs[i]));
-			if(i > 0)
-				printf(":");
-		}
+			printf("%016"PRIx64, l.limbs[i]);
 	}
 }

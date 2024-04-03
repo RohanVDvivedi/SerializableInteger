@@ -7,9 +7,14 @@
 
 // this can be any value, but 2 is just right for all practical purposes
 // if you modify this, be sure to modify LARGE_UINT_MAX
-#define LARGE_UINT_LIMBS_COUNT 2
+#define LARGE_UINT_LIMBS_COUNT	2
 
-#define LARGE_UINT_MAX_BYTES   (LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t))
+// number of bits in each limb of the large_uint
+#define BITS_PER_LIMB 			(sizeof(uint64_t) * CHAR_BIT)
+
+#define LARGE_UINT_MAX_BYTES	(LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t))
+
+#define LARGE_UINT_BIT_WIDTH	(LARGE_UINT_LIMBS_COUNT * BITS_PER_LIMB)
 
 typedef struct large_uint large_uint;
 struct large_uint
@@ -24,6 +29,12 @@ struct large_uint
 
 #define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
 #define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
+
+// set a bit in large_uint
+int set_bit_in_large_uint(large_uint* res, uint32_t bit_index);
+
+// reset a bit in large_uint
+int reset_bit_in_large_uint(large_uint* res, uint32_t bit_index);
 
 // returns ~a
 large_uint bitwise_not_large_uint(large_uint a);
@@ -61,9 +72,6 @@ int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, la
 // res will be set with subtraction, on success (i.e. return 1)
 // failure happens in case of an underflow, when (a < b)
 int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
-
-// set an explicit bit in large_uint
-int set_bit_in_large_uint(large_uint* res, uint32_t bit_index);
 
 // returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a
 // else a 0 (false) is returned, with value unset
