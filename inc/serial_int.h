@@ -5,9 +5,9 @@
 
 /*
 	deserialize functions assume that the serialized integer is stored at data (void*) in little endian format
-	and it returns data in the byte ordering of the processor
+	and it returns uintX_t in the byte ordering of the processor, after reading min(X/8, data_size) bytes from data pointer
 
-	serialize functions take in a uintX_t and serialize it into little endian format occupying only data_size number of bytes
+	serialize functions take in a uintX_t and serialize it into little endian format occupying only min(X/8, data_size) number of bytes
 
 	It is assumed that you already know the minimum number of bytes required to safely represent the integer
 	and that is what must be passed to these functions in data_size param.
