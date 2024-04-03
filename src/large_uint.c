@@ -74,10 +74,15 @@ uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b)
 	return add_large_uint_with_carry(res, a, b, 0);
 }
 
+uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b)
+{
+	return add_large_uint_with_carry(res, a, bitwise_not_large_uint(b), 1);
+}
+
 int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
 {
 	large_uint res_temp;
-	if(add_large_uint_overflow_unsafe(&res_temp, a, b)) // carry out implies overflow
+	if(add_large_uint(&res_temp, a, b)) // carry out implies overflow
 		return 0;
 
 	// if max_limit is not 0, i.e. max_limit exists, and res_temp >= max_limit, then fail
@@ -88,27 +93,13 @@ int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, la
 	return 1;
 }
 
-static large_uint bitwise_not(large_uint a)
+int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b)
 {
-	large_uint res;
-	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
-		res.limbs[i] = ~a.limbs[i];
-	return res;
-}
-
-uint64_t sub_large_uint_underflow_unsafe(large_uint* res, large_uint a, large_uint b)
-{
-	large_uint not_b = bitwise_not(b);
-	return add_large_uint_overflow_unsafe_with_carry(res, a, not_b, 1);
-}
-
-int sub_large_uint(large_uint* res, large_uint a, large_uint b)
-{
-	// can not subtract if a < b
+	// can not subtract if a < b, underflow condition
 	if(compare_large_uint(a, b) < 0)
 		return 0;
 
-	sub_large_uint_underflow_unsafe(res, a, b);
+	sub_large_uint(res, a, b);
 	return 1;
 }
 

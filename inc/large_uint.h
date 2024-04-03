@@ -51,16 +51,16 @@ int is_zero_large_uint(large_uint a);
 // returns carry after performing (*res) = a + b;
 uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b);
 
+// returns carry after performing (*res) = a - b;
+uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b);
+
 // res will be set with addition (a + b), on success (i.e. return 1)
 // failure happens in case of an overflow OR if the result is greater than or equal to max_limit (max_limit is checked only if it is non zero)
 int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit);
 
-// subtracts 2 large_uint-s, does not check for underflow, returns carry bit
-uint64_t sub_large_uint_underflow_unsafe(large_uint* res, large_uint a, large_uint b);
-
 // res will be set with subtraction, on success (i.e. return 1)
 // failure happens in case of an underflow, when (a < b)
-int sub_large_uint(large_uint* res, large_uint a, large_uint b);
+int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
 
 // set an explicit bit in large_uint
 int set_bit_in_large_uint(large_uint* res, uint32_t bit_index);
