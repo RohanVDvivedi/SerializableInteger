@@ -10,15 +10,15 @@
 	serialize functions take in a uintX_t and serialize it into little endian format occupying only data_size number of bytes
 
 	It is assumed that you already know the minimum number of bytes required to safely represent the integer
-	and that is what must be passed to these functions.
+	and that is what must be passed to these functions in data_size param.
 
-	data, the void* passed does not need to be aligned
+	data, the void* passed does not need to be aligned address.
 
 	these functions also allow you to have and operate with integers with varibale length byte widths
 	all the way from 1 to 8
 
 	alignment is mostly a problem on systems that fault on an unaligned accesses,
-	it is always better
+	this file does not restrict any such restrictions on the data param.
 */
 
 /*
