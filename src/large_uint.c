@@ -4,7 +4,7 @@
 
 int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 {
-	if(bit_index >= LARGE_UINT_MAX_BYTES * CHAR_BIT)
+	if(bit_index >= LARGE_UINT_BIT_WIDTH)
 		return 0;
 	res->limbs[bit_index / BITS_PER_LIMB] |= (UINT64_C(1) << (bit_index % BITS_PER_LIMB));
 	return 1;
@@ -12,7 +12,7 @@ int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 
 int reset_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 {
-	if(bit_index >= LARGE_UINT_MAX_BYTES * CHAR_BIT)
+	if(bit_index >= LARGE_UINT_BIT_WIDTH)
 		return 0;
 	res->limbs[bit_index / BITS_PER_LIMB] &= (~(UINT64_C(1) << (bit_index % BITS_PER_LIMB)));
 	return 1;
