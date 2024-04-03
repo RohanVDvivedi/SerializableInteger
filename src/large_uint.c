@@ -56,7 +56,8 @@ int is_zero_large_uint(large_uint a)
 }
 
 // carry_in must be 0 or 1 only
-static uint64_t add_large_uint_overflow_unsafe_with_carry(large_uint* res, large_uint a, large_uint b, uint64_t carry)
+// (*res) = a + b and then returns carry
+static uint64_t add_large_uint_with_carry(large_uint* res, large_uint a, large_uint b, uint64_t carry)
 {
 	carry = !!carry;
 	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
@@ -68,12 +69,12 @@ static uint64_t add_large_uint_overflow_unsafe_with_carry(large_uint* res, large
 	return carry;
 }
 
-uint64_t add_large_uint_overflow_unsafe(large_uint* res, large_uint a, large_uint b)
+uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b)
 {
-	return add_large_uint_overflow_unsafe_with_carry(res, a, b, 0);
+	return add_large_uint_with_carry(res, a, b, 0);
 }
 
-int add_large_uint(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
+int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
 {
 	large_uint res_temp;
 	if(add_large_uint_overflow_unsafe(&res_temp, a, b)) // carry out implies overflow
