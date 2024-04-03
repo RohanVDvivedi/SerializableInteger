@@ -2,6 +2,38 @@
 
 #include<cutlery_math.h>
 
+large_uint bitwise_not_large_uint(large_uint a)
+{
+	large_uint res;
+	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
+		res.limbs[i] = ~a.limbs[i];
+	return res;
+}
+
+large_uint bitwise_and_large_uint(large_uint a, large_uint b)
+{
+	large_uint res;
+	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
+		res.limbs[i] = (a.limbs[i] & b.limbs[i]);
+	return res;
+}
+
+large_uint bitwise_or_large_uint(large_uint a, large_uint b)
+{
+	large_uint res;
+	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
+		res.limbs[i] = (a.limbs[i] | b.limbs[i]);
+	return res;
+}
+
+large_uint bitwise_xor_large_uint(large_uint a, large_uint b)
+{
+	large_uint res;
+	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
+		res.limbs[i] = (a.limbs[i] ^ b.limbs[i]);
+	return res;
+}
+
 int compare_large_uint(large_uint a, large_uint b)
 {
 	int res = 0;

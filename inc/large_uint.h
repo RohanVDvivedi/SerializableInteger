@@ -25,6 +25,14 @@ struct large_uint
 #define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
 #define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
 
+large_uint bitwise_not_large_uint(large_uint a);
+
+large_uint bitwise_and_large_uint(large_uint a, large_uint b);
+
+large_uint bitwise_or_large_uint(large_uint a, large_uint b);
+
+large_uint bitwise_xor_large_uint(large_uint a, large_uint b);
+
 int compare_large_uint(large_uint a, large_uint b);
 
 // check if two large_uint-s are equal
