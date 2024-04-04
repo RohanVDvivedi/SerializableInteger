@@ -68,6 +68,9 @@ int are_equal_large_uint(large_uint a, large_uint b);
 // returns a == 0
 int is_zero_large_uint(large_uint a);
 
+// (*res) = a + b + carry and then returns carry
+uint64_t add_with_carry_large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry);
+
 // returns carry after performing (*res) = a + b;
 uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b);
 

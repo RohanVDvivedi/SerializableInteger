@@ -168,28 +168,25 @@ int is_zero_large_uint(large_uint a)
 	return compare_large_uint(a, LARGE_UINT_ZERO) == 0;
 }
 
-// carry_in must be 0 or 1 only
-// (*res) = a + b and then returns carry
-static uint64_t add_large_uint_with_carry(large_uint* res, large_uint a, large_uint b, uint64_t carry)
+uint64_t add_with_carry_large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry)
 {
-	carry = !!carry;
 	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
 	{
 		uint64_t carry_in = carry;
 		res->limbs[i] = a.limbs[i] + b.limbs[i] + carry_in;
-		carry = will_unsigned_sum_overflow(uint64_t, a.limbs[i], b.limbs[i]) || will_unsigned_sum_overflow(uint64_t, a.limbs[i] + b.limbs[i], carry_in);
+		carry = will_unsigned_sum_overflow(uint64_t, a.limbs[i], b.limbs[i]) + will_unsigned_sum_overflow(uint64_t, a.limbs[i] + b.limbs[i], carry_in);
 	}
 	return carry;
 }
 
 uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b)
 {
-	return add_large_uint_with_carry(res, a, b, 0);
+	return add_with_carry_large_uint(res, a, b, 0);
 }
 
 uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b)
 {
-	return add_large_uint_with_carry(res, a, bitwise_not_large_uint(b), 1);
+	return add_with_carry_large_uint(res, a, bitwise_not_large_uint(b), 1);
 }
 
 large_uint get_bitmask_lower_n_bits_set(uint32_t n)
