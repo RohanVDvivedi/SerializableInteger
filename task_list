@@ -7,6 +7,8 @@ LARGE_UINT refactoring and new features
     to = s/0
     while (from < bitwidth && to < bitwidth) {
     	move_one_limb(&res, to, a, from)
+    	from += B
+    	to += B
 		}
 		return res;
 	}
