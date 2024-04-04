@@ -1,5 +1,27 @@
 LARGE_UINT refactoring and new features
  * implement shift_left and shift_right function for large_uint
+  * large_uint left/right_shift_large_uint(large_uint a, uint32_t s)
+  {
+    res = ZERO
+    from = 0/s
+    to = s/0
+    while (from < bitwidth && to < bitwidth) {
+    	move_one_limb(&res, to, a, from)
+		}
+		return res;
+	}
+	* bitwidth of limb = B
+  * move_one_limb(large_uint* res, uint32_t to, large_uint a, uint32_t from) {
+  	uint64_t m = 0;
+  	// read into m
+  	m = (a[from/B] >> (from%B));
+  	if(from%B)
+  		m |= (a[from/B + 1] << (from%B));
+  	// write from m
+  	res[to/B] |= (m << (to%B));
+  	if(to%B)
+      res[to/B + 1] |= (m >> (to%B));
+  }
  * implement implement multiplication function for large_uint
 
 VAR_INT and VAR_UINT
