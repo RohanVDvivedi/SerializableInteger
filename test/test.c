@@ -19,4 +19,13 @@ int main()
 		printf("\n");
 	}
 	printf("\n");
+
+	for(uint32_t b = 0; b <= LARGE_UINT_BIT_WIDTH; b++)
+	{
+		print_large_uint(get_bitmask_lower_n_bits_set(b));
+		printf("\n");
+	}
+	printf("\n");
+
+	return 0;
 }
