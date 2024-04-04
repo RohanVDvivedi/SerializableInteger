@@ -53,9 +53,41 @@ large_uint bitwise_xor_large_uint(large_uint a, large_uint b)
 // returns bits copied, will always return a value <= BITS_PER_LIMB
 // it will attempt to copy bits from a to res
 // i.e. res[r_i : r_i + BITS_PER_LIMB - 1] = a[a_i : a_i + BITS_PER_LIMB - 1]
-static uint32_t move_limb_bits(large_uint* res, uint32_t r_i, large_uint a, uint32_t a_i)
+static uint32_t copy_limb_bits(large_uint* res, uint32_t r_i, large_uint a, uint32_t a_i)
 {
-	// TODO
+	// can not copy any bits, if their first indices are out of range
+	if(a_i >= LARGE_UINT_BIT_WIDTH || r_i >= LARGE_UINT_BIT_WIDTH)
+		return 0;
+
+	uint64_t m = 0;
+
+	uint32_t bits_copied = BITS_PER_LIMB;
+
+	// copy from a into m
+	{
+		m |= (a.limbs[(a_i / BITS_PER_LIMB)] >> (a_i % BITS_PER_LIMB));
+
+		if(((a_i % BITS_PER_LIMB) > 0) && (((a_i / BITS_PER_LIMB)) + 1) < LARGE_UINT_LIMBS_COUNT)
+			m |= (a.limbs[(a_i / BITS_PER_LIMB) + 1] << (BITS_PER_LIMB - (a_i % BITS_PER_LIMB)));
+		else
+			bits_copied = min(bits_copied, (BITS_PER_LIMB - (a_i % BITS_PER_LIMB)));
+	}
+
+	// copy from m to res
+	{
+		res->limbs[(r_i / BITS_PER_LIMB)] &= ~(UINT64_MAX << (r_i % BITS_PER_LIMB));
+		res->limbs[(r_i / BITS_PER_LIMB)] |= (m << (r_i % BITS_PER_LIMB));
+
+		if(((r_i % BITS_PER_LIMB) > 0) && (((r_i / BITS_PER_LIMB)) + 1) < LARGE_UINT_LIMBS_COUNT)
+		{
+			res->limbs[(r_i / BITS_PER_LIMB) + 1] &= ~(UINT64_MAX >> (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+			res->limbs[(r_i / BITS_PER_LIMB) + 1] |= (m >> (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+		}
+		else
+			bits_copied = min(bits_copied, (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+	}
+
+	return bits_copied;
 }
 
 large_uint left_shift_large_uint(large_uint a, uint32_t s)
@@ -73,7 +105,7 @@ large_uint left_shift_large_uint(large_uint a, uint32_t s)
 
 	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
 	{
-		uint32_t bits_copied = move_limb_bits(&res, r_i, a, a_i);
+		uint32_t bits_copied = copy_limb_bits(&res, r_i, a, a_i);
 
 		// increment both indices by the amount of bits copied
 		a_i += bits_copied;
@@ -98,7 +130,7 @@ large_uint right_shift_large_uint(large_uint a, uint32_t s)
 
 	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
 	{
-		uint32_t bits_copied = move_limb_bits(&res, r_i, a, a_i);
+		uint32_t bits_copied = copy_limb_bits(&res, r_i, a, a_i);
 
 		// increment both indices by the amount of bits copied
 		a_i += bits_copied;
