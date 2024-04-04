@@ -1,5 +1,5 @@
 LARGE_UINT refactoring and new features
- * implement implement multiplication and division (returning quotient and remainder) function for large_uint, using left_shift and right_shift operations
+ * implement implement multiplication and division (returning quotient and remainder) function for large_uint
 
 VAR_INT and VAR_UINT
  * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer, use get_min_bit_count_uintX/intX functionality to store only that many bits
