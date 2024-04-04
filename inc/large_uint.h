@@ -30,6 +30,9 @@ struct large_uint
 #define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
 #define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
 
+// gets a bit from large_uint
+int get_bit_from_large_uint(large_uint a, uint32_t bit_index);
+
 // set a bit in large_uint
 int set_bit_in_large_uint(large_uint* res, uint32_t bit_index);
 

@@ -2,6 +2,13 @@
 
 #include<cutlery_math.h>
 
+int get_bit_from_large_uint(large_uint a, uint32_t bit_index)
+{
+	if(bit_index >= LARGE_UINT_BIT_WIDTH)
+		return 0;
+	return (a.limbs[bit_index / BITS_PER_LIMB] >> (bit_index % BITS_PER_LIMB)) & UINT64_C(1);
+}
+
 int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 {
 	if(bit_index >= LARGE_UINT_BIT_WIDTH)
