@@ -74,6 +74,11 @@ uint64_t add_large_uint(large_uint* res, large_uint a, large_uint b);
 // returns carry after performing (*res) = a - b;
 uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b);
 
+// returns a number with only lowset significant n bits set
+// this function can be used to build bit masks
+// returns ((1 << n) - 1)
+large_uint get_bitmask_lower_n_bits_set(uint32_t n);
+
 // res will be set with addition (a + b), on success (i.e. return 1)
 // failure happens in case of an overflow OR if the result is greater than or equal to max_limit (max_limit is checked only if it is non zero)
 int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit);

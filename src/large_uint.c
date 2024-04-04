@@ -192,6 +192,13 @@ uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b)
 	return add_large_uint_with_carry(res, a, bitwise_not_large_uint(b), 1);
 }
 
+large_uint get_bitmask_lower_n_bits_set(uint32_t n)
+{
+	large_uint res;
+	sub_large_uint(&res, left_shift_large_uint(LARGE_UINT_ONE, n), LARGE_UINT_ONE);
+	return res;
+}
+
 int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
 {
 	large_uint res_temp;
