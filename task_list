@@ -22,6 +22,7 @@ LARGE_UINT refactoring and new features
   	if(to%B)
       res[to/B + 1] |= (m >> (to%B));
   }
+ * large_uint get_bitmast_lower_n_bits_set(uin32_t n) -> returns 0x00000...11111 like mask 
  * implement implement multiplication and division (returning quotient and remainder) function for large_uint, using left_shift and right_shift operations
 
 VAR_INT and VAR_UINT
