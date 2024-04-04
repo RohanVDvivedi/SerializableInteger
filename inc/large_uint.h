@@ -48,6 +48,12 @@ large_uint bitwise_or_large_uint(large_uint a, large_uint b);
 // returns a ^ b
 large_uint bitwise_xor_large_uint(large_uint a, large_uint b);
 
+// returns a << s
+large_uint left_shift_large_uint(large_uint a, uint32_t s);
+
+// returns a >> s
+large_uint right_shift_large_uint(large_uint a, uint32_t s);
+
 // if(a < b) returns -1
 // else if(a == b) returns 0
 // else if(a > b) returns 1

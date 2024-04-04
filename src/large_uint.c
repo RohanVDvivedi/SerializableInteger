@@ -50,6 +50,64 @@ large_uint bitwise_xor_large_uint(large_uint a, large_uint b)
 	return res;
 }
 
+// returns bits copied, will always return a value <= BITS_PER_LIMB
+// it will attempt to copy bits from a to res
+// i.e. res[r_i : r_i + BITS_PER_LIMB - 1] = a[a_i : a_i + BITS_PER_LIMB - 1]
+static uint32_t move_limb_bits(large_uint* res, uint32_t r_i, large_uint a, uint32_t a_i)
+{
+	// TODO
+}
+
+large_uint left_shift_large_uint(large_uint a, uint32_t s)
+{
+	// shifting by more than or equal to LARGE_UINT_BIT_WIDTH shifts all bits out, making result 0
+	if(s >= LARGE_UINT_BIT_WIDTH)
+		return LARGE_UINT_ZERO;
+
+	large_uint res = LARGE_UINT_ZERO;
+
+	// bit index into a to move from = a_i
+	// bit index into res to move to = r_i
+	uint32_t a_i = 0;
+	uint32_t r_i = s; // s is the left shift amount
+
+	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
+	{
+		uint32_t bits_copied = move_limb_bits(&res, r_i, a, a_i);
+
+		// increment both indices by the amount of bits copied
+		a_i += bits_copied;
+		r_i += bits_copied;
+	}
+
+	return res;
+}
+
+large_uint right_shift_large_uint(large_uint a, uint32_t s)
+{
+	// shifting by more than or equal to LARGE_UINT_BIT_WIDTH shifts all bits out, making result 0
+	if(s >= LARGE_UINT_BIT_WIDTH)
+		return LARGE_UINT_ZERO;
+
+	large_uint res = LARGE_UINT_ZERO;
+
+	// bit index into a to move from = a_i
+	// bit index into res to move to = r_i
+	uint32_t a_i = s; // s is the right shift amount
+	uint32_t r_i = 0;
+
+	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
+	{
+		uint32_t bits_copied = move_limb_bits(&res, r_i, a, a_i);
+
+		// increment both indices by the amount of bits copied
+		a_i += bits_copied;
+		r_i += bits_copied;
+	}
+
+	return res;
+}
+
 int compare_large_uint(large_uint a, large_uint b)
 {
 	int res = 0;
