@@ -168,14 +168,19 @@ int is_zero_large_uint(large_uint a)
 	return compare_large_uint(a, LARGE_UINT_ZERO) == 0;
 }
 
-uint64_t add_with_carry_large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry)
+// returns carry, and summation in res
+static uint64_t add_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in)
 {
+	(*res) = a + b + carry_in;
+	uint64_t carry_out = will_unsigned_sum_overflow(uint64_t, a, b) + will_unsigned_sum_overflow(uint64_t, a + b, carry_in);
+	return carry_out;
+}
+
+uint64_t add_with_carry_large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry_in)
+{
+	uint64_t carry = carry_in;
 	for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)
-	{
-		uint64_t carry_in = carry;
-		res->limbs[i] = a.limbs[i] + b.limbs[i] + carry_in;
-		carry = will_unsigned_sum_overflow(uint64_t, a.limbs[i], b.limbs[i]) + will_unsigned_sum_overflow(uint64_t, a.limbs[i] + b.limbs[i], carry_in);
-	}
+		carry = add_limbs_with_carry(&(res->limbs[i]), a.limbs[i], b.limbs[i], carry);
 	return carry;
 }
 
