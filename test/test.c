@@ -27,5 +27,10 @@ int main()
 	}
 	printf("\n");
 
+	large_uint max_sum_res;
+	uint64_t carry = add_large_uint(&max_sum_res, LARGE_UINT_MAX, LARGE_UINT_MAX);
+	print_large_uint(LARGE_UINT_MAX);printf(" * 2 = (%lu) ", carry);
+	print_large_uint(max_sum_res);printf("\n\n");
+
 	return 0;
 }
