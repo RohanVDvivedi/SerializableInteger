@@ -9,4 +9,5 @@ LARGE_UINT multiplication and division
    * finally implement multicolication, by shifting numbers by a limb, returning 2 large_uints (carry an result)
  * implement division (returning quotient and remainder) function for large_uint
  * using the multiplication generate a large_uint_power_table, just like described in page_table_tuple_definitions of TupleIndexer
- * make large_uint a 256 bit integer
+ * make large_uint a templated macro like the value_arraylist
+ * make uint256 a 256 bit integer, a special use case of large_uint and use that instead of large_uint in other libraries like, WALe and TupleStore
