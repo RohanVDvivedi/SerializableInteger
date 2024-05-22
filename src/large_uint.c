@@ -227,7 +227,7 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b)
 
 // the operation performed here is (a * b) + carry_in
 // it returns carry_out and result in res
-static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry)
+static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in)
 {
 	uint64_t a_0 = a & ((UINT64_C(1) << 32) - UINT64_C(1)); // upper 32 bits of a
 	uint64_t a_1 = a >> 32; // lower 32 bits of a
@@ -251,16 +251,16 @@ static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint
 	uint64_t temp = a_0 * b_1;
 	{
 		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << 32));
-		r_0 += (temp << 32);
-		r_1 += ((temp >> 32) + ct);
+		(*res) += (temp << 32);
+		carry_out += ((temp >> 32) + ct);
 	}
 
 	// process this cross product
 	temp = a_1 * b_0;
 	{
 		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << 32));
-		r_0 += (temp << 32);
-		r_1 += ((temp >> 32) + ct);
+		(*res) += (temp << 32);
+		carry_out += ((temp >> 32) + ct);
 	}
 
 	return carry_out;
