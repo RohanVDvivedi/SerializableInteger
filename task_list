@@ -4,7 +4,6 @@ VAR_INT and VAR_UINT
 
 LARGE_UINT multiplication and division
  * implement implement multiplication
-   * implement 64-bit limb integral (2 operand) multiplication, returning 2 64-bit products (carry and result, both uint64_t)
    * implement multiplication between uint64_t limb and a large_uint, returning carry (64-bit limb) and result (a large_uint)
    * finally implement multicolication, by shifting numbers by a limb, returning 2 large_uints (carry an result)
  * implement division (returning quotient and remainder) function for large_uint
