@@ -3,9 +3,6 @@ VAR_INT and VAR_UINT
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
 
 LARGE_UINT multiplication and division
- * implement implement multiplication
-   * implement multiplication between uint64_t limb and a large_uint, returning carry (64-bit limb) and result (a large_uint)
-   * finally implement multicolication, by shifting numbers by a limb, returning 2 large_uints (carry an result)
  * implement division (returning quotient and remainder) function for large_uint
  * using the multiplication generate a large_uint_power_table, just like described in page_table_tuple_definitions of TupleIndexer
  * make large_uint a templated macro like the value_arraylist
