@@ -266,6 +266,42 @@ static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint
 	return carry_out;
 }
 
+large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
+{
+	(*res) = LARGE_UINT_ZERO;
+	large_uint res2 = LARGE_UINT_ZERO;
+
+	for(uint32_t ai = 0; ai < LARGE_UINT_LIMBS_COUNT; ai++)
+	{
+		// intermediate product of multiplying ai-th limb with b, with all of it's power
+		large_uint intermediate[2] = {LARGE_UINT_ZERO, LARGE_UINT_ZERO};
+
+		uint64_t carry = 0;
+		for(uint32_t bi = 0; bi < LARGE_UINT_LIMBS_COUNT; bi++)
+		{
+			uint64_t prod = 0;
+			carry = mul_limbs_with_carry(&prod, a.limbs[ai], b.limbs[bi], carry);
+
+			// calculate limb power for the positon of the prod
+			{
+				uint32_t power_pos = ai + bi;
+				intermediate[power_pos / LARGE_UINT_LIMBS_COUNT].limbs[power_pos % LARGE_UINT_LIMBS_COUNT] = prod;
+			}
+		}
+
+		// calculate limb power for the position of the carry
+		{
+			uint32_t power_pos = ai + LARGE_UINT_LIMBS_COUNT;
+			intermediate[power_pos / LARGE_UINT_LIMBS_COUNT].limbs[power_pos % LARGE_UINT_LIMBS_COUNT] = carry;
+		}
+
+		carry = add_with_carry_large_uint(res, intermediate[0], (*res), 0);
+		add_with_carry_large_uint(&res2, intermediate[1], res2, carry);
+	}
+
+	return res2;
+}
+
 int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
 {
 	uint32_t limbs_required = LARGE_UINT_LIMBS_COUNT;
