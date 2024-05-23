@@ -32,5 +32,20 @@ int main()
 	print_large_uint(LARGE_UINT_MAX);printf(" * 2 = (%lu) ", carry);
 	print_large_uint(max_sum_res);printf("\n\n");
 
+	large_uint a = {0xabcdef1234567890, 0x9087654321abcdef};
+	large_uint b = {0xfedcba9876543210, 0x9876543210fedcba};
+
+	large_uint res0;
+	large_uint res1 = mul_large_uint(&res0, a, b);
+
+	print_large_uint(a);
+	printf(" * ");
+	print_large_uint(b);
+	printf("\n");
+	printf("= ");
+	print_large_uint(res1);
+	print_large_uint(res0);
+	printf("\n");
+
 	return 0;
 }
