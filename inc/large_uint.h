@@ -90,6 +90,10 @@ int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, la
 // failure happens in case of an underflow, when (a < b)
 int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
 
+// the product of a and b, i.e. (a * b) -> this value is 2 lage_uints wide
+// the lower half of the result is stored in res, while the upper half is returned at the return value
+large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b);
+
 // returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a
 // else a 0 (false) is returned, with value unset
 int cast_large_uint_to_uint64(uint64_t* value, large_uint a);
