@@ -266,6 +266,21 @@ static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint
 	return carry_out;
 }
 
+int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
+{
+	uint32_t limbs_required = LARGE_UINT_LIMBS_COUNT;
+	while(limbs_required > 0 && a.limbs[limbs_required-1] == 0)
+		limbs_required--;
+
+	if(limbs_required <= 1)
+	{
+		(*value) = a.limbs[0];
+		return 1;
+	}
+
+	return 0;
+}
+
 #include<serial_int.h>
 
 void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l)
@@ -302,21 +317,6 @@ large_uint deserialize_large_uint(const char* bytes, uint32_t bytes_size)
 	}
 
 	return res;
-}
-
-int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
-{
-	uint32_t limbs_required = LARGE_UINT_LIMBS_COUNT;
-	while(limbs_required > 0 && a.limbs[limbs_required-1] == 0)
-		limbs_required--;
-	
-	if(limbs_required <= 1)
-	{
-		(*value) = a.limbs[0];
-		return 1;
-	}
-
-	return 0;
 }
 
 #include<stdio.h>
