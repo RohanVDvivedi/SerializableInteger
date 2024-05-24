@@ -45,7 +45,21 @@ int main()
 	printf("= ");
 	print_large_uint(res1);
 	print_large_uint(res0);
+	printf("\n\n");
+
+	large_uint dividend  = {0xabcdef1234567890, 0x9087654321abcdef};
+	large_uint divisor   = {0xabcd, 0x1234};
+	large_uint quotient  = LARGE_UINT_ZERO;
+	large_uint remainder = div_large_uint(&quotient, dividend, divisor);
+	print_large_uint(dividend);
+	printf(" / ");
+	print_large_uint(divisor);
 	printf("\n");
+	printf("= ");
+	print_large_uint(quotient);
+	printf("(");
+	print_large_uint(remainder);
+	printf(")\n\n");
 
 	return 0;
 }
