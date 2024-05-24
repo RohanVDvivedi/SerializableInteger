@@ -94,6 +94,9 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
 // the lower half of the result is stored in res, while the upper half is returned at the return value
 large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b);
 
+// divides dividend by divisor, and returns remainder and sets the quotient to the pointer
+large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);
+
 // returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a
 // else a 0 (false) is returned, with value unset
 int cast_large_uint_to_uint64(uint64_t* value, large_uint a);
