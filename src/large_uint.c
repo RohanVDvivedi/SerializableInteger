@@ -302,7 +302,35 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 	return res2;
 }
 
-large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);
+large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor)
+{
+	// 0 initialize, the return values
+	(*quotient) = LARGE_UINT_ZERO;
+	large_uint remainder = LARGE_UINT_ZERO;
+
+	// now we just need to perform this loop for bit count of large_uint
+	for(uint32_t i = 0; i < LARGE_UINT_BIT_WIDTH; i++)
+	{
+		// shift concatenation of remainer:dividend by 1 bit
+		remainder = left_shift_large_uint(remainder, UINT32_C(1));
+		if(get_bit_from_large_uint(dividend, LARGE_UINT_BIT_WIDTH - 1))
+			set_bit_in_large_uint(&remainder, UINT32_C(0));
+		dividend = left_shift_large_uint(dividend, UINT32_C(1));
+
+		// left shift quotient by 1 bit
+		(*quotient) = left_shift_large_uint((*quotient), UINT32_C(1));
+
+		// if now the remainder is greater than equal to divisor, then you need to set the corresponding last bit in quotient to 0
+		// and substract divisor from remainder
+		if(compare_large_uint(remainder, divisor) >= 0)
+		{
+			sub_large_uint(&remainder, remainder, divisor);
+			set_bit_in_large_uint(quotient, UINT32_C(0));
+		}
+	}
+
+	return remainder;
+}
 
 int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
 {
