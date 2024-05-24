@@ -95,6 +95,8 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
 large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b);
 
 // divides dividend by divisor, and returns remainder and sets the quotient to the pointer
+// there is not limb wise division, this function performs a sequential binary division
+// it is your duty to ensure that the divisor is not 0
 large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);
 
 // returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a

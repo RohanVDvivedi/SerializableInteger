@@ -302,6 +302,8 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 	return res2;
 }
 
+large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);
+
 int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
 {
 	uint32_t limbs_required = LARGE_UINT_LIMBS_COUNT;
