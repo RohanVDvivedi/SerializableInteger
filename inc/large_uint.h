@@ -10,11 +10,16 @@
 #define LARGE_UINT_LIMBS_COUNT	2
 
 // number of bits in each limb of the large_uint
+// this number is expected and assumed to be a multiple of 2
 #define BITS_PER_LIMB 			(sizeof(uint64_t) * CHAR_BIT)
+
+#define BITS_PER_HALF_LIMB		(BITS_PER_LIMB/2)
 
 #define LARGE_UINT_MAX_BYTES	(LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t))
 
 #define LARGE_UINT_BIT_WIDTH	(LARGE_UINT_LIMBS_COUNT * BITS_PER_LIMB)
+
+// it is assumed in this library that LARGE_UINT_BIT_WIDTH fits in a 32 bit unsigned integer
 
 typedef struct large_uint large_uint;
 struct large_uint
@@ -95,7 +100,7 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
 large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b);
 
 // divides dividend by divisor, and returns remainder and sets the quotient to the pointer
-// there is not limb wise division, this function performs a sequential binary division
+// there is not limb wise division, this function performs a sequential binary division (restoring shift-substract algorithm)
 // it is your duty to ensure that the divisor is not 0
 large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);
 

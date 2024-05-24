@@ -229,12 +229,12 @@ int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b)
 // it returns carry_out and result in res
 static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in)
 {
-	uint64_t a_0 = a & ((UINT64_C(1) << 32) - UINT64_C(1)); // upper 32 bits of a
-	uint64_t a_1 = a >> 32; // lower 32 bits of a
+	uint64_t a_0 = a & ((UINT64_C(1) << BITS_PER_HALF_LIMB) - UINT64_C(1)); // upper 32 bits of a
+	uint64_t a_1 = a >> BITS_PER_HALF_LIMB; // lower 32 bits of a
 
 	// similarly extract upper and lower 32 bits of b
-	uint64_t b_0 = b & ((UINT64_C(1) << 32) - UINT64_C(1));
-	uint64_t b_1 = b >> 32;
+	uint64_t b_0 = b & ((UINT64_C(1) << BITS_PER_HALF_LIMB) - UINT64_C(1));
+	uint64_t b_1 = b >> BITS_PER_HALF_LIMB;
 
 	// a_0 and b_0's product will always go to res
 	// a_1 and b_1's product will always go to carry_out
@@ -250,17 +250,17 @@ static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint
 	// process this cross product
 	uint64_t temp = a_0 * b_1;
 	{
-		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << 32));
-		(*res) += (temp << 32);
-		carry_out += ((temp >> 32) + ct);
+		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << BITS_PER_HALF_LIMB));
+		(*res) += (temp << BITS_PER_HALF_LIMB);
+		carry_out += ((temp >> BITS_PER_HALF_LIMB) + ct);
 	}
 
 	// process this cross product
 	temp = a_1 * b_0;
 	{
-		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << 32));
-		(*res) += (temp << 32);
-		carry_out += ((temp >> 32) + ct);
+		uint64_t ct = will_unsigned_sum_overflow(uint64_t, (*res), (temp << BITS_PER_HALF_LIMB));
+		(*res) += (temp << BITS_PER_HALF_LIMB);
+		carry_out += ((temp >> BITS_PER_HALF_LIMB) + ct);
 	}
 
 	return carry_out;
@@ -312,20 +312,20 @@ large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint 
 	for(uint32_t i = 0; i < LARGE_UINT_BIT_WIDTH; i++)
 	{
 		// shift concatenation of remainer:dividend by 1 bit
-		remainder = left_shift_large_uint(remainder, UINT32_C(1));
+		remainder = left_shift_large_uint(remainder, 1);
 		if(get_bit_from_large_uint(dividend, LARGE_UINT_BIT_WIDTH - 1))
-			set_bit_in_large_uint(&remainder, UINT32_C(0));
-		dividend = left_shift_large_uint(dividend, UINT32_C(1));
+			set_bit_in_large_uint(&remainder, 0);
+		dividend = left_shift_large_uint(dividend, 1);
 
 		// left shift quotient by 1 bit
-		(*quotient) = left_shift_large_uint((*quotient), UINT32_C(1));
+		(*quotient) = left_shift_large_uint((*quotient), 1);
 
 		// if now the remainder is greater than equal to divisor, then you need to set the corresponding last bit in quotient to 0
 		// and substract divisor from remainder
 		if(compare_large_uint(remainder, divisor) >= 0)
 		{
 			sub_large_uint(&remainder, remainder, divisor);
-			set_bit_in_large_uint(quotient, UINT32_C(0));
+			set_bit_in_large_uint(quotient, 0);
 		}
 	}
 
