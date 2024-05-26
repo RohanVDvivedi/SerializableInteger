@@ -386,7 +386,7 @@ int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
 
 void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l)
 {
-	bytes_size = min(bytes_size, LARGE_UINT_MAX_BYTES);
+	bytes_size = min(bytes_size, get_max_bytes_large_uint());
 
 	uint32_t limb_index = 0;
 	while(bytes_size > 0)
@@ -404,7 +404,7 @@ large_uint deserialize_large_uint(const char* bytes, uint32_t bytes_size)
 {
 	large_uint res = {};
 
-	bytes_size = min(bytes_size, LARGE_UINT_MAX_BYTES);
+	bytes_size = min(bytes_size, get_max_bytes_large_uint());
 
 	uint32_t limb_index = 0;
 	while(bytes_size > 0)
