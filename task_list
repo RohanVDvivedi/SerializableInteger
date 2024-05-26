@@ -3,6 +3,10 @@ VAR_INT and VAR_UINT
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
 
 LARGE_UINT multiplication and division
- * using the multiplication generate a large_uint_power_table, just like described in page_table_tuple_definitions of TupleIndexer
- * make large_uint a templated macro like the value_arraylist
- * make uint256 a 256 bit integer, a special use case of large_uint and use that instead of large_uint in other libraries like, WALe and TupleStore
+ * make large_uint a templated macro like the value_arraylist, in large_uint macro, taking in only limb count and data structure name as input
+  * convert all macros to functions with large_uint at the end
+  * convert all functions to have large_uint concatenated at the end
+  * implement the below macros
+    * #define declarations_large_uint(large_uint, limbs_count) -> large_uint struct definiton and all method declarations
+    * #define definitions_large_uint(large_uint, limbs_count) -> all large_uint method definitions
+  * make uint128, uint256, uint384, and uint512 as available implementations of the large_uint
