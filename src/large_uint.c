@@ -96,22 +96,22 @@ large_uint bitwise_xor_large_uint(large_uint a, large_uint b)
 
 large_uint left_shift_large_uint(large_uint a, uint32_t s)
 {
-	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
+	/* shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0 */
 	if(s >= get_bit_width_large_uint())
 		return get_0_large_uint();
 
 	large_uint res = get_0_large_uint();
 
-	// bit index into a to move from = a_i
-	// bit index into res to move to = r_i
+	/* bit index into a to move from = a_i */
+	/* bit index into res to move to = r_i */
 	uint32_t a_i = 0;
-	uint32_t r_i = s; // s is the left shift amount
+	uint32_t r_i = s; /* s is the left shift amount */
 
 	while(a_i < get_bit_width_large_uint() && r_i < get_bit_width_large_uint())
 	{
 		uint32_t bits_copied = copy_limb_bits(res.limbs, r_i, a.limbs, a_i, LARGE_UINT_LIMBS_COUNT);
 
-		// increment both indices by the amount of bits copied
+		/* increment both indices by the amount of bits copied */
 		a_i += bits_copied;
 		r_i += bits_copied;
 	}
@@ -121,22 +121,22 @@ large_uint left_shift_large_uint(large_uint a, uint32_t s)
 
 large_uint right_shift_large_uint(large_uint a, uint32_t s)
 {
-	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
+	/* shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0 */
 	if(s >= get_bit_width_large_uint())
 		return get_0_large_uint();
 
 	large_uint res = get_0_large_uint();
 
-	// bit index into a to move from = a_i
-	// bit index into res to move to = r_i
-	uint32_t a_i = s; // s is the right shift amount
+	/* bit index into a to move from = a_i */
+	/* bit index into res to move to = r_i */
+	uint32_t a_i = s; /* s is the right shift amount */
 	uint32_t r_i = 0;
 
 	while(a_i < get_bit_width_large_uint() && r_i < get_bit_width_large_uint())
 	{
 		uint32_t bits_copied = copy_limb_bits(res.limbs, r_i, a.limbs, a_i, LARGE_UINT_LIMBS_COUNT);
 
-		// increment both indices by the amount of bits copied
+		/* increment both indices by the amount of bits copied */
 		a_i += bits_copied;
 		r_i += bits_copied;
 	}
@@ -193,10 +193,10 @@ large_uint get_bitmask_lower_n_bits_set_large_uint(uint32_t n)
 int add_overflow_safe_large_uint(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
 {
 	large_uint res_temp;
-	if(add_large_uint(&res_temp, a, b)) // carry out implies overflow
+	if(add_large_uint(&res_temp, a, b)) /* carry out implies overflow */
 		return 0;
 
-	// if max_limit is not 0, i.e. max_limit exists, and res_temp >= max_limit, then fail
+	/* if max_limit is not 0, i.e. max_limit exists, and res_temp >= max_limit, then fail */
 	if(compare_large_uint(max_limit, get_0_large_uint()) != 0 && compare_large_uint(res_temp, max_limit) >= 0)
 		return 0;
 
@@ -206,7 +206,7 @@ int add_overflow_safe_large_uint(large_uint* res, large_uint a, large_uint b, la
 
 int sub_underflow_safe_large_uint(large_uint* res, large_uint a, large_uint b)
 {
-	// can not subtract if a < b, underflow condition
+	/* can not subtract if a < b, underflow condition */
 	if(compare_large_uint(a, b) < 0)
 		return 0;
 
@@ -221,7 +221,7 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 
 	for(uint32_t ai = 0; ai < LARGE_UINT_LIMBS_COUNT; ai++)
 	{
-		// intermediate product of multiplying ai-th limb with b, with all of it's power
+		/* intermediate product of multiplying ai-th limb with b, with all of it's power */
 		large_uint intermediate[2] = {get_0_large_uint(), get_0_large_uint()};
 
 		uint64_t carry = 0;
@@ -230,14 +230,14 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 			uint64_t prod = 0;
 			carry = mul_limbs_with_carry(&prod, a.limbs[ai], b.limbs[bi], carry);
 
-			// calculate limb power for the positon of the prod
+			/* calculate limb power for the positon of the prod */
 			{
 				uint32_t power_pos = ai + bi;
 				intermediate[power_pos / LARGE_UINT_LIMBS_COUNT].limbs[power_pos % LARGE_UINT_LIMBS_COUNT] = prod;
 			}
 		}
 
-		// calculate limb power for the position of the carry
+		/* calculate limb power for the position of the carry */
 		{
 			uint32_t power_pos = ai + LARGE_UINT_LIMBS_COUNT;
 			intermediate[power_pos / LARGE_UINT_LIMBS_COUNT].limbs[power_pos % LARGE_UINT_LIMBS_COUNT] = carry;
@@ -252,24 +252,24 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 
 large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor)
 {
-	// 0 initialize, the return values
+	/* 0 initialize, the return values */
 	(*quotient) = get_0_large_uint();
 	large_uint remainder = get_0_large_uint();
 
-	// now we just need to perform this loop for bit count of large_uint
+	/* now we just need to perform this loop for bit count of large_uint */
 	for(uint32_t i = 0; i < get_bit_width_large_uint(); i++)
 	{
-		// shift concatenation of remainer:dividend by 1 bit
+		/* shift concatenation of remainer:dividend by 1 bit */
 		remainder = left_shift_large_uint(remainder, 1);
 		if(get_bit_from_large_uint(dividend, get_bit_width_large_uint() - 1))
 			set_bit_in_large_uint(&remainder, 0);
 		dividend = left_shift_large_uint(dividend, 1);
 
-		// left shift quotient by 1 bit
+		/* left shift quotient by 1 bit */
 		(*quotient) = left_shift_large_uint((*quotient), 1);
 
-		// if now the remainder is greater than equal to divisor, then you need to set the corresponding last bit in quotient to 0
-		// and substract divisor from remainder
+		/* if now the remainder is greater than equal to divisor, then you need to set the corresponding last bit in quotient to 0 */
+		/* and substract divisor from remainder */
 		if(compare_large_uint(remainder, divisor) >= 0)
 		{
 			sub_large_uint(&remainder, remainder, divisor);
