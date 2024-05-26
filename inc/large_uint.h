@@ -5,19 +5,15 @@
 
 #include<cutlery_stds.h>
 
-// this can be any value, but 2 is just right for all practical purposes
-// if you modify this, be sure to modify LARGE_UINT_MAX
-#define LARGE_UINT_LIMBS_COUNT	2
-
 // number of bits in each limb of the large_uint
 // this number is expected and assumed to be a multiple of 2
 #define BITS_PER_LIMB 			(sizeof(uint64_t) * CHAR_BIT)
 
-#define BITS_PER_HALF_LIMB		(BITS_PER_LIMB/2)
+#define BITS_PER_HALF_LIMB		(BITS_PER_LIMB / 2)
 
-#define LARGE_UINT_MAX_BYTES	(LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t))
-
-#define LARGE_UINT_BIT_WIDTH	(LARGE_UINT_LIMBS_COUNT * BITS_PER_LIMB)
+// this can be any value, but 2 is just right for all practical purposes
+// if you modify this, be sure to modify LARGE_UINT_MAX
+#define LARGE_UINT_LIMBS_COUNT	2
 
 // it is assumed in this library that LARGE_UINT_BIT_WIDTH fits in a 32 bit unsigned integer
 
@@ -27,13 +23,22 @@ struct large_uint
 	uint64_t limbs[LARGE_UINT_LIMBS_COUNT];
 };
 
-#define get_large_uint(val) ((large_uint){.limbs = {val}})
+// number of maximum bytes of data in a large_uint
+uint32_t get_max_bytes_large_uint();
 
-#define LARGE_UINT_MIN ((large_uint){.limbs = {}})
-#define LARGE_UINT_MAX ((large_uint){.limbs = {UNSIGNED_MAX_VALUE_OF(uint64_t), UNSIGNED_MAX_VALUE_OF(uint64_t)}})
+// number of bits of data in a large_uint
+uint32_t get_bit_width_large_uint();
 
-#define LARGE_UINT_ZERO ((large_uint){.limbs = {}})
-#define LARGE_UINT_ONE  ((large_uint){.limbs = {UINT64_C(1)}})
+// get a default uint64_t val valued large_uint
+large_uint get_large_uint(uint64_t val);
+
+// get zero and one values for a large_uint
+large_uint get_0_large_uint();
+large_uint get_1_large_uint();
+
+// get min and max values for a large_uint
+large_uint get_min_large_uint();
+large_uint get_max_large_uint();
 
 // gets a bit from large_uint
 int get_bit_from_large_uint(large_uint a, uint32_t bit_index);

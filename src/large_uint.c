@@ -2,6 +2,41 @@
 
 #include<cutlery_math.h>
 
+uint32_t get_max_bytes_large_uint()
+{
+	return (LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t));
+}
+
+uint32_t get_bit_width_large_uint()
+{
+	return (LARGE_UINT_LIMBS_COUNT * BITS_PER_LIMB);
+}
+
+large_uint get_large_uint(uint64_t val)
+{
+	return ((large_uint){.limbs = {val}});
+}
+
+large_uint get_0_large_uint()
+{
+	return get_large_uint(0);
+}
+
+large_uint get_1_large_uint()
+{
+	return get_large_uint(1);
+}
+
+large_uint get_min_large_uint()
+{
+	return get_0_large_uint();
+}
+
+large_uint get_max_large_uint()
+{
+	return bitwise_not_large_uint(get_0_large_uint());
+}
+
 int get_bit_from_large_uint(large_uint a, uint32_t bit_index)
 {
 	if(bit_index >= LARGE_UINT_BIT_WIDTH)
