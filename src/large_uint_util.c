@@ -2,6 +2,43 @@
 
 #include<cutlery_math.h>
 
+uint32_t copy_limb_bits(uint64_t* res, uint32_t r_i, const uint64_t* a, uint32_t a_i, uint32_t limbs_count)
+{
+	// can not copy any bits, if their first indices are out of range
+	if(a_i >= (limbs_count * BITS_PER_LIMB) || r_i >= (limbs_count * BITS_PER_LIMB))
+		return 0;
+
+	uint64_t m = 0;
+
+	uint32_t bits_copied = BITS_PER_LIMB;
+
+	// copy from a into m
+	{
+		m |= (a[(a_i / BITS_PER_LIMB)] >> (a_i % BITS_PER_LIMB));
+
+		if(((a_i % BITS_PER_LIMB) > 0) && (((a_i / BITS_PER_LIMB)) + 1) < limbs_count)
+			m |= (a[(a_i / BITS_PER_LIMB) + 1] << (BITS_PER_LIMB - (a_i % BITS_PER_LIMB)));
+		else
+			bits_copied = min(bits_copied, (BITS_PER_LIMB - (a_i % BITS_PER_LIMB)));
+	}
+
+	// copy from m to res
+	{
+		res[(r_i / BITS_PER_LIMB)] &= ~(UINT64_MAX << (r_i % BITS_PER_LIMB));
+		res[(r_i / BITS_PER_LIMB)] |= (m << (r_i % BITS_PER_LIMB));
+
+		if(((r_i % BITS_PER_LIMB) > 0) && (((r_i / BITS_PER_LIMB)) + 1) < limbs_count)
+		{
+			res[(r_i / BITS_PER_LIMB) + 1] &= ~(UINT64_MAX >> (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+			res[(r_i / BITS_PER_LIMB) + 1] |= (m >> (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+		}
+		else
+			bits_copied = min(bits_copied, (BITS_PER_LIMB - (r_i % BITS_PER_LIMB)));
+	}
+
+	return bits_copied;
+}
+
 uint64_t add_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in)
 {
 	(*res) = a + b + carry_in;
