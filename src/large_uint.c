@@ -39,14 +39,14 @@ large_uint get_max_large_uint()
 
 int get_bit_from_large_uint(large_uint a, uint32_t bit_index)
 {
-	if(bit_index >= LARGE_UINT_BIT_WIDTH)
+	if(bit_index >= get_bit_width_large_uint())
 		return 0;
 	return (a.limbs[bit_index / BITS_PER_LIMB] >> (bit_index % BITS_PER_LIMB)) & UINT64_C(1);
 }
 
 int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 {
-	if(bit_index >= LARGE_UINT_BIT_WIDTH)
+	if(bit_index >= get_bit_width_large_uint())
 		return 0;
 	res->limbs[bit_index / BITS_PER_LIMB] |= (UINT64_C(1) << (bit_index % BITS_PER_LIMB));
 	return 1;
@@ -54,7 +54,7 @@ int set_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 
 int reset_bit_in_large_uint(large_uint* res, uint32_t bit_index)
 {
-	if(bit_index >= LARGE_UINT_BIT_WIDTH)
+	if(bit_index >= get_bit_width_large_uint())
 		return 0;
 	res->limbs[bit_index / BITS_PER_LIMB] &= (~(UINT64_C(1) << (bit_index % BITS_PER_LIMB)));
 	return 1;
@@ -98,7 +98,7 @@ large_uint bitwise_xor_large_uint(large_uint a, large_uint b)
 static uint32_t copy_limb_bits(large_uint* res, uint32_t r_i, large_uint a, uint32_t a_i)
 {
 	// can not copy any bits, if their first indices are out of range
-	if(a_i >= LARGE_UINT_BIT_WIDTH || r_i >= LARGE_UINT_BIT_WIDTH)
+	if(a_i >= get_bit_width_large_uint() || r_i >= get_bit_width_large_uint())
 		return 0;
 
 	uint64_t m = 0;
@@ -134,8 +134,8 @@ static uint32_t copy_limb_bits(large_uint* res, uint32_t r_i, large_uint a, uint
 
 large_uint left_shift_large_uint(large_uint a, uint32_t s)
 {
-	// shifting by more than or equal to LARGE_UINT_BIT_WIDTH shifts all bits out, making result 0
-	if(s >= LARGE_UINT_BIT_WIDTH)
+	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
+	if(s >= get_bit_width_large_uint())
 		return LARGE_UINT_ZERO;
 
 	large_uint res = LARGE_UINT_ZERO;
@@ -145,7 +145,7 @@ large_uint left_shift_large_uint(large_uint a, uint32_t s)
 	uint32_t a_i = 0;
 	uint32_t r_i = s; // s is the left shift amount
 
-	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
+	while(a_i < get_bit_width_large_uint() && r_i < get_bit_width_large_uint())
 	{
 		uint32_t bits_copied = copy_limb_bits(&res, r_i, a, a_i);
 
@@ -159,8 +159,8 @@ large_uint left_shift_large_uint(large_uint a, uint32_t s)
 
 large_uint right_shift_large_uint(large_uint a, uint32_t s)
 {
-	// shifting by more than or equal to LARGE_UINT_BIT_WIDTH shifts all bits out, making result 0
-	if(s >= LARGE_UINT_BIT_WIDTH)
+	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
+	if(s >= get_bit_width_large_uint())
 		return LARGE_UINT_ZERO;
 
 	large_uint res = LARGE_UINT_ZERO;
@@ -170,7 +170,7 @@ large_uint right_shift_large_uint(large_uint a, uint32_t s)
 	uint32_t a_i = s; // s is the right shift amount
 	uint32_t r_i = 0;
 
-	while(a_i < LARGE_UINT_BIT_WIDTH && r_i < LARGE_UINT_BIT_WIDTH)
+	while(a_i < get_bit_width_large_uint() && r_i < get_bit_width_large_uint())
 	{
 		uint32_t bits_copied = copy_limb_bits(&res, r_i, a, a_i);
 
@@ -344,11 +344,11 @@ large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint 
 	large_uint remainder = LARGE_UINT_ZERO;
 
 	// now we just need to perform this loop for bit count of large_uint
-	for(uint32_t i = 0; i < LARGE_UINT_BIT_WIDTH; i++)
+	for(uint32_t i = 0; i < get_bit_width_large_uint(); i++)
 	{
 		// shift concatenation of remainer:dividend by 1 bit
 		remainder = left_shift_large_uint(remainder, 1);
-		if(get_bit_from_large_uint(dividend, LARGE_UINT_BIT_WIDTH - 1))
+		if(get_bit_from_large_uint(dividend, get_bit_width_large_uint() - 1))
 			set_bit_in_large_uint(&remainder, 0);
 		dividend = left_shift_large_uint(dividend, 1);
 
