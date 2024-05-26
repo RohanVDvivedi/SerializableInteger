@@ -5,12 +5,6 @@
 
 #include<cutlery_stds.h>
 
-// number of bits in each limb of the large_uint
-// this number is expected and assumed to be a multiple of 2
-#define BITS_PER_LIMB 			(sizeof(uint64_t) * CHAR_BIT)
-
-#define BITS_PER_HALF_LIMB		(BITS_PER_LIMB / 2)
-
 // this can be any value, but 2 is just right for all practical purposes
 // if you modify this, be sure to modify LARGE_UINT_MAX
 #define LARGE_UINT_LIMBS_COUNT	2
