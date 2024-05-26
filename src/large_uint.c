@@ -229,14 +229,14 @@ uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b)
 	return add_with_carry_large_uint(res, a, bitwise_not_large_uint(b), 1);
 }
 
-large_uint get_bitmask_lower_n_bits_set(uint32_t n)
+large_uint get_bitmask_lower_n_bits_set_large_uint(uint32_t n)
 {
 	large_uint res;
 	sub_large_uint(&res, left_shift_large_uint(get_1_large_uint(), n), get_1_large_uint());
 	return res;
 }
 
-int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
+int add_overflow_safe_large_uint(large_uint* res, large_uint a, large_uint b, large_uint max_limit)
 {
 	large_uint res_temp;
 	if(add_large_uint(&res_temp, a, b)) // carry out implies overflow
@@ -250,7 +250,7 @@ int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, la
 	return 1;
 }
 
-int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b)
+int sub_underflow_safe_large_uint(large_uint* res, large_uint a, large_uint b)
 {
 	// can not subtract if a < b, underflow condition
 	if(compare_large_uint(a, b) < 0)
@@ -367,7 +367,7 @@ large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint 
 	return remainder;
 }
 
-int cast_large_uint_to_uint64(uint64_t* value, large_uint a)
+int cast_to_uint64_from_large_uint(uint64_t* value, large_uint a)
 {
 	uint32_t limbs_required = LARGE_UINT_LIMBS_COUNT;
 	while(limbs_required > 0 && a.limbs[limbs_required-1] == 0)

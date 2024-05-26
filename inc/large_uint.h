@@ -90,15 +90,15 @@ uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b);
 // returns a number with only lowset significant n bits set
 // this function can be used to build bit masks
 // returns ((1 << n) - 1)
-large_uint get_bitmask_lower_n_bits_set(uint32_t n);
+large_uint get_bitmask_lower_n_bits_set_large_uint(uint32_t n);
 
 // res will be set with addition (a + b), on success (i.e. return 1)
 // failure happens in case of an overflow OR if the result is greater than or equal to max_limit (max_limit is checked only if it is non zero)
-int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, large_uint max_limit);
+int add_overflow_safe_large_uint(large_uint* res, large_uint a, large_uint b, large_uint max_limit);
 
 // res will be set with subtraction, on success (i.e. return 1)
 // failure happens in case of an underflow, when (a < b)
-int sub_large_uint_underflow_safe(large_uint* res, large_uint a, large_uint b);
+int sub_underflow_safe_large_uint(large_uint* res, large_uint a, large_uint b);
 
 // the product of a and b, i.e. (a * b) -> this value is 2 lage_uints wide
 // the lower half of the result is stored in res, while the upper half is returned at the return value
@@ -111,7 +111,7 @@ large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint 
 
 // returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a
 // else a 0 (false) is returned, with value unset
-int cast_large_uint_to_uint64(uint64_t* value, large_uint a);
+int cast_to_uint64_from_large_uint(uint64_t* value, large_uint a);
 
 // serialize and deserialize large_uint-s
 void serialize_large_uint(void* bytes, uint32_t bytes_size, large_uint l);
