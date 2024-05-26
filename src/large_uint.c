@@ -136,9 +136,9 @@ large_uint left_shift_large_uint(large_uint a, uint32_t s)
 {
 	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
 	if(s >= get_bit_width_large_uint())
-		return LARGE_UINT_ZERO;
+		return get_0_large_uint();
 
-	large_uint res = LARGE_UINT_ZERO;
+	large_uint res = get_0_large_uint();
 
 	// bit index into a to move from = a_i
 	// bit index into res to move to = r_i
@@ -161,9 +161,9 @@ large_uint right_shift_large_uint(large_uint a, uint32_t s)
 {
 	// shifting by more than or equal to get_bit_width_large_uint() shifts all bits out, making result 0
 	if(s >= get_bit_width_large_uint())
-		return LARGE_UINT_ZERO;
+		return get_0_large_uint();
 
-	large_uint res = LARGE_UINT_ZERO;
+	large_uint res = get_0_large_uint();
 
 	// bit index into a to move from = a_i
 	// bit index into res to move to = r_i
@@ -200,7 +200,7 @@ int are_equal_large_uint(large_uint a, large_uint b)
 
 int is_zero_large_uint(large_uint a)
 {
-	return compare_large_uint(a, LARGE_UINT_ZERO) == 0;
+	return compare_large_uint(a, get_0_large_uint()) == 0;
 }
 
 // returns carry, and summation in res
@@ -232,7 +232,7 @@ uint64_t sub_large_uint(large_uint* res, large_uint a, large_uint b)
 large_uint get_bitmask_lower_n_bits_set(uint32_t n)
 {
 	large_uint res;
-	sub_large_uint(&res, left_shift_large_uint(LARGE_UINT_ONE, n), LARGE_UINT_ONE);
+	sub_large_uint(&res, left_shift_large_uint(get_1_large_uint(), n), get_1_large_uint());
 	return res;
 }
 
@@ -243,7 +243,7 @@ int add_large_uint_overflow_safe(large_uint* res, large_uint a, large_uint b, la
 		return 0;
 
 	// if max_limit is not 0, i.e. max_limit exists, and res_temp >= max_limit, then fail
-	if(compare_large_uint(max_limit, LARGE_UINT_MIN) != 0 && compare_large_uint(res_temp, max_limit) >= 0)
+	if(compare_large_uint(max_limit, get_0_large_uint()) != 0 && compare_large_uint(res_temp, max_limit) >= 0)
 		return 0;
 
 	(*res) = res_temp;
@@ -303,13 +303,13 @@ static uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint
 
 large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 {
-	(*res) = LARGE_UINT_ZERO;
-	large_uint res2 = LARGE_UINT_ZERO;
+	(*res) = get_0_large_uint();
+	large_uint res2 = get_0_large_uint();
 
 	for(uint32_t ai = 0; ai < LARGE_UINT_LIMBS_COUNT; ai++)
 	{
 		// intermediate product of multiplying ai-th limb with b, with all of it's power
-		large_uint intermediate[2] = {LARGE_UINT_ZERO, LARGE_UINT_ZERO};
+		large_uint intermediate[2] = {get_0_large_uint(), get_0_large_uint()};
 
 		uint64_t carry = 0;
 		for(uint32_t bi = 0; bi < LARGE_UINT_LIMBS_COUNT; bi++)
@@ -340,8 +340,8 @@ large_uint mul_large_uint(large_uint* res, large_uint a, large_uint b)
 large_uint div_large_uint(large_uint* quotient, large_uint dividend, large_uint divisor)
 {
 	// 0 initialize, the return values
-	(*quotient) = LARGE_UINT_ZERO;
-	large_uint remainder = LARGE_UINT_ZERO;
+	(*quotient) = get_0_large_uint();
+	large_uint remainder = get_0_large_uint();
 
 	// now we just need to perform this loop for bit count of large_uint
 	for(uint32_t i = 0; i < get_bit_width_large_uint(); i++)
