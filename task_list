@@ -3,6 +3,4 @@ VAR_INT and VAR_UINT
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
 
 LARGE_UINT
- * implement get_byte_from_ ## large_uint(large_uint, uint32_t byte_index) and set_byte_in_ ## large_uint(large_uint* res, uint32_t byte_index, uint8_t byte)
- * add macro BYTES_PER_LIMB macro
  * in large_uints.h implement set_uint macro to copy one uint type into another
