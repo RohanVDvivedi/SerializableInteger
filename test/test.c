@@ -63,5 +63,15 @@ int main()
 	print_uint256(remainder);
 	printf(")\n\n");
 
+	uint256 x = {0xff01020304050607, 0x08090a0b0c0d0e0f, 0x1011121314151617, 0x18191a1b1c1d1e1f};
+	for(uint32_t i = 0; i < get_max_bytes_uint256(); i++)
+		printf("%"PRIu32" -> %"PRIu8"\n", i, get_byte_from_uint256(x, i));
+
+	for(uint32_t i = 0; i < get_max_bytes_uint256(); i++)
+		set_byte_in_uint256(&x, i, i * 2);
+
+	for(uint32_t i = 0; i < get_max_bytes_uint256(); i++)
+		printf("%"PRIu32" -> %"PRIu8"\n", i, get_byte_from_uint256(x, i));
+
 	return 0;
 }
