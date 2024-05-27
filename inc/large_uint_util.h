@@ -3,9 +3,9 @@
 
 #include<stdint.h>
 
-// number of bits in each limb of the large_uint
-// this number is expected and assumed to be a multiple of 2
-#define BITS_PER_LIMB 			(sizeof(uint64_t) * CHAR_BIT)
+#define BYTES_PER_LIMB			(sizeof(uint64_t))
+
+#define BITS_PER_LIMB 			(BYTES_PER_LIMB * CHAR_BIT)
 
 #define BITS_PER_HALF_LIMB		(BITS_PER_LIMB / 2)
 

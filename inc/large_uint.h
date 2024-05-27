@@ -46,6 +46,12 @@
 	/* reset a bit in large_uint */                                                                                                                         \
 	int reset_bit_in_ ## large_uint(large_uint* res, uint32_t bit_index);                                                                                   \
                                                                                                                                                             \
+	/* gets a byte from large_uint */                                                                                                                       \
+	uint8_t get_byte_from_ ## large_uint(large_uint a, uint32_t byte_index);                                                                                \
+                                                                                                                                                            \
+	/* set byte at the byte_index in res */                                                                                                                 \
+	int set_byte_in_ ## large_uint(large_uint* res, uint32_t byte_index, uint8_t byte);                                                                     \
+                                                                                                                                                            \
 	/* returns ~a */                                                                                                                                        \
 	large_uint bitwise_not_ ## large_uint(large_uint a);                                                                                                    \
                                                                                                                                                             \
@@ -124,7 +130,7 @@
                                                                                                                                                             \
 	uint32_t get_max_bytes_ ## large_uint()                                                                                                                 \
 	{                                                                                                                                                       \
-		return (LARGE_UINT_LIMBS_COUNT * sizeof(uint64_t));                                                                                                 \
+		return (LARGE_UINT_LIMBS_COUNT * BYTES_PER_LIMB);                                                                                                   \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	uint32_t get_bit_width_ ## large_uint()                                                                                                                 \
@@ -177,6 +183,22 @@
 		if(bit_index >= get_bit_width_ ## large_uint())                                                                                                     \
 			return 0;                                                                                                                                       \
 		res->limbs[bit_index / BITS_PER_LIMB] &= (~(UINT64_C(1) << (bit_index % BITS_PER_LIMB)));                                                           \
+		return 1;                                                                                                                                           \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	uint8_t get_byte_from_ ## large_uint(large_uint a, uint32_t byte_index)                                                                                 \
+	{                                                                                                                                                       \
+		if(byte_index >= get_max_bytes_ ## large_uint())                                                                                                    \
+			return 0;                                                                                                                                       \
+		return (a.limbs[byte_index / BYTES_PER_LIMB] >> ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                                        \
+	}                                                                                                                                                       \
+                                                                                                                                                           	\
+	int set_byte_in_ ## large_uint(large_uint* res, uint32_t byte_index, uint8_t byte)                                                                      \
+	{                                                                                                                                                       \
+		if(byte_index >= get_max_bytes_ ## large_uint())                                                                                                    \
+			return 0;                                                                                                                                       \
+		res->limbs[byte_index / BYTES_PER_LIMB] &= ~(UINT64_C(0xff) << ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                         \
+		res->limbs[byte_index / BYTES_PER_LIMB] |= (((uint64_t)(byte)) >> ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                      \
 		return 1;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
@@ -420,7 +442,7 @@
 		uint32_t limb_index = 0;                                                                                                                            \
 		while(bytes_size > 0)                                                                                                                               \
 		{                                                                                                                                                   \
-			uint32_t bytes_to_write = min(sizeof(uint64_t), bytes_size);                                                                                    \
+			uint32_t bytes_to_write = min(BYTES_PER_LIMB, bytes_size);                                                                                      \
                                                                                                                                                             \
 			serialize_uint64(bytes, bytes_to_write, l.limbs[limb_index++]);                                                                                 \
                                                                                                                                                             \
@@ -438,7 +460,7 @@
 		uint32_t limb_index = 0;                                                                                                                            \
 		while(bytes_size > 0)                                                                                                                               \
 		{                                                                                                                                                   \
-			uint32_t bytes_to_read = min(sizeof(uint64_t), bytes_size);                                                                                     \
+			uint32_t bytes_to_read = min(BYTES_PER_LIMB, bytes_size);                                                                                       \
                                                                                                                                                             \
 			res.limbs[limb_index++] = deserialize_uint64(bytes, bytes_to_read);                                                                             \
                                                                                                                                                             \
