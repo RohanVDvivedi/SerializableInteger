@@ -73,5 +73,22 @@ int main()
 	for(uint32_t i = 0; i < get_max_bytes_uint256(); i++)
 		printf("%"PRIu32" -> %"PRIu8"\n", i, get_byte_from_uint256(x, i));
 
+
+	{
+		uint256 lhs = get_0_uint256();
+		uint128 rhs = {0x01, 0x02};
+		assign_uints(lhs, rhs);
+		print_uint256(lhs);
+		printf("\n\n");
+	}
+
+	{
+		uint256 lhs = get_0_uint256();
+		uint512 rhs = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+		assign_uints(lhs, rhs);
+		print_uint256(lhs);
+		printf("\n\n");
+	}
+
 	return 0;
 }
