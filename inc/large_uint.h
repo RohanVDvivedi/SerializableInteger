@@ -198,7 +198,7 @@
 		if(byte_index >= get_max_bytes_ ## large_uint())                                                                                                    \
 			return 0;                                                                                                                                       \
 		res->limbs[byte_index / BYTES_PER_LIMB] &= ~(UINT64_C(0xff) << ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                         \
-		res->limbs[byte_index / BYTES_PER_LIMB] |= (((uint64_t)(byte)) >> ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                      \
+		res->limbs[byte_index / BYTES_PER_LIMB] |= (((uint64_t)(byte)) << ((byte_index % BYTES_PER_LIMB) * CHAR_BIT));                                      \
 		return 1;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
