@@ -48,6 +48,16 @@ int main()
 	print_uint256(res1);
 	print_uint256(res0);
 	printf("\n\n");
+	{
+		// printing result as uint512
+		uint512 res0b;
+		assign_uints(res0b, res0);
+		uint512 res1b;
+		assign_uints(res1b, res1);
+		uint512 rest = bitwise_or_uint512(left_shift_uint512(res1b, 256), res0b);
+		print_uint512(rest);
+		printf("\n\n");
+	}
 
 	uint256 dividend  = {0xabcdef1234567890, 0x9087654321abcdef, 0xfe5678cde6543210, 0x987655678efabcba};
 	uint256 divisor   = {0xabcd, 0x1234, 0x12, 0x50};
