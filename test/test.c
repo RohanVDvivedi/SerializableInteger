@@ -51,9 +51,9 @@ int main()
 	{
 		// printing result as uint512
 		uint512 res0b;
-		assign_uints(res0b, res0);
+		assign_large_uints(res0b, res0);
 		uint512 res1b;
-		assign_uints(res1b, res1);
+		assign_large_uints(res1b, res1);
 		uint512 rest = bitwise_or_uint512(left_shift_uint512(res1b, 256), res0b);
 		print_uint512(rest);
 		printf("\n\n");
@@ -87,7 +87,7 @@ int main()
 	{
 		uint256 lhs = get_0_uint256();
 		uint128 rhs = {0x01, 0x02};
-		assign_uints(lhs, rhs);
+		assign_large_uints(lhs, rhs);
 		print_uint256(lhs);
 		printf("\n\n");
 	}
@@ -95,7 +95,7 @@ int main()
 	{
 		uint256 lhs = get_0_uint256();
 		uint512 rhs = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
-		assign_uints(lhs, rhs);
+		assign_large_uints(lhs, rhs);
 		print_uint256(lhs);
 		printf("\n\n");
 	}
