@@ -93,8 +93,6 @@ void serialize_int64(void* data, uint32_t data_size, int64_t x)		SERIALIZE_INT(6
 
 #define MIN_BIT_COUNT_UINT(X)						\
 {													\
-	if(x == 0)										\
-		return 1;									\
 	uint32_t res = sizeof(uint(X)) * CHAR_BIT;		\
 	while(res > 0)									\
 	{												\
