@@ -125,6 +125,9 @@
                                                                                                                                                             \
 	/* print large_uint */                                                                                                                                  \
 	void print_ ## large_uint(large_uint l);                                                                                                                \
+                                                                                                                                                            \
+	/* serialize large_uint as decimal, into res, you must ensure that res is large enough */                                                               \
+	uint32_t serialize_to_decimal_ ## large_uint(char* res, large_uint l);                                                                                  \
 /* declarations complete */
 
 
@@ -494,6 +497,29 @@
 			i--;                                                                                                                                            \
 			printf("%016"PRIx64, l.limbs[i]);                                                                                                               \
 		}                                                                                                                                                   \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	uint32_t serialize_to_decimal_ ## large_uint(char* res, large_uint l)                                                                                   \
+	{                                                                                                                                                       \
+		uint32_t res_size = 0;                                                                                                                              \
+                                                                                                                                                            \
+		while(is_zero_ ## large_uint(l))                                                                                                                    \
+		{                                                                                                                                                   \
+			large_uint d = div_ ## large_uint(&l, l, get_ ## large_uint(10));                                                                               \
+			res[res_size++] = ('0' + d.limbs[0]);                                                                                                           \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		if(res_size == 0)                                                                                                                                   \
+			res[res_size++] = '0';                                                                                                                          \
+                                                                                                                                                            \
+		for(uint32_t i = 0; i < res_size / 2; i++)                                                                                                          \
+		{                                                                                                                                                   \
+			char t = res[i];                                                                                                                                \
+			res[i] = res[res_size - 1 - i];                                                                                                                 \
+			res[res_size - 1 - i] = t;                                                                                                                      \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		return res_size;                                                                                                                                    \
 	}                                                                                                                                                       \
 /* definitions complete */
 
