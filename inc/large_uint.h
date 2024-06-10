@@ -503,7 +503,7 @@
 	{                                                                                                                                                       \
 		uint32_t res_size = 0;                                                                                                                              \
                                                                                                                                                             \
-		while(is_zero_ ## large_uint(l))                                                                                                                    \
+		while(!is_zero_ ## large_uint(l))                                                                                                                   \
 		{                                                                                                                                                   \
 			large_uint d = div_ ## large_uint(&l, l, get_ ## large_uint(10));                                                                               \
 			res[res_size++] = ('0' + d.limbs[0]);                                                                                                           \

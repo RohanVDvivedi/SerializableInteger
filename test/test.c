@@ -115,5 +115,15 @@ int main()
 		printf("\n\n");
 	}
 
+	// test serialize to decimal, to print the number in decimal
+	{
+		uint256 a = {60, 60, 48, 0};
+		print_uint256(a);
+		printf("\n");
+		char res[78]; // 256 * log(2) / log(10)
+		serialize_to_decimal_uint256(res, a);
+		printf("%s\n", res);
+	}
+
 	return 0;
 }
