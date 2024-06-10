@@ -112,6 +112,9 @@
 	/* it is your duty to ensure that the divisor is not 0 */                                                                                               \
 	large_uint div_ ## large_uint(large_uint* quotient, large_uint dividend, large_uint divisor);                                                           \
                                                                                                                                                             \
+	/* find gcd of two numbers */                                                                                                                           \
+    large_uint gcd_ ## large_uint(large_uint a, large_uint b);                                                                                              \
+                                                                                                                                                            \
 	/* returns true, if the given large_uint, can fit on a single uint64_t, the value will be set with the value of a */                                    \
 	/* else a 0 (false) is returned, with value unset */                                                                                                    \
 	int cast_to_uint64_from_ ## large_uint(uint64_t* value, large_uint a);                                                                                  \
@@ -418,6 +421,19 @@
 		}                                                                                                                                                   \
                                                                                                                                                             \
 		return remainder;                                                                                                                                   \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	large_uint gcd_ ## large_uint(large_uint a, large_uint b)                                                                                               \
+	{                                                                                                                                                       \
+		/* classic euler gcd algorithm */                                                                                                                   \
+		while(!is_zero_ ## large_uint(b))                                                                                                                   \
+		{                                                                                                                                                   \
+			large_uint q;                                                                                                                                   \
+			large_uint r = div_ ## large_uint(&q, a, b);                                                                                                    \
+			a = b;                                                                                                                                          \
+			b = r;                                                                                                                                          \
+		}                                                                                                                                                   \
+		return a;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	int cast_to_uint64_from_ ## large_uint(uint64_t* value, large_uint a)                                                                                   \
