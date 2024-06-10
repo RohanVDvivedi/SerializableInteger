@@ -117,7 +117,7 @@ int main()
 
 	// test serialize to decimal, to print the number in decimal
 	{
-		uint256 a = {60, 60, 48, 0};
+		uint256 a = {0xabcdef1234567890, 0xabcdef1234567890, 0x908765abcdfecdef, 0x9087654321abcdef};
 		print_uint256(a);
 		printf("\n");
 		char res[78]; // 256 * log(2) / log(10)
