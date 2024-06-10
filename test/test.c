@@ -100,5 +100,20 @@ int main()
 		printf("\n\n");
 	}
 
+	// test gcd
+	{
+		uint256 a = {60, 60, 48, 0};
+		uint256 b = {48, 48, 60, 0};
+		printf("gcd(");
+		print_uint256(a);
+		printf(", ");
+		print_uint256(b);
+		printf(")\n");
+		print_uint256(gcd_uint256(a, b));
+		printf("\n");
+		print_uint256(gcd_uint256(a, b));
+		printf("\n\n");
+	}
+
 	return 0;
 }
