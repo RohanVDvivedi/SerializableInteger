@@ -125,6 +125,8 @@
                                                                                                                                                             \
 	/* print large_uint */                                                                                                                                  \
 	void print_ ## large_uint(large_uint l);                                                                                                                \
+	/* print large_uint */                                                                                                                                  \
+	void sprint_ ## large_uint(char* dest, large_uint l);                                                                                                   \
                                                                                                                                                             \
 	/* serialize large_uint as decimal, into res, you must ensure that res is large enough */                                                               \
 	uint32_t serialize_to_decimal_ ## large_uint(char* res, large_uint l);                                                                                  \
@@ -496,6 +498,16 @@
 		{                                                                                                                                                   \
 			i--;                                                                                                                                            \
 			printf("%016"PRIx64, l.limbs[i]);                                                                                                               \
+		}                                                                                                                                                   \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	void sprint_ ## large_uint(char* dest, large_uint l)                                                                                                    \
+	{                                                                                                                                                       \
+		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)                                                                                                    \
+		{                                                                                                                                                   \
+			i--;                                                                                                                                            \
+			sprintf(dest, "%016"PRIx64, l.limbs[i]);                                                                                                        \
+			dest += 16;                                                                                                                                     \
 		}                                                                                                                                                   \
 	}                                                                                                                                                       \
                                                                                                                                                             \
