@@ -81,6 +81,12 @@
 	/* returns a == 0 */                                                                                                                                    \
 	int is_zero_ ## large_uint(large_uint a);                                                                                                               \
                                                                                                                                                             \
+	/* calculate min of 2 values */                                                                                                                         \
+	large_uint min_ ## large_uint(large_uint a, large_uint b);                                                                                              \
+                                                                                                                                                            \
+	/* calculate min of 2 values */                                                                                                                         \
+	large_uint max_ ## large_uint(large_uint a, large_uint b);                                                                                              \
+                                                                                                                                                            \
 	/* (*res) = a + b + carry and then returns carry */                                                                                                     \
 	uint64_t add_with_carry_ ## large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry_in);                                                 \
                                                                                                                                                             \
@@ -311,6 +317,20 @@
 	int is_zero_ ## large_uint(large_uint a)                                                                                                                \
 	{                                                                                                                                                       \
 		return compare_ ## large_uint(a, get_0_ ## large_uint()) == 0;                                                                                      \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	large_uint min_ ## large_uint(large_uint a, large_uint b)                                                                                               \
+	{                                                                                                                                                       \
+		if(compare_ ## large_uint(a, b) >= 0)                                                                                                               \
+			return b;                                                                                                                                       \
+		return a;                                                                                                                                           \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	large_uint max_ ## large_uint(large_uint a, large_uint b)                                                                                               \
+	{                                                                                                                                                       \
+		if(compare_ ## large_uint(a, b) >= 0)                                                                                                               \
+			return a;                                                                                                                                       \
+		return b;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	uint64_t add_with_carry_ ## large_uint(large_uint* res, large_uint a, large_uint b, uint64_t carry_in)                                                  \
