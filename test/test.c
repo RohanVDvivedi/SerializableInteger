@@ -125,5 +125,17 @@ int main()
 		printf("%s\n", res);
 	}
 
+	{
+		uint256 a = get_uint256(12);
+		uint256 b = get_uint256(13);
+		print_uint256(min_uint256(a, b));printf("\n");
+	}
+
+	{
+		uint256 a = get_uint256(12);
+		uint256 b = get_uint256(13);
+		print_uint256(max_uint256(a, b));printf("\n");
+	}
+
 	return 0;
 }
