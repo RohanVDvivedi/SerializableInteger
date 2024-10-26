@@ -137,5 +137,12 @@ int main()
 		print_uint256(max_uint256(a, b));printf("\n");
 	}
 
+	{
+		uint256 a = {0xabcdef1234567890, 0xabcdef1234567890, 0x908765abcdfecdef, 0x9087654321abcdef};
+		char hex[65] = "";
+		sprint_uint256(hex, a);
+		printf("%s\n\n", hex);
+	}
+
 	return 0;
 }
