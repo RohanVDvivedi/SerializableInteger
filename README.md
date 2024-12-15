@@ -21,7 +21,7 @@ This library provides 2 utilities for my downstream projects.
  * ***Once you have installed from source, you may discard the build by*** `make clean`
 
 ## Using The library
- * add `-lserint -lcutlery` linker flag, while compiling your application
+ * add `-lcutlery` linker flag, while compiling your application
  * do not forget to include appropriate public api headers as and when needed. this includes
    * `#include<large_uints.h>`
    * `#include<large_uint.h>`
