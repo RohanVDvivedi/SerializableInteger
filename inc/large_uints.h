@@ -13,11 +13,11 @@ definitions_large_uint(uint128, 2)
 
 declarations_large_uint(uint256, 4)
 
-declarations_large_uint(uint512, 8)
+definitions_large_uint(uint256, 4)
 
 // uint512
 
-definitions_large_uint(uint256, 4)
+declarations_large_uint(uint512, 8)
 
 definitions_large_uint(uint512, 8)
 
