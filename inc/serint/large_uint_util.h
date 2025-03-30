@@ -21,7 +21,7 @@ static inline uint64_t add_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t 
 // it returns carry_out and result in res
 static inline uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in);
 
-#include<cutlery_math.h>
+#include<cutlery/cutlery_math.h>
 
 // inline implementations
 

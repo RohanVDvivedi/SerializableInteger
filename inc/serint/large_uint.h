@@ -1,14 +1,14 @@
 #ifndef LARGE_UINT_H
 #define LARGE_UINT_H
 
-#include<large_uint_util.h>
-#include<serial_int.h>
+#include<serint/large_uint_util.h>
+#include<serint/serial_int.h>
 
 #include<stdio.h>
 #include<inttypes.h>
 
-#include<cutlery_stds.h>
-#include<cutlery_math.h>
+#include<cutlery/cutlery_stds.h>
+#include<cutlery/cutlery_math.h>
 
 // LARGE_UINT_LIMBS_COUNT must be lesser than (UINT32_MAX / 64)
 

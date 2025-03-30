@@ -126,8 +126,8 @@ static inline int16_t get_INT16_MAX(uint32_t data_size);
 static inline int32_t get_INT32_MAX(uint32_t data_size);
 static inline int64_t get_INT64_MAX(uint32_t data_size);
 
-#include<cutlery_math.h>
-#include<cutlery_stds.h>
+#include<cutlery/cutlery_math.h>
+#include<cutlery/cutlery_stds.h>
 
 #include<limits.h>
 
