@@ -134,7 +134,7 @@
 	/* print large_uint */                                                                                                                                  \
 	static inline void sprint_ ## large_uint(char* dest, large_uint l);                                                                                     \
                                                                                                                                                             \
-	/* serialize large_uint as decimal, into res, you must ensure that res is large enough */                                                               \
+	/* serialize large_uint as decimal, into res, you must ensure that res is large enough, this function does not append '\0' to res */                    \
 	static inline uint32_t serialize_to_decimal_ ## large_uint(char* res, large_uint l);                                                                    \
 /* declarations complete */
 
