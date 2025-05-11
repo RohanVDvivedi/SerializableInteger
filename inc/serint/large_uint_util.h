@@ -14,11 +14,26 @@
 // i.e. res[r_i : r_i + BITS_PER_LIMB - 1] = a[a_i : a_i + BITS_PER_LIMB - 1]
 static inline uint32_t copy_limb_bits(uint64_t* res, uint32_t r_i, const uint64_t* a, uint32_t a_i, uint32_t limbs_count);
 
-// returns carry, and summation in res
+/*
+	below function performs ((a + b) + carry_in) operation on its parameters (which are possibly digits of some large_uint)
+	the maximum numerical values of this result can be (r - 1) + (r - 1) + (r - 1) => 3 * (r - 1)
+	where r is the radix of the large_uint, which is 2^64 for uint64_t, which is datatype of limbs/digits)
+	this implies that the carry of this operation will always be 0, 1 OR 2, which always fits uint64_t
+*/
+
+// the operation performed here is (a + b) + carry_in ==> (all the 3 operands being digits/limbs of some large_uint)
+// returns carry, and summation in placed in res
 static inline uint64_t add_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in);
 
-// the operation performed here is (a * b) + carry_in
-// it returns carry_out and result in res
+/*
+	below function performs ((a * b) + carry_in) operation on its parameters (which are possibly digits of some large_uint)
+	the maximum numerical values of this result can be ((r - 1) * (r - 1)) + (r - 1) => r * (r - 1)
+	where r is the radix of the large_uint, which is 2^64 for uint64_t, which is datatype of limbs/digits)
+	this implies that the carry of this operation will always be in range 0 to (r-1), which always fits uint64_t, or the datatype of the limb itself
+*/
+
+// the operation performed here is (a * b) + carry_in ==> (all the 3 operands being digits/limbs of some large_uint)
+// it returns carry_out and result is placed in res
 static inline uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in);
 
 #include<cutlery/cutlery_math.h>
