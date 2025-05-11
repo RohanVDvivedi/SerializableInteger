@@ -147,7 +147,7 @@ int main()
 		uint256 a = {0xabcdef1234567890, 0xabcdef1234567890, 0x908765abcdfecdef, 0x9087654321abcdef};
 		print_uint256(a);
 		printf("\n");
-		char res[78]; // 256 * log(2) / log(10)
+		char res[78] = {}; // 256 * log(2) / log(10) // this array must be 0 initialized as the serialize_to_decimal_uint does not append a '\0'
 		serialize_to_decimal_uint256(res, a);
 		printf("%s\n", res);
 	}
