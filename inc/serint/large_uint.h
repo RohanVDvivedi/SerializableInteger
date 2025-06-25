@@ -313,7 +313,7 @@
                                                                                                                                                             \
 	static inline int compare_ ## large_uint ## _with_ptrs(const void* a, const void* b)                                                                    \
 	{                                                                                                                                                       \
-		return compare_ ## large_uint(*((const large_uint*)a), *((const large_uint*)b))                                                                     \
+		return compare_ ## large_uint(*((const large_uint*)a), *((const large_uint*)b));                                                                    \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int are_equal_ ## large_uint(large_uint a, large_uint b)                                                                                  \
