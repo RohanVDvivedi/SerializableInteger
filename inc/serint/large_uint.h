@@ -74,6 +74,8 @@
 	/* else if(a == b) returns 0 */                                                                                                                         \
 	/* else if(a > b) returns 1 */                                                                                                                          \
 	static inline int compare_ ## large_uint(large_uint a, large_uint b);                                                                                   \
+	/* same exact implementation but with void pointers to easily create and use are comparators */                                                         \
+	static inline int compare_ ## large_uint ## _with_ptrs(const void* a, const void* b);                                                                   \
                                                                                                                                                             \
 	/* returns a == b */                                                                                                                                    \
 	static inline int are_equal_ ## large_uint(large_uint a, large_uint b);                                                                                 \
@@ -307,6 +309,11 @@
 			res = compare_numbers(a.limbs[i], b.limbs[i]);                                                                                                  \
 		}                                                                                                                                                   \
 		return res;                                                                                                                                         \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int compare_ ## large_uint ## _with_ptrs(const void* a, const void* b)                                                                    \
+	{                                                                                                                                                       \
+		return compare_ ## large_uint(*((const large_uint*)a), *((const large_uint*)b))                                                                     \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int are_equal_ ## large_uint(large_uint a, large_uint b)                                                                                  \
