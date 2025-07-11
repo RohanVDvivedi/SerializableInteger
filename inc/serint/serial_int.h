@@ -3,6 +3,8 @@
 
 #include<stdint.h>
 
+#include<cutlery_stds.h> // for fail_build_on macro
+
 // for using this header, the CHAR_BIT (number of bits in a byte) must be 8
 fail_build_on((CHAR_BIT != 8))
 

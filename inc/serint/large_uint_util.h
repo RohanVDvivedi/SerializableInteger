@@ -3,6 +3,8 @@
 
 #include<stdint.h>
 
+#include<cutlery_stds.h> // for fail_build_on macro
+
 #define BYTES_PER_LIMB			(sizeof(uint64_t))
 
 #define BITS_PER_LIMB 			(BYTES_PER_LIMB * CHAR_BIT)
