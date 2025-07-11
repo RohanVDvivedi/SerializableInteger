@@ -3,6 +3,9 @@
 
 #include<stdint.h>
 
+// for using this header, the CHAR_BIT (number of bits in a byte) must be 8
+fail_build_on((CHAR_BIT != 8))
+
 /*
 	deserialize functions assume that the serialized integer is stored at data (void*) in little endian format
 	and it returns uintX_t in the byte ordering of the processor, after reading min(X/8, data_size) bytes from data pointer

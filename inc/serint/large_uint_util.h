@@ -7,6 +7,12 @@
 
 #define BITS_PER_LIMB 			(BYTES_PER_LIMB * CHAR_BIT)
 
+// we are using uint64_t as a limb, so the number of bits in it must be 64
+fail_build_on((BITS_PER_LIMB != 64))
+
+// BITS_PER_LIMB must also be divisible by 2 (leaving no remainder), gladly 64 is divisible by 2
+fail_build_on(((BITS_PER_LIMB % 2) != 0))
+
 #define BITS_PER_HALF_LIMB		(BITS_PER_LIMB / 2)
 
 // returns bits copied, will always return a value <= BITS_PER_LIMB
