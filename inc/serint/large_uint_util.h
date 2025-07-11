@@ -3,7 +3,7 @@
 
 #include<stdint.h>
 
-#include<cutlery_stds.h> // for fail_build_on macro
+#include<cutlery/cutlery_stds.h> // for fail_build_on macro
 
 #define BYTES_PER_LIMB			(sizeof(uint64_t))
 
