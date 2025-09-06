@@ -3,7 +3,7 @@ VAR_INT and VAR_UINT
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
 
 uint
- * implement get_bytes_for_representing_ large_uint(large_uint a);
+ * implement get_byte_count_for_representing_ large_uint(large_uint a);
  * return the minimum number of bytes to represent the large_uint
  * use this in RonDB
 
