@@ -1,3 +1,17 @@
 VAR_INT and VAR_UINT
  * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer, use get_min_bit_count_uintX/intX functionality to store only that many bits
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
+
+uint
+ * implement get_bytes_for_representing_ large_uint(large_uint a);
+ * return the minimum number of bytes to represent the large_uint
+ * use this in RonDB
+
+int128, int256 and int512
+ * using the stock implementations (and will be composed) of their unsigned versions
+ * must have addition, subtraction, and compare functions
+ * must have is_negative, is_zero and is_positive functions
+ * shift and bitwise functions delegate to their unsigned counterparts
+
+make custom float representations
+ * float128, float256 and float512 versions, using the int and uint large numbers
