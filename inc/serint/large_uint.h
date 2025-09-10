@@ -74,7 +74,7 @@
 	/* else if(a == b) returns 0 */                                                                                                                         \
 	/* else if(a > b) returns 1 */                                                                                                                          \
 	static inline int compare_ ## large_uint(large_uint a, large_uint b);                                                                                   \
-	/* same exact implementation but with void pointers to easily create and use are comparators */                                                         \
+	/* same exact implementation but with void pointers to easily create and use as comparators */                                                          \
 	static inline int compare_ ## large_uint ## _with_ptrs(const void* a, const void* b);                                                                   \
                                                                                                                                                             \
 	/* returns a == b */                                                                                                                                    \

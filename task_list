@@ -4,12 +4,13 @@ VAR_INT and VAR_UINT
 
 int128, int256 and int512
  * large_int composed of large_uint raw_uint_value
- * no bitwise right/left shifts, or, xor, and and not will be supported
+ * bitwise right(with sign extension)/left shifts, or, xor, and and not
  * not get_bit and get_byte functions will be supported
  * is_zero, is_negative and is_positive will be supported
  * get_sign_bit and large_uint get_absolute will be supported
  * add, sub, mul, divide(with remainder and quotient rules like std C) will be supported
- * compare and compare_ptrs will be supported 
+ * compare and compare_ptrs will be supported
+ * support almost all functions present in large_uint aswell
 
 make custom float representations
  * float128, float256 and float512 versions, using the int and uint large numbers
