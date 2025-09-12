@@ -193,7 +193,7 @@
                                                                                                                                                             \
 	static inline int reset_bit_in_ ## large_int(large_int* res, uint32_t bit_index)                                                                        \
 	{                                                                                                                                                       \
-		return reset_bit_in_ ## large_uint(res, bit_index);                                                                                                 \
+		return reset_bit_in_ ## large_uint(&(res->raw_uint_value), bit_index);                                                                              \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline uint8_t get_byte_from_ ## large_int(large_int a, uint32_t byte_index)                                                                     \
@@ -280,7 +280,7 @@
                                                                                                                                                             \
 	}                                                                                                                                                       \
                                                                                                                                                             \
-	static inline large_uint get_2s_complement_ ## large_int(large_int a)                                                                                   \
+	static inline large_int get_2s_complement_ ## large_int(large_int a)                                                                                    \
 	{                                                                                                                                                       \
                                                                                                                                                             \
 	}                                                                                                                                                       \
@@ -395,7 +395,5 @@
                                                                                                                                                             \
 	}                                                                                                                                                       \
 /* definitions complete */
-
-#endif
 
 #endif
