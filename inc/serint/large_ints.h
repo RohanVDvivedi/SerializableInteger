@@ -2,6 +2,7 @@
 #define LARGE_INTS_H
 
 #include<serint/large_uints.h>
+#include<serint/large_int.h>
 
 // int128
 
