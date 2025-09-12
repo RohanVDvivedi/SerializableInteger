@@ -17,8 +17,8 @@ definitions_large_int(uint256)
 
 // int512
 
-declarations_large_int(int512)
+declarations_large_int(uint512)
 
-definitions_large_int(int512)
+definitions_large_int(uint512)
 
 #endif
