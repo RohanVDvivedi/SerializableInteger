@@ -344,7 +344,7 @@
 		large_int remainder = {div_ ## large_uint(&(quotient->raw_uint_value), absolute_dividend, absolute_divisor)};                                       \
                                                                                                                                                             \
 		if(sign_bit_divisor != sign_bit_dividend)                                                                                                           \
-			(*quotient) = get_2s_complement_ large_int((*quotient));                                                                                        \
+			(*quotient) = get_2s_complement_ ## large_int((*quotient));                                                                                     \
                                                                                                                                                             \
 		if(sign_bit_dividend)                                                                                                                               \
 			remainder = get_2s_complement_ ## large_int(remainder);                                                                                         \
