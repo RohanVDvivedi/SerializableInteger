@@ -207,7 +207,7 @@
                                                                                                                                                             \
 	static inline large_int bitwise_not_ ## large_int(large_int a)                                                                                          \
 	{                                                                                                                                                       \
-		return (large_int){bitwise_not_ ## large_uint(&(a.raw_uint_value))};                                                                                \
+		return (large_int){bitwise_not_ ## large_uint(a.raw_uint_value)};                                                                                   \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int bitwise_and_ ## large_int(large_int a, large_int b)                                                                             \
