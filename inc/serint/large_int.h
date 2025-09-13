@@ -401,7 +401,7 @@
                                                                                                                                                             \
 	static inline void print_ ## large_int(large_int l)                                                                                                     \
 	{                                                                                                                                                       \
-		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)                                                                                                    \
+		for(uint32_t i = get_max_bytes_ ## large_uint() / sizeof(uint64_t); i > 0;)                                                                         \
 		{                                                                                                                                                   \
 			i--;                                                                                                                                            \
 			printf("%016"PRIx64, l.raw_uint_value.limbs[i]);                                                                                                \
@@ -410,7 +410,7 @@
                                                                                                                                                             \
 	static inline void sprint_ ## large_int(char* dest, large_int l)                                                                                        \
 	{                                                                                                                                                       \
-		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)                                                                                                    \
+		for(uint32_t i = get_max_bytes_ ## large_uint() / sizeof(uint64_t); i > 0;)                                                                         \
 		{                                                                                                                                                   \
 			i--;                                                                                                                                            \
 			sprintf(dest, "%016"PRIx64, l.raw_uint_value.limbs[i]);                                                                                         \
