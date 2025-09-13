@@ -1,5 +1,27 @@
 #include<serint/large_ints.h>
 
+void print_as_decimal(int256 a)
+{
+	char buffer[100];
+	uint32_t bytes = serialize_to_decimal_int256(buffer, a);
+	buffer[bytes] = '\0';
+	printf("%s", buffer);
+}
+
+void print_as_decimal2(int256 high, int256 low)
+{
+	int512 res;
+	for(int i = 0; i < 4; i++)
+		res.raw_uint_value.limbs[i] = low.raw_uint_value.limbs[i];
+	for(int i = 0; i < 4; i++)
+		res.raw_uint_value.limbs[i+4] = high.raw_uint_value.limbs[i];
+
+	char buffer[200];
+	uint32_t bytes = serialize_to_decimal_int512(buffer, res);
+	buffer[bytes] = '\0';
+	printf("%s", buffer);
+}
+
 int main()
 {
 	// simple operations
@@ -102,19 +124,26 @@ int main()
 		// three numbers negative, 0 and a positive
 		int256 nums[3] = {
 			{
-				0xffffffffffffffff,
-				0x1234000432901189,
-				0x0fffefd6cfbfaf9f,
-				0x5ffbffb6af4f0f00,
+				.raw_uint_value = {{
+					[3] = 0xffffffffffffffff,
+					[2] = 0x1234000432901189,
+					[1] = 0x0fffefd6cfbfaf9f,
+					[0] = 0x5ffbffb6af4f0f00,
+				}}
 			},
 			get_0_int256(),
 			{
-				0x0000000000000000,
-				0xf1f2f3f4f5f6f7f8,
-				0x0fffefdfcfbfaf9f,
-				0x1234876543290118,
-			}
-		},
+				.raw_uint_value = {{
+					[3] = 0x0000000000000000,
+					[2] = 0xf1f2f3f4f5f6f7f8,
+					[1] = 0x0fffefdfcfbfaf9f,
+					[0] = 0x1234876543290118,
+				}}
+			},
+		};
+
+
+		
 	}
 
 	return 0;
