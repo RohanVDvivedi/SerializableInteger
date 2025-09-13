@@ -355,7 +355,7 @@
                                                                                                                                                             \
 	static inline int cast_to_int64_from_ ## large_int(int64_t* value, large_int a)                                                                         \
 	{                                                                                                                                                       \
-		if(compare_ # large_int(get_ ## large_int(INT64_MIN), a) <= 0 && compare_ ## large_int(a, get_ ## large_int(INT64_MAX)) <= 0)                       \
+		if(compare_ ## large_int(get_ ## large_int(INT64_MIN), a) <= 0 && compare_ ## large_int(a, get_ ## large_int(INT64_MAX)) <= 0)                      \
 		{                                                                                                                                                   \
 			(*value) = a.raw_uint_value.limbs[0];                                                                                                           \
 			return 1;                                                                                                                                       \
