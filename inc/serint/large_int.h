@@ -5,7 +5,7 @@
 	large_int is and will always be based off some large_uint and will use it internally for storing its raw bits
 */
 
-#define declarations_large_int(large_uint)                                                                                                                  \
+#define declarations_large_int(large_int, large_uint)                                                                                                       \
                                                                                                                                                             \
 	typedef struct large_int large_int;                                                                                                                     \
 	struct large_int                                                                                                                                        \
@@ -133,7 +133,7 @@
 
 
 
-#define definitions_large_int(large_uint)                                                                                                                   \
+#define definitions_large_int(large_int, large_uint)                                                                                                        \
                                                                                                                                                             \
 	static inline uint32_t get_max_bytes_ ## large_int()                                                                                                    \
 	{                                                                                                                                                       \

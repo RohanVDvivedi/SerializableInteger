@@ -6,20 +6,20 @@
 
 // int128
 
-declarations_large_int(uint128)
+declarations_large_int(int128, uint128)
 
-definitions_large_int(uint128)
+definitions_large_int(int128, uint128)
 
 // int256
 
-declarations_large_int(uint256)
+declarations_large_int(int256, uint256)
 
-definitions_large_int(uint256)
+definitions_large_int(int256 uint256)
 
 // int512
 
-declarations_large_int(uint512)
+declarations_large_int(int512, uint512)
 
-definitions_large_int(uint512)
+definitions_large_int(int512, uint512)
 
 #endif
