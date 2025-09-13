@@ -287,12 +287,16 @@
                                                                                                                                                             \
 	static inline large_uint get_absolute_ ## large_int(large_int a)                                                                                        \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		if(get_sign_bit_ ## large_int(a) == 0)                                                                                                              \
+			return a.raw_uint_value;                                                                                                                        \
+		return get_2s_complement_ ## large_int(a).raw_uint_value;                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int get_2s_complement_ ## large_int(large_int a)                                                                                    \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		large_int res;                                                                                                                                      \
+		add_ ## large_int(&res, bitwise_not_ large_int(a), get_1_ ## large_int());                                                                          \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline uint64_t add_with_carry_ ## large_int(large_int* res, large_int a, large_int b, uint64_t carry_in)                                        \
