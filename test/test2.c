@@ -70,7 +70,7 @@ int main()
 		}
 
 		{
-			printf("(0x");
+			printf("(0xffff");
 			print_int256(a);
 			printf(" >> 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(right_shift_int256(a, 13));
@@ -78,7 +78,7 @@ int main()
 		}
 
 		{
-			printf("(0x");
+			printf("(0x0000");
 			print_int256(b);
 			printf(" >> 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(right_shift_int256(b, 13));
