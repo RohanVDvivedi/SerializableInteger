@@ -207,6 +207,23 @@ int main()
 				printf("\n\n");
 			}
 		}
+
+		for(int i = 0; i < 5; i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				int256 high;
+				int256 low;
+				high = mul_int256(&low, nums[i], nums[j]);
+				printf("(");
+				print_as_decimal(nums[i]);
+				printf(") * (");
+				print_as_decimal(nums[j]);
+				printf(") == ");
+				print_as_decimal2(high, low);
+				printf("\n\n");
+			}
+		}
 	}
 
 	return 0;
