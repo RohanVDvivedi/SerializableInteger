@@ -175,6 +175,38 @@ int main()
 				printf("\n\n");
 			}
 		}
+
+		for(int i = 0; i < 5; i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				int256 res;
+				add_int256(&res, nums[i], nums[j]);
+				printf("(");
+				print_as_decimal(nums[i]);
+				printf(") + (");
+				print_as_decimal(nums[j]);
+				printf(") == ");
+				print_as_decimal(res);
+				printf("\n\n");
+			}
+		}
+
+		for(int i = 0; i < 5; i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				int256 res;
+				sub_int256(&res, nums[i], nums[j]);
+				printf("(");
+				print_as_decimal(nums[i]);
+				printf(") - (");
+				print_as_decimal(nums[j]);
+				printf(") == ");
+				print_as_decimal(res);
+				printf("\n\n");
+			}
+		}
 	}
 
 	return 0;
