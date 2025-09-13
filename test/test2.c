@@ -225,7 +225,7 @@ int main()
 			}
 		}
 
-		printf("def c_divmod(a, b):\t\tq = int(a / b)\t\tr = a - q * b\t\treturn (q, r)\n\n\n");
+		printf("def c_divmod(a, b):\n\t\tq = int(a / b)\n\t\tr = a - q * b\n\t\treturn (q, r)\n\n\n");
 
 		for(int i = 0; i < 5; i++)
 		{
