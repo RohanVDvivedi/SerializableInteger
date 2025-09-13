@@ -89,7 +89,7 @@
 	static inline large_uint get_absolute_ ## large_int(large_int a);                                                                                       \
                                                                                                                                                             \
 	/* get 2's complement value, returns negative value */                                                                                                  \
-	static inline large_uint get_2s_complement_ ## large_int(large_int a);                                                                                  \
+	static inline large_int get_2s_complement_ ## large_int(large_int a);                                                                                   \
                                                                                                                                                             \
 	/* (*res) = a + b + carry and then returns carry */                                                                                                     \
 	static inline uint64_t add_with_carry_ ## large_int(large_int* res, large_int a, large_int b, uint64_t carry_in);                                       \
@@ -197,7 +197,7 @@
                                                                                                                                                             \
 	static inline uint8_t get_byte_from_ ## large_int(large_int a, uint32_t byte_index)                                                                     \
 	{                                                                                                                                                       \
-		return get_byte_from_ ## large_uint(&(a.raw_uint_value), byte_index);                                                                               \
+		return get_byte_from_ ## large_uint(a.raw_uint_value, byte_index);                                                                                  \
 	}                                                                                                                                                       \
                                                                                                                                                            	\
 	static inline int set_byte_in_ ## large_int(large_int* res, uint32_t byte_index, uint8_t byte)                                                          \
