@@ -14,7 +14,7 @@ definitions_large_int(int128, uint128)
 
 declarations_large_int(int256, uint256)
 
-definitions_large_int(int256 uint256)
+definitions_large_int(int256, uint256)
 
 // int512
 

@@ -321,7 +321,7 @@
 		int sign_bit_a = get_sign_bit_ ## large_int(a);                                                                                                     \
 		large_uint absolute_a = get_absolute_ ## large_int(a);                                                                                              \
 		int sign_bit_b = get_sign_bit_ ## large_int(b);                                                                                                     \
-		large_uint absolute_b = get_absolute_ large_int(b);                                                                                                 \
+		large_uint absolute_b = get_absolute_ ## large_int(b);                                                                                              \
                                                                                                                                                             \
 		large_int high = {mul_ ## large_uint(&(res->raw_uint_value), absolute_a, absolute_b)};                                                              \
                                                                                                                                                             \
@@ -339,7 +339,7 @@
 		int sign_bit_dividend = get_sign_bit_ ## large_int(dividend);                                                                                       \
 		large_uint absolute_dividend = get_absolute_ ## large_int(dividend);                                                                                \
 		int sign_bit_divisor = get_sign_bit_ ## large_int(divisor);                                                                                         \
-		large_uint absolute_divisor = get_absolute_ large_int(divisor);                                                                                     \
+		large_uint absolute_divisor = get_absolute_ ## large_int(divisor);                                                                                  \
                                                                                                                                                             \
 		large_int remainder = {div_ ## large_uint(&(quotient->raw_uint_value), absolute_dividend, absolute_divisor)};                                       \
                                                                                                                                                             \
