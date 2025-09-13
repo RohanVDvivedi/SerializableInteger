@@ -173,12 +173,16 @@
                                                                                                                                                             \
 	static inline large_int get_min_ ## large_int()                                                                                                         \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		large_int res = {get_min_ ## large_uint()};                                                                                                         \
+		set_bit_in_ ## large_int(&res, get_bit_width_ ## large_int() - 1);                                                                                  \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int get_max_ ## large_int()                                                                                                         \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		large_int res = {get_max_ ## large_uint()};                                                                                                         \
+		reset_bit_in_ ## large_int(&res, get_bit_width_ ## large_int() - 1);                                                                                \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int get_bit_from_ ## large_int(large_int a, uint32_t bit_index)                                                                           \
