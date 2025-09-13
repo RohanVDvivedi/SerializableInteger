@@ -241,7 +241,11 @@
                                                                                                                                                             \
 	static inline int compare_ ## large_int(large_int a, large_int b)                                                                                       \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		int sign_bit_a = get_sign_bit_ ## large_int(a);                                                                                                     \
+		int sign_bit_b = get_sign_bit_ ## large_int(b);                                                                                                     \
+		if(sign_bit_a != sign_bit_b)                                                                                                                        \
+			return -compare_numbers(sign_bit_a, sign_bit_b);                                                                                                \
+		return compare_ ## large_uint(a.raw_uint_value, b.raw_uint_value);                                                                                  \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int compare_ ## large_int ## _with_ptrs(const void* a, const void* b)                                                                     \
