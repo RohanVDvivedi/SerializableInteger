@@ -122,7 +122,7 @@ int main()
 	// testing arithmetic operations
 	{
 		// three numbers negative, 0 and a positive
-		int256 nums[5] = {
+		int256 nums[7] = {
 			{
 				.raw_uint_value = {{
 					[3] = 0xffffffffffffffff,
@@ -139,7 +139,23 @@ int main()
 					[0] = 0x5ffbffb6af4f0f00,
 				}}
 			},
+			{
+				.raw_uint_value = {{
+					[3] = 0xffffffffffffffff,
+					[2] = 0xffffffffffffffff,
+					[1] = 0xffffffffffffffff,
+					[0] = 0xfffffff6af4f0f00,
+				}}
+			},
 			get_0_int256(),
+			{
+				.raw_uint_value = {{
+					[3] = 0x0000000000000000,
+					[2] = 0x0000000000000000,
+					[1] = 0x0000000000000000,
+					[0] = 0x0000000000000025,
+				}}
+			},
 			{
 				.raw_uint_value = {{
 					[3] = 0x0000000000000000,
