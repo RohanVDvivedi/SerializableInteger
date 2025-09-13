@@ -158,7 +158,13 @@
                                                                                                                                                             \
 	static inline large_int get_ ## large_int(int64_t val)                                                                                                  \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		large_int res;                                                                                                                                      \
+		if(val < 0)                                                                                                                                         \
+			res = (large_int){get_max_ ## large_uint()};                                                                                                    \
+		else                                                                                                                                                \
+			res = (large_int){get_0_ ## large_uint()};                                                                                                      \
+		res.raw_uint_value.limbs[0] = val;                                                                                                                  \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int get_0_ ## large_int()                                                                                                           \
@@ -173,7 +179,7 @@
                                                                                                                                                             \
 	static inline large_int get_min_ ## large_int()                                                                                                         \
 	{                                                                                                                                                       \
-		large_int res = {get_min_ ## large_uint()};                                                                                                         \
+		large_int res = {get_0_ ## large_uint()};                                                                                                           \
 		set_bit_in_ ## large_int(&res, get_bit_width_ ## large_int() - 1);                                                                                  \
 		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
