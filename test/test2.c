@@ -2,6 +2,17 @@
 
 int main()
 {
+	// simple operations
+	{
+		print_int256(get_0_int256()); printf("\n\n");
+		print_int256(get_1_int256()); printf("\n\n");
+		print_int256(get_min_int256()); printf("\n\n");
+		print_int256(get_max_int256()); printf("\n\n");
+		print_int256(get_int256(134)); printf("\n\n");
+		print_int256(get_int256(-134)); printf("\n\n");
+		print_int256(get_bitmask_lower_n_bits_set_int256(100)); printf("\n\n");
+	}
+
 	// test bitwise operations
 	{
 		int256 a = {{0xa000500012345678, 0x5555aaaa12345678, 0x123456780000abcd, 0xffff0000ffff0000}};
