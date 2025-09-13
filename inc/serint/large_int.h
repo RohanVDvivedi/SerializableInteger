@@ -292,7 +292,7 @@
 	static inline large_int get_2s_complement_ ## large_int(large_int a)                                                                                    \
 	{                                                                                                                                                       \
 		large_int res;                                                                                                                                      \
-		add_ ## large_int(&res, bitwise_not_ large_int(a), get_1_ ## large_int());                                                                          \
+		add_ ## large_int(&res, bitwise_not_ ## large_int(a), get_1_ ## large_int());                                                                       \
 		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
