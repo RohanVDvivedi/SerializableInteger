@@ -316,7 +316,7 @@
                                                                                                                                                             \
 	static inline large_int get_bitmask_lower_n_bits_set_ ## large_int(uint32_t n)                                                                          \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		return (large_int){get_bitmask_lower_n_bits_set_ ## large_uint(n)};                                                                                 \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int add_overflow_safe_ ## large_int(large_int* res, large_int a, large_int b, large_int max_limit)                                        \
