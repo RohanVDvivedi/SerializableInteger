@@ -236,7 +236,9 @@
 		if(s >= get_bit_width_ ## large_int())                                                                                                              \
 			return (msb) ? get_max_ ## large_int() : get_0_ ## large_int();                                                                                 \
 		a = (large_int){right_shift_ ## large_uint(a.raw_uint_value, s)};                                                                                   \
-		return bitwise_or_ ## large_int(a, bitwise_not_ ## large_int(get_bitmask_lower_n_bits_set_ ## large_int(get_bit_width_ ## large_int() - s)));       \
+		if(msb)                                                                                                                                             \
+			a =  bitwise_or_ ## large_int(a, bitwise_not_ ## large_int(get_bitmask_lower_n_bits_set_ ## large_int(get_bit_width_ ## large_int() - s)));     \
+		return a;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int compare_ ## large_int(large_int a, large_int b)                                                                                       \
