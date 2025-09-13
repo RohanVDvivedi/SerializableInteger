@@ -323,6 +323,20 @@
                                                                                                                                                             \
 	static inline large_int div_ ## large_int(large_int* quotient, large_int dividend, large_int divisor)                                                   \
 	{                                                                                                                                                       \
+		int sign_bit_dividend = get_sign_bit_ ## large_int(dividend);                                                                                       \
+		large_uint absolute_dividend = get_absolute_ ## large_int(dividend);                                                                                \
+		int sign_bit_divisor = get_sign_bit_ ## large_int(divisor);                                                                                         \
+		large_uint absolute_divisor = get_absolute_ large_int(divisor);                                                                                     \
+                                                                                                                                                            \
+		large_int remainder = {div_ ## large_uint(&(quotient->raw_uint_value), absolute_dividend, absolute_divisor)};                                       \
+                                                                                                                                                            \
+		if(sign_bit_divisor != sign_bit_dividend)                                                                                                           \
+			quotient = get_2s_complement_ large_int(quotient);                                                                                              \
+                                                                                                                                                            \
+		if(sign_bit_dividend)                                                                                                                               \
+			remainder = get_2s_complement_ ## large_int(remainder);                                                                                         \
+                                                                                                                                                            \
+		return remainder;                                                                                                                                   \
                                                                                                                                                             \
 	}                                                                                                                                                       \
                                                                                                                                                             \
