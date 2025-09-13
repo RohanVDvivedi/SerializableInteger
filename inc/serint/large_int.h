@@ -105,7 +105,7 @@
 	/* returns ((1 << n) - 1) */                                                                                                                            \
 	static inline large_int get_bitmask_lower_n_bits_set_ ## large_int(uint32_t n);                                                                         \
                                                                                                                                                             \
-	/* the product of a and b, i.e. (a * b) -> this value is 2 lage_uints wide */                                                                           \
+	/* the product of a and b, i.e. (a * b) -> this value is 2 lage_ints wide */                                                                            \
 	/* the lower half of the result is stored in res, while the upper half is returned at the return value */                                               \
 	static inline large_int mul_ ## large_int(large_int* res, large_int a, large_int b);                                                                    \
                                                                                                                                                             \
@@ -318,7 +318,20 @@
                                                                                                                                                             \
 	static inline large_int mul_ ## large_int(large_int* res, large_int a, large_int b)                                                                     \
 	{                                                                                                                                                       \
+		int sign_bit_a = get_sign_bit_ ## large_int(a);                                                                                                     \
+		large_uint absolute_a = get_absolute_ ## large_int(a);                                                                                              \
+		int sign_bit_b = get_sign_bit_ ## large_int(b);                                                                                                     \
+		large_uint absolute_b = get_absolute_ large_int(b);                                                                                                 \
                                                                                                                                                             \
+		large_int high = {div_ ## large_uint(&(res->raw_uint_value), absolute_a, absolute_b)};                                                              \
+                                                                                                                                                            \
+		if(sign_bit_a != sign_bit_b)                                                                                                                        \
+		{                                                                                                                                                   \
+			uint64_t carry = add_ ## large_int(bitwise_not_ ## large_int(*res), get_1_ ## large_int());                                                     \
+			add_ ## large_int(bitwise_not_ ## large_int(high), get_ ## large_int(carry + 1));                                                               \
+        }                                                                                                                                                   \
+                                                                                                                                                            \
+		return high;                                                                                                                                        \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int div_ ## large_int(large_int* quotient, large_int dividend, large_int divisor)                                                   \
