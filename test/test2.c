@@ -8,27 +8,27 @@ int main()
 		int256 b = {{0x5000400087654321, 0xaaaa555512345678, 0x1234000000005678, 0x0000ffffffff0000}};
 
 		{
-			printf("0x")
+			printf("0x");
 			print_int256(a);
 			printf(" & 0x");
 			print_int256(b);
-			printf(" == ");
+			printf(" == 0x");
 			print_int256(bitwise_and_int256(a, b));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x")
+			printf("0x");
 			print_int256(a);
 			printf(" | 0x");
 			print_int256(b);
-			printf(" == ");
+			printf(" == 0x");
 			print_int256(bitwise_or_int256(a, b));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x")
+			printf("0x");
 			print_int256(a);
 			printf(" ^ 0x");
 			print_int256(b);
@@ -38,48 +38,50 @@ int main()
 		}
 
 		{
-			printf("~");
+			printf("~0x");
 			print_int256(a);
-			printf(" == ");
+			printf(" == 0x");
 			print_int256(bitwise_not_int256(a));
 			printf("\n\n");
 		}
 
 		{
-			printf("~");
+			printf("~0x");
 			print_int256(b);
-			printf(" == ");
+			printf(" == 0x");
 			print_int256(bitwise_not_int256(b));
 			printf("\n\n");
 		}
 
 		{
+			printf("0x");
 			print_int256(a);
-			printf(" << 12 == ");
-			print_int256(left_shift_int256(a, 12));
+			printf(" << 12 == 0x");
+			print_int256(left_shift_int256(a, 13));
 			printf("\n\n");
 		}
 
 		{
 			printf("~");
 			print_int256(b);
-			printf(" << 12 == ");
-			print_int256(left_shift_int256(b, 12));
+			printf(" << 12 == 0x");
+			print_int256(left_shift_int256(b, 13));
 			printf("\n\n");
 		}
 
 		{
+			printf("0x");
 			print_int256(a);
-			printf(" >> 12 == ");
-			print_int256(right_shift_int256(a, 12));
+			printf(" >> 12 == 0x");
+			print_int256(right_shift_int256(a, 13));
 			printf("\n\n");
 		}
 
 		{
-			printf("~");
+			printf("0x");
 			print_int256(b);
-			printf(" >> 12 == ");
-			print_int256(right_shift_int256(b, 12));
+			printf(" >> 12 == 0x");
+			print_int256(right_shift_int256(b, 13));
 			printf("\n\n");
 		}
 	}
