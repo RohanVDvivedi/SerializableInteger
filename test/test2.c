@@ -122,7 +122,15 @@ int main()
 	// testing arithmetic operations
 	{
 		// three numbers negative, 0 and a positive
-		int256 nums[3] = {
+		int256 nums[5] = {
+			{
+				.raw_uint_value = {{
+					[3] = 0xffffffffffffffff,
+					[2] = 0x12ffffffff901189,
+					[1] = 0x0fffefd60000000f,
+					[0] = 0x53356ffb6af4f0f0,
+				}}
+			},
 			{
 				.raw_uint_value = {{
 					[3] = 0xffffffffffffffff,
@@ -135,15 +143,38 @@ int main()
 			{
 				.raw_uint_value = {{
 					[3] = 0x0000000000000000,
-					[2] = 0xf1f2f3f4f5f6f7f8,
+					[2] = 0x01f2f3f4f5f6f7f8,
 					[1] = 0x0fffefdfcfbfaf9f,
 					[0] = 0x1234876543290118,
+				}}
+			},
+			{
+				.raw_uint_value = {{
+					[3] = 0x0000000000000000,
+					[2] = 0xfeeeeef4f5f6f7f8,
+					[1] = 0x0f9999dfcfbfaf9f,
+					[0] = 0x1234876588888118,
 				}}
 			},
 		};
 
 
-		
+		char* cmps[] = {
+			"<",
+			"==",
+			">"
+		};
+		for(int i = 0; i < 5; i++)
+		{
+			for(int j = 0; j < 5; j++)
+			{
+				int cmp = compare_int256(nums[i], nums[j]);
+				print_as_decimal(nums[i]);
+				printf(" %s ", cmps[cmp+1]);
+				print_as_decimal(nums[j]);
+				printf("\n\n");
+			}
+		}
 	}
 
 	return 0;
