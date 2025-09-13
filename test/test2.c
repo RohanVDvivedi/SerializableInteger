@@ -54,7 +54,7 @@ int main()
 		}
 
 		{
-			printf("~0x");
+			printf("0x");
 			print_int256(a);
 			printf(" << 13 == 0x");
 			print_int256(left_shift_int256(a, 13));
@@ -62,7 +62,7 @@ int main()
 		}
 
 		{
-			printf("~0x");
+			printf("0x");
 			print_int256(b);
 			printf(" << 13 == 0x");
 			print_int256(left_shift_int256(b, 13));
