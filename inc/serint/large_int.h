@@ -114,9 +114,9 @@
 	/* it is your duty to ensure that the divisor is not 0 */                                                                                               \
 	static inline large_int div_ ## large_int(large_int* quotient, large_int dividend, large_int divisor);                                                  \
                                                                                                                                                             \
-	/* returns true, if the given large_int, can fit on a single uint64_t, the value will be set with the value of a */                                     \
+	/* returns true, if the given large_int, can fit on a single int64_t, the value will be set with the value of a */                                      \
 	/* else a 0 (false) is returned, with value unset */                                                                                                    \
-	static inline int cast_to_int64_from_ ## large_int(uint64_t* value, large_int a);                                                                       \
+	static inline int cast_to_int64_from_ ## large_int(int64_t* value, large_int a);                                                                        \
                                                                                                                                                             \
 	/* serialize and deserialize large_int-s */                                                                                                             \
 	static inline void serialize_ ## large_int(void* bytes, uint32_t bytes_size, large_int l);                                                              \
@@ -322,7 +322,7 @@
                                                                                                                                                             \
 	}                                                                                                                                                       \
                                                                                                                                                             \
-	static inline int cast_to_int64_from_ ## large_int(uint64_t* value, large_int a)                                                                        \
+	static inline int cast_to_int64_from_ ## large_int(int64_t* value, large_int a)                                                                         \
 	{                                                                                                                                                       \
                                                                                                                                                             \
 	}                                                                                                                                                       \
