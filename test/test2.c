@@ -225,6 +225,8 @@ int main()
 			}
 		}
 
+		printf("def c_divmod(a, b):\t\tq = int(a / b)\t\tr = a - q * b\t\treturn (q, r)\n\n\n");
+
 		for(int i = 0; i < 5; i++)
 		{
 			for(int j = 0; j < 5; j++)
@@ -235,21 +237,15 @@ int main()
 				int256 rem;
 				int256 quo;
 				rem = div_int256(&quo, nums[i], nums[j]);
-				printf("(");
+				printf("c_divmod(");
 				print_as_decimal(nums[i]);
-				printf(") / (");
+				printf(", ");
 				print_as_decimal(nums[j]);
-				printf(") == ");
+				printf(") == (");
 				print_as_decimal(quo);
-				printf("\n\n");
-
-				printf("(");
-				print_as_decimal(nums[i]);
-				printf(") %% (");
-				print_as_decimal(nums[j]);
-				printf(") == ");
+				printf(", ");
 				print_as_decimal(rem);
-				printf("\n\n");
+				printf(")\n\n");
 			}
 		}
 	}
