@@ -97,5 +97,25 @@ int main()
 		}
 	}
 
+	// testing arithmetic operations
+	{
+		// three numbers negative, 0 and a positive
+		int256 nums[3] = {
+			{
+				0xffffffffffffffff,
+				0x1234000432901189,
+				0x0fffefd6cfbfaf9f,
+				0x5ffbffb6af4f0f00,
+			},
+			get_0_int256(),
+			{
+				0x0000000000000000,
+				0xf1f2f3f4f5f6f7f8,
+				0x0fffefdfcfbfaf9f,
+				0x1234876543290118,
+			}
+		},
+	}
+
 	return 0;
 }
