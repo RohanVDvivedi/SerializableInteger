@@ -122,7 +122,7 @@ int main()
 	// testing arithmetic operations
 	{
 		// three numbers negative, 0 and a positive
-		int256 nums[7] = {
+		int256 nums[] = {
 			{
 				.raw_uint_value = {{
 					[3] = 0xffffffffffffffff,
@@ -174,15 +174,17 @@ int main()
 			},
 		};
 
+		#define TEST_SUBJECTS (sizeof(nums)/sizeof(nums[0]))
+
 
 		char* cmps[] = {
 			"<",
 			"==",
 			">"
 		};
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < TEST_SUBJECTS; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < TEST_SUBJECTS; j++)
 			{
 				int cmp = compare_int256(nums[i], nums[j]);
 				print_as_decimal(nums[i]);
@@ -192,9 +194,9 @@ int main()
 			}
 		}
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < TEST_SUBJECTS; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < TEST_SUBJECTS; j++)
 			{
 				int256 res;
 				add_int256(&res, nums[i], nums[j]);
@@ -208,9 +210,9 @@ int main()
 			}
 		}
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < TEST_SUBJECTS; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < TEST_SUBJECTS; j++)
 			{
 				int256 res;
 				sub_int256(&res, nums[i], nums[j]);
@@ -224,9 +226,9 @@ int main()
 			}
 		}
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < TEST_SUBJECTS; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < TEST_SUBJECTS; j++)
 			{
 				int256 high;
 				int256 low;
@@ -241,9 +243,9 @@ int main()
 			}
 		}
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < TEST_SUBJECTS; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < TEST_SUBJECTS; j++)
 			{
 				if(is_zero_int256(nums[j]))
 					continue;
