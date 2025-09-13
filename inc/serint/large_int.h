@@ -406,7 +406,12 @@
                                                                                                                                                             \
 	static inline uint32_t serialize_to_decimal_ ## large_int(char* res, large_int l)                                                                       \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		uint32_t bytes_produced = 0;                                                                                                                        \
+		if(get_sign_bit_ ## large_int(l))                                                                                                                   \
+			res[bytes_produced++] = '-';                                                                                                                    \
+		large_uint ul = get_absolute_ ## large_int(l);                                                                                                      \
+		bytes_produced += serialize_to_decimal_ ## large_uint(res + bytes_produced, ul);                                                                    \
+		return bytes_produced;                                                                                                                              \
 	}                                                                                                                                                       \
 /* definitions complete */
 
