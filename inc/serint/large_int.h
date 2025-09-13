@@ -105,14 +105,6 @@
 	/* returns ((1 << n) - 1) */                                                                                                                            \
 	static inline large_int get_bitmask_lower_n_bits_set_ ## large_int(uint32_t n);                                                                         \
                                                                                                                                                             \
-	/* res will be set with addition (a + b), on success (i.e. return 1) */                                                                                 \
-	/* failure happens in case of an overflow OR if the result is greater than or equal to max_limit (max_limit is checked only if it is non zero) */       \
-	static inline int add_overflow_safe_ ## large_int(large_int* res, large_int a, large_int b, large_int max_limit);                                       \
-                                                                                                                                                            \
-	/* res will be set with subtraction, on success (i.e. return 1) */                                                                                      \
-	/* failure happens in case of an underflow, when (a < b) */                                                                                             \
-	static inline int sub_underflow_safe_ ## large_int(large_int* res, large_int a, large_int b);                                                           \
-                                                                                                                                                            \
 	/* the product of a and b, i.e. (a * b) -> this value is 2 lage_uints wide */                                                                           \
 	/* the lower half of the result is stored in res, while the upper half is returned at the return value */                                               \
 	static inline large_int mul_ ## large_int(large_int* res, large_int a, large_int b);                                                                    \
@@ -121,9 +113,6 @@
 	/* there is not limb wise division, this function performs a sequential binary division (restoring shift-substract algorithm) */                        \
 	/* it is your duty to ensure that the divisor is not 0 */                                                                                               \
 	static inline large_int div_ ## large_int(large_int* quotient, large_int dividend, large_int divisor);                                                  \
-                                                                                                                                                            \
-	/* find gcd of two numbers */                                                                                                                           \
-    static inline large_int gcd_ ## large_int(large_int a, large_int b);                                                                                    \
                                                                                                                                                             \
 	/* returns true, if the given large_int, can fit on a single uint64_t, the value will be set with the value of a */                                     \
 	/* else a 0 (false) is returned, with value unset */                                                                                                    \
@@ -319,27 +308,12 @@
 		return (large_int){get_bitmask_lower_n_bits_set_ ## large_uint(n)};                                                                                 \
 	}                                                                                                                                                       \
                                                                                                                                                             \
-	static inline int add_overflow_safe_ ## large_int(large_int* res, large_int a, large_int b, large_int max_limit)                                        \
-	{                                                                                                                                                       \
-                                                                                                                                                            \
-	}                                                                                                                                                       \
-                                                                                                                                                            \
-	static inline int sub_underflow_safe_ ## large_int(large_int* res, large_int a, large_int b)                                                            \
-	{                                                                                                                                                       \
-                                                                                                                                                            \
-	}                                                                                                                                                       \
-                                                                                                                                                            \
 	static inline large_int mul_ ## large_int(large_int* res, large_int a, large_int b)                                                                     \
 	{                                                                                                                                                       \
                                                                                                                                                             \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int div_ ## large_int(large_int* quotient, large_int dividend, large_int divisor)                                                   \
-	{                                                                                                                                                       \
-                                                                                                                                                            \
-	}                                                                                                                                                       \
-                                                                                                                                                            \
-	static inline large_int gcd_ ## large_int(large_int a, large_int b)                                                                                     \
 	{                                                                                                                                                       \
                                                                                                                                                             \
 	}                                                                                                                                                       \
