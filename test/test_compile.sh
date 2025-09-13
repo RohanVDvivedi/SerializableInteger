@@ -1,2 +1,2 @@
 gcc ./test.c -o test.out -lcutlery
-./test.out
+gcc ./test2.c -o test2.out -lcutlery
