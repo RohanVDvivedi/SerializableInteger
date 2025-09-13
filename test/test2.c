@@ -32,7 +32,7 @@ int main()
 			print_int256(a);
 			printf(" ^ 0x");
 			print_int256(b);
-			printf(" == ");
+			printf(" == 0x");
 			print_int256(bitwise_xor_int256(a, b));
 			printf("\n\n");
 		}
