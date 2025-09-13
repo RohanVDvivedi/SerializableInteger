@@ -38,49 +38,49 @@ int main()
 		}
 
 		{
-			printf("~0x");
+			printf("(~0x");
 			print_int256(a);
-			printf(" == 0x");
+			printf(") & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(bitwise_not_int256(a));
 			printf("\n\n");
 		}
 
 		{
-			printf("~0x");
+			printf("(~0x");
 			print_int256(b);
-			printf(" == 0x");
+			printf(") & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(bitwise_not_int256(b));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x");
+			printf("(0x");
 			print_int256(a);
-			printf(" << 13 == 0x");
+			printf(" << 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(left_shift_int256(a, 13));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x");
+			printf("(0x");
 			print_int256(b);
-			printf(" << 13 == 0x");
+			printf(" << 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(left_shift_int256(b, 13));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x");
+			printf("(0x");
 			print_int256(a);
-			printf(" >> 13 == 0x");
+			printf(" >> 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(right_shift_int256(a, 13));
 			printf("\n\n");
 		}
 
 		{
-			printf("0x");
+			printf("(0x");
 			print_int256(b);
-			printf(" >> 13 == 0x");
+			printf(" >> 13) & 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff == 0x");
 			print_int256(right_shift_int256(b, 13));
 			printf("\n\n");
 		}
