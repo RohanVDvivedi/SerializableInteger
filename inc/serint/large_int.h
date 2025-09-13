@@ -330,7 +330,7 @@
 		if(sign_bit_a != sign_bit_b)                                                                                                                        \
 		{                                                                                                                                                   \
 			uint64_t carry = add_ ## large_uint(&(res->raw_uint_value), bitwise_not_ ## large_uint(res->raw_uint_value), get_1_ ## large_uint());           \
-			add_ ## large_int(&(high->raw_uint_value), bitwise_not_ ## large_uint(high.raw_uint_value), get_ ## large_uint(carry + 1));                     \
+			add_ ## large_uint(&(high.raw_uint_value), bitwise_not_ ## large_uint(high.raw_uint_value), get_ ## large_uint(carry + 1));                     \
         }                                                                                                                                                   \
                                                                                                                                                             \
 		return high;                                                                                                                                        \
