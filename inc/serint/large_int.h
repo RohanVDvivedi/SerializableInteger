@@ -294,17 +294,17 @@
                                                                                                                                                             \
 	static inline uint64_t add_with_carry_ ## large_int(large_int* res, large_int a, large_int b, uint64_t carry_in)                                        \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		return add_with_carry_ ## large_uint(&(res->raw_uint_value), a.raw_uint_value, b.raw_uint_value, carry_in);                                         \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline uint64_t add_ ## large_int(large_int* res, large_int a, large_int b)                                                                      \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		return add_with_carry_ ## large_int(res, a, b, 0);                                                                                                  \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline uint64_t sub_ ## large_int(large_int* res, large_int a, large_int b)                                                                      \
 	{                                                                                                                                                       \
-                                                                                                                                                            \
+		return add_with_carry_ ## large_int(res, a, bitwise_not_ ## large_int(b), 1);                                                                       \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int get_bitmask_lower_n_bits_set_ ## large_int(uint32_t n)                                                                          \
