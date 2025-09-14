@@ -264,6 +264,14 @@ int main()
 				printf(")\n\n");
 			}
 		}
+
+		for(int i = 0; i < TEST_SUBJECTS; i++)
+		{
+			int64_t value = 0;
+			int res = cast_to_int64_from_int256(&value, nums[i]);
+			print_as_decimal(nums[i]);
+			printf(" => %d => %"PRId64"\n\n", res, value);
+		}
 	}
 
 	return 0;
