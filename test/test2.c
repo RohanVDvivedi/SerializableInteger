@@ -22,6 +22,14 @@ void print_as_decimal2(int256 high, int256 low)
 	printf("%s", buffer);
 }
 
+void print_as_decimal3(uint256 a)
+{
+	char buffer[100];
+	uint32_t bytes = serialize_to_decimal_uint256(buffer, a);
+	buffer[bytes] = '\0';
+	printf("%s", buffer);
+}
+
 int main()
 {
 	// simple operations
@@ -271,6 +279,63 @@ int main()
 			int res = cast_to_int64_from_int256(&value, nums[i]);
 			print_as_decimal(nums[i]);
 			printf(" => %d => %"PRId64"\n\n", res, value);
+		}
+	}
+
+	// testing compare for large_int and large_uint
+	{
+		int256 x[] = {
+			get_min_int256(),
+			{{{
+				[3] = 0x1000000000000000,
+				[2] = 0x123456789abcdef0,
+				[1] = 0x00001234abdcef00,
+				[0] = 0x0000000000000000,
+			}}},
+			get_0_int256(),
+			get_1_int256(),
+			{{{
+				[3] = 0x0000000000000000,
+				[2] = 0x123456789abcdef0,
+				[1] = 0x00001234abdcef00,
+				[0] = 0x0000000000000000,
+			}}},
+			get_max_int256(),
+		};
+
+		uint256 y[] = {
+			get_0_uint256(),
+			get_1_uint256(),
+			{{
+				[3] = 0x0000000000000000,
+				[2] = 0x123456789abcdef0,
+				[1] = 0x00001234abdcef00,
+				[0] = 0x0000000000000000,
+			}},
+			{{
+				[3] = 0xffffffffffff0000,
+				[2] = 0x123456789abcdef0,
+				[1] = 0x00001234abdcef00,
+				[0] = 0x0000000000000000,
+			}},
+			get_max_uint256(),
+		};
+
+		char* cmps[] = {
+			"<",
+			"==",
+			">"
+		};
+		for(int i = 0; i < sizeof(x)/sizeof(int256); i++)
+		{
+			for(int j = 0; j < sizeof(y)/sizeof(uint256); j++)
+			{
+				printf("(");
+				print_as_decimal(x[i]);
+				printf(") %s (", cmps[compare_int256_uint256(x[i], y[j]) + 1]);
+				print_as_decimal3(y[j]);
+				printf(")\n\n");
+			}
 		}
 	}
 
