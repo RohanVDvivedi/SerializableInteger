@@ -433,7 +433,7 @@
 		return bytes_produced;                                                                                                                              \
 	}                                                                                                                                                       \
                                                                                                                                                             \
-	static inline int compare_ ## large_int ## _ ## large_uint(large_int i, large_uint u);                                                                  \
+	static inline int compare_ ## large_int ## _ ## large_uint(large_int i, large_uint u)                                                                   \
 	{                                                                                                                                                       \
 		if(get_sign_bit_ ## large_int(i))                                                                                                                   \
 			return -1;                                                                                                                                      \
