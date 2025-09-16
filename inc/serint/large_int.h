@@ -129,6 +129,9 @@
                                                                                                                                                             \
 	/* serialize large_int as decimal, into res, you must ensure that res is large enough, this function does not append '\0' to res */                     \
 	static inline uint32_t serialize_to_decimal_ ## large_int(char* res, large_int l);                                                                      \
+                                                                                                                                                            \
+	/* compare large_int and large_uint both of the same number of bytes */                                                                                 \
+	static inline int compare_ ## large_int ## _ ## large_uint(large_int i, large_uint u);                                                                  \
 /* declarations complete */
 
 
@@ -428,6 +431,13 @@
 		large_uint ul = get_absolute_ ## large_int(l);                                                                                                      \
 		bytes_produced += serialize_to_decimal_ ## large_uint(res + bytes_produced, ul);                                                                    \
 		return bytes_produced;                                                                                                                              \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int compare_ ## large_int ## _ ## large_uint(large_int i, large_uint u);                                                                  \
+	{                                                                                                                                                       \
+		if(get_sign_bit_ ## large_int(i))                                                                                                                   \
+			return -1;                                                                                                                                      \
+		return compare_ ## large_uint(i.raw_uint_value, u);                                                                                                 \
 	}                                                                                                                                                       \
 /* definitions complete */
 
