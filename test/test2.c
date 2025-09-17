@@ -280,6 +280,13 @@ int main()
 			print_as_decimal(nums[i]);
 			printf(" => %d => %"PRId64"\n\n", res, value);
 		}
+
+		for(int i = 0; i < TEST_SUBJECTS; i++)
+		{
+			double res = convert_to_double_int256(nums[i]);
+			print_as_decimal(nums[i]);
+			printf(" -> %lf\n\n", res);
+		}
 	}
 
 	// testing compare for large_int and large_uint

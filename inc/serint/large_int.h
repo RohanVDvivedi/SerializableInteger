@@ -450,7 +450,7 @@
                                                                                                                                                             \
 		double res = convert_to_double_ ## large_uint(absolute_l);                                                                                          \
                                                                                                                                                             \
-		if(res)                                                                                                                                             \
+		if(sign_bit_l)                                                                                                                                      \
 			return -res;                                                                                                                                    \
 		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
