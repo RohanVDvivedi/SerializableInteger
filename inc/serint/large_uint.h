@@ -568,7 +568,7 @@
 	{                                                                                                                                                       \
 		double res = 0;                                                                                                                                     \
                                                                                                                                                             \
-		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0; i++)                                                                                                \
+		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0; i--)                                                                                                \
 			res = (res * ((double)(UINT64_MAX))) + ((double)(l.limbs[i-1]));                                                                                \
                                                                                                                                                             \
 		return res;                                                                                                                                         \
