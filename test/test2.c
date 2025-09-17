@@ -344,6 +344,20 @@ int main()
 				printf(")\n\n");
 			}
 		}
+
+		for(int i = 0; i < sizeof(x)/sizeof(int256); i++)
+		{
+			double res = convert_to_double_int256(x[i]);
+			print_as_decimal(x[i]);
+			printf(" -> %lf\n\n", res);
+		}
+
+		for(int i = 0; i < sizeof(y)/sizeof(uint256); i++)
+		{
+			double res = convert_to_double_uint256(y[i]);
+			print_as_decimal3(y[i]);
+			printf(" -> %lf\n\n", res);
+		}
 	}
 
 	return 0;
