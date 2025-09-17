@@ -132,6 +132,9 @@
                                                                                                                                                             \
 	/* compare large_int and large_uint both of the same number of bytes */                                                                                 \
 	static inline int compare_ ## large_int ## _ ## large_uint(large_int i, large_uint u);                                                                  \
+                                                                                                                                                            \
+	/* converts large_uint to an approximate double */                                                                                                      \
+	static inline double convert_to_double_ ## large_int(large_int l);                                                                                      \
 /* declarations complete */
 
 
@@ -438,6 +441,18 @@
 		if(get_sign_bit_ ## large_int(i))                                                                                                                   \
 			return -1;                                                                                                                                      \
 		return compare_ ## large_uint(i.raw_uint_value, u);                                                                                                 \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline double convert_to_double_ ## large_int(large_int l)                                                                                       \
+	{                                                                                                                                                       \
+		int sign_bit_l = get_sign_bit_ ## large_int(l);                                                                                                     \
+		large_uint absolute_l = get_absolute_ ## large_int(l);                                                                                              \
+                                                                                                                                                            \
+		double res = convert_to_double_ ## large_uint(absolute_l);                                                                                          \
+                                                                                                                                                            \
+		if(res)                                                                                                                                             \
+			return -res;                                                                                                                                    \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
 /* definitions complete */
 

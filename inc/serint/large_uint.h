@@ -138,6 +138,9 @@
                                                                                                                                                             \
 	/* serialize large_uint as decimal, into res, you must ensure that res is large enough, this function does not append '\0' to res */                    \
 	static inline uint32_t serialize_to_decimal_ ## large_uint(char* res, large_uint l);                                                                    \
+                                                                                                                                                            \
+	/* converts large_uint to an approximate double */                                                                                                      \
+	static inline double convert_to_double_ ## large_uint(large_uint l);                                                                                    \
 /* declarations complete */
 
 
@@ -559,6 +562,16 @@
 		}                                                                                                                                                   \
                                                                                                                                                             \
 		return res_size;                                                                                                                                    \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline double convert_to_double_ ## large_uint(large_uint l)                                                                                     \
+	{                                                                                                                                                       \
+		double res = 0;                                                                                                                                     \
+                                                                                                                                                            \
+		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0; i++)                                                                                                \
+			res = (res * ((double)(UINT64_MAX))) + ((double)(l.limbs[i-1]));                                                                                \
+                                                                                                                                                            \
+		return res;                                                                                                                                         \
 	}                                                                                                                                                       \
 /* definitions complete */
 
