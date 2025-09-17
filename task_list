@@ -2,8 +2,6 @@ VAR_INT and VAR_UINT
  * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer, use get_min_bit_count_uintX/intX functionality to store only that many bits
  * also implement get_byte_count_for_serial_var_int64 and get_byte_count_for_serial_var_uint64, to get number of bytes in their serialized format
 
- * add functions to convert to double for large_int and large_uint
-
 make custom float representations
  * float128, float256 and float512 versions, using the int and uint large numbers
  * using unsigned int:2 (sign and infinity) int64_t:(64-2) and correspondng uint versions for required precision
