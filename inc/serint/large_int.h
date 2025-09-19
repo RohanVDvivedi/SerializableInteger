@@ -390,6 +390,7 @@
 	static inline large_int deserialize_ ## large_int(const char* bytes, uint32_t bytes_size)                                                               \
 	{                                                                                                                                                       \
 		large_int res = {};                                                                                                                                 \
+		uint32_t original_bytes_size = bytes_size;                                                                                                          \
                                                                                                                                                             \
 		bytes_size = min(bytes_size, get_max_bytes_ ## large_int());                                                                                        \
                                                                                                                                                             \
@@ -407,7 +408,7 @@
 		if(get_bit_from_ ## large_int(res, (bytes_size * CHAR_BIT) - 1))                                                                                    \
 		{                                                                                                                                                   \
 			res = bitwise_or_ ## large_int(res,                                                                                                             \
-				left_shift_ ## large_int(get_bitmask_lower_n_bits_set_ ## large_int(get_bit_width_ ## large_int() - (bytes_size * CHAR_BIT)), (bytes_size * CHAR_BIT)));\
+				left_shift_ ## large_int(get_bitmask_lower_n_bits_set_ ## large_int(get_bit_width_ ## large_int() - (original_bytes_size * CHAR_BIT)), (original_bytes_size * CHAR_BIT)));\
 		}                                                                                                                                                   \
                                                                                                                                                             \
 		return res;                                                                                                                                         \
