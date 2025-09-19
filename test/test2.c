@@ -360,5 +360,38 @@ int main()
 		}
 	}
 
+	// serialization deserialization
+	{
+		char bytes[12];
+
+		int256 x[] = {
+			{{{
+				[3] = 0xffffffffffffffff,
+				[2] = 0xffffffffffffffff,
+				[1] = 0xfffffffffbdcef00,
+				[0] = 0x0000000000000000,
+			}}},
+			get_0_int256(),
+			get_1_int256(),
+			{{{
+				[3] = 0x0000000000000000,
+				[2] = 0x0000000000000000,
+				[1] = 0x000000001bdcef00,
+				[0] = 0x0000000000000000,
+			}}},
+		};
+
+		for(int i = 0; i < sizeof(x)/sizeof(int256); i++)
+		{
+			serialize_int256(bytes, 12, x[i]);
+			int256 res = deserialize_int256(bytes, 12);
+			printf("(");
+			print_as_decimal(x[i]);
+			printf(") == (");
+			print_as_decimal(res);
+			printf(")\n\n");
+		}
+	}
+
 	return 0;
 }
