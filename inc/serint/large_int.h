@@ -405,7 +405,7 @@
 			bytes += bytes_to_read;                                                                                                                         \
 		}                                                                                                                                                   \
                                                                                                                                                             \
-		if(get_bit_from_ ## large_int(res, (bytes_size * CHAR_BIT) - 1))                                                                                    \
+		if(get_bit_from_ ## large_int(res, (original_bytes_size * CHAR_BIT) - 1))                                                                           \
 		{                                                                                                                                                   \
 			res = bitwise_or_ ## large_int(res,                                                                                                             \
 				left_shift_ ## large_int(get_bitmask_lower_n_bits_set_ ## large_int(get_bit_width_ ## large_int() - (original_bytes_size * CHAR_BIT)), (original_bytes_size * CHAR_BIT)));\
