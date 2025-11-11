@@ -4,4 +4,4 @@ VAR_INT and VAR_UINT
 
 make custom float representations
  * float128, float256 and float512 versions, using the int and uint large numbers
- * using unsigned int:2 (sign and infinity) int64_t:(64-2) and correspondng uint versions for required precision
+ * using unsigned int:2 (sign and infinity) int64_t:(64-2) for exponent and then correspondng uint versions for required precision
