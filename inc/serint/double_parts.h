@@ -1,6 +1,7 @@
 #ifndef FLOAT_PARTS_H
 #define FLOAT_PARTS_H
 
+#include<stdint.h>
 #include<math.h>
 #include<float.h>
 
