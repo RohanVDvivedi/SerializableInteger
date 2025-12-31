@@ -7,7 +7,9 @@ void print_decomposed_doiuble(double d)
 {
 	double_parts p = decompose_double(d);
 	printf("%f\n", d);
-	printf("is_neg = %d, is_nan = %d, is_inf = %d, exp = %"PRId64", mant = %"PRIu64"\n\n", !!(p.is_neg), !!(p.is_nan), !!(p.is_inf), p.exp, p.mant);
+	printf("is_neg = %d, is_nan = %d, is_inf = %d, exp = %"PRId64", mant = %"PRIu64"\n", !!(p.is_neg), !!(p.is_nan), !!(p.is_inf), p.exp, p.mant);
+	double r = compose_double(p);
+	printf("result identical after compose = %d\n\n", (d == r));
 }
 
 int main()

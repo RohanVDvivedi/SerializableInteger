@@ -63,7 +63,8 @@ static inline double compose_double(double_parts p)
 	if(p.mant == 0)
 		return p.is_neg ? (-0.0) : 0.0;
 
-	return scalbn(p.mant, p.exp);
+	double res = scalbn(p.mant, p.exp);
+	return p.is_neg ? (-res) : res;
 }
 
 #endif
