@@ -1,5 +1,4 @@
 PICKED
- * provide custom uint64 and int64 implementation based on large_uint and large_int for competeness
  * make function to convert double to large_uint and large_int using bit shifting, fail if the number is nan or infinity or for large_uint if it is negative, never fail for a (+/-)0.0, and then finally fail if the integer component overflows, implement the large_uint first and then implement large_int version using it
    * write test cases for it
  * make function to convert double_parts back into a double
