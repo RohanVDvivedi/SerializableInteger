@@ -3,6 +3,7 @@
 
 #include<serint/large_uint_util.h>
 #include<serint/serial_int.h>
+#include<serint/double_parts.h>
 
 #include<stdio.h>
 #include<inttypes.h>
@@ -625,14 +626,25 @@
                                                                                                                                                             \
 	static inline double convert_to_double_ ## large_uint(large_uint l)                                                                                     \
 	{                                                                                                                                                       \
-		double res = 0;                                                                                                                                     \
+		if(is_zero_ ## large_uint(l))                                                                                                                       \
+			return 0.0;                                                                                                                                     \
                                                                                                                                                             \
-        double temp = (double)((UINT64_C(1)) << (BITS_PER_LIMB-1)); temp = (temp * 2.0);                                                                    \
+		double_parts p = {.is_neg = 0, .is_nan = 0, .is_inf = 0};                                                                                           \
                                                                                                                                                             \
-		for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0; i--)                                                                                                \
-			res = (res * temp) + ((double)(l.limbs[i-1]));                                                                                                  \
+		uint32_t msb_1_pos = get_first_encountered_bit_from_ large_uint(l, 1, 1);                                                                           \
                                                                                                                                                             \
-		return res;                                                                                                                                         \
+		if(msb_1_pos >= BITS_PER_LIMB)                                                                                                                      \
+		{                                                                                                                                                   \
+			p.mant = right_shift_ ## large_uint(l, msb_1_pos - BITS_PER_LIMB - 1).limbs[0];                                                                 \
+			p.exp = msb_1_pos - BITS_PER_LIMB - 1;                                                                                                          \
+		}                                                                                                                                                   \
+		else                                                                                                                                                \
+		{                                                                                                                                                   \
+			p.mant = l.limbs[0];                                                                                                                            \
+			p.exp = 0;                                                                                                                                      \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		return compose_double(p);                                                                                                                           \
 	}                                                                                                                                                       \
 /* definitions complete */
 
