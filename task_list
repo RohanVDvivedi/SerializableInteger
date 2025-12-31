@@ -1,7 +1,7 @@
 PICKED
+ * make optimized functions to find first and last 1 bit and 0 bits in large_uint and extend it for large_int
  * make function to convert double to large_uint and large_int using bit shifting, fail if the number is nan or infinity or for large_uint if it is negative, never fail for a (+/-)0.0, and then finally fail if the integer component overflows, implement the large_uint first and then implement large_int version using it
    * write test cases for it
- * make optimized functions to find first and last 1 bit and 0 bits in large_uint and extend it for large_int
  * use the above function to find most significant 1 and shift it 64 bits to make a double_parts and then back again into a double
  * make a function to compare_large_uint_and_double and compare_large_int_and_double, using this bit shifting logic, return error only on a nan, and assume +0.0 and -0.0 are then same
 
