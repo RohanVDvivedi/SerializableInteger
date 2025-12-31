@@ -216,7 +216,7 @@
                                                                                                                                                             \
 	static inline uint32_t get_first_encountered_bit_from_ ## large_int(large_int a, int from_msb, int bit_value)                                           \
 	{                                                                                                                                                       \
-		return get_first_encountered_bit_from_ ## large_uint(a->raw_uint_value, from_msb, bit_value);                                                       \
+		return get_first_encountered_bit_from_ ## large_uint(a.raw_uint_value, from_msb, bit_value);                                                        \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int bitwise_not_ ## large_int(large_int a)                                                                                          \
