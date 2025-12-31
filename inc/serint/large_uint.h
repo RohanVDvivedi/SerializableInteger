@@ -51,6 +51,9 @@
                                                                                                                                                             \
 	/* set byte at the byte_index in res */                                                                                                                 \
 	static inline int set_byte_in_ ## large_uint(large_uint* res, uint32_t byte_index, uint8_t byte);                                                       \
+	                                                                                                                                                        \
+	/* get first bit encountered as bit_value being 0 or 1, starting from (from_msb = 1) msb or lsb, if not found returns UINT32_MAX */                     \
+	static inline uint32_t get_first_encountered_bit_from_ ## large_uint(large_uint a, int from_msb, int bit_value);                                        \
                                                                                                                                                             \
 	/* returns ~a */                                                                                                                                        \
 	static inline large_uint bitwise_not_ ## large_uint(large_uint a);                                                                                      \
