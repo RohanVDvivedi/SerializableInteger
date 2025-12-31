@@ -635,8 +635,8 @@
                                                                                                                                                             \
 		if(msb_1_pos >= BITS_PER_LIMB)                                                                                                                      \
 		{                                                                                                                                                   \
-			p.mant = right_shift_ ## large_uint(l, msb_1_pos - BITS_PER_LIMB - 1).limbs[0];                                                                 \
-			p.exp = msb_1_pos - BITS_PER_LIMB - 1;                                                                                                          \
+			p.mant = right_shift_ ## large_uint(l, msb_1_pos - BITS_PER_LIMB + 1).limbs[0];                                                                 \
+			p.exp = msb_1_pos - BITS_PER_LIMB + 1;                                                                                                          \
 		}                                                                                                                                                   \
 		else                                                                                                                                                \
 		{                                                                                                                                                   \
