@@ -4,11 +4,11 @@
 #include<serint/large_uints.h>
 #include<serint/large_int.h>
 
-// int64 -> for extension and correctness for base case
+// intb64 -> base case for extension and correctness for base case
 
-declarations_large_int(int64, uint64)
+declarations_large_int(intb64, uintb64)
 
-definitions_large_int(int64, uint64)
+definitions_large_int(intb64, uintb64)
 
 // int128
 
