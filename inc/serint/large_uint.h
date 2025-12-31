@@ -234,7 +234,7 @@
                                                                                                                                                             \
 		if(!from_msb)                                                                                                                                       \
 		{                                                                                                                                                   \
-			for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)                                                                                            \
+			for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT && result_bit_index != UINT32_MAX; i++)                                                          \
 			{                                                                                                                                               \
 				/* skip if no relevant bits here */                                                                                                         \
 				if(bit_value == 0 && a.limbs[i] == (~UINT64_C(0)))                                                                                          \
@@ -254,7 +254,7 @@
 		}                                                                                                                                                   \
 		else                                                                                                                                                \
 		{                                                                                                                                                   \
-			for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)                                                                                                \
+			for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0 && result_bit_index != UINT32_MAX;)                                                              \
 			{                                                                                                                                               \
 				i--;                                                                                                                                        \
                                                                                                                                                             \
