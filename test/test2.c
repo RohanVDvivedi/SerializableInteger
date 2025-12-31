@@ -400,7 +400,7 @@ int main()
 
 	// find first bit set
 	{
-		int256 x = {0, 0xabcd, 0xabcd000000000000, 0};
+		int256 x = {{{0, 0xabcd, 0xabcd000000000000, 0}}};
 		print_int256(x);
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 0));
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 1));
