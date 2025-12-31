@@ -3,6 +3,12 @@
 
 #include<serint/large_uint.h>
 
+// uint64 -> for extension and correctness for base case
+
+declarations_large_uint(uint64, 1)
+
+definitions_large_uint(uint64, 1)
+
 // uint128
 
 declarations_large_uint(uint128, 2)
