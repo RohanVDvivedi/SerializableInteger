@@ -631,7 +631,7 @@
                                                                                                                                                             \
 		double_parts p = {.is_neg = 0, .is_nan = 0, .is_inf = 0};                                                                                           \
                                                                                                                                                             \
-		uint32_t msb_1_pos = get_first_encountered_bit_from_ large_uint(l, 1, 1);                                                                           \
+		uint32_t msb_1_pos = get_first_encountered_bit_from_ ## large_uint(l, 1, 1);                                                                        \
                                                                                                                                                             \
 		if(msb_1_pos >= BITS_PER_LIMB)                                                                                                                      \
 		{                                                                                                                                                   \
