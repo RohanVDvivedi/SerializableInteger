@@ -402,16 +402,18 @@ int main()
 	{
 		int256 x = {{{0, 0xabcd, 0xabcd000000000000, 0}}};
 		print_int256(x);
+		printf("\n\n");
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 0));
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 1));
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 1, 0));
-		printf("%u\n", get_first_encountered_bit_from_int256(x, 1, 1));
+		printf("%u\n\n", get_first_encountered_bit_from_int256(x, 1, 1));
 		x = bitwise_not_int256(x);
 		print_int256(x);
+		printf("\n\n");
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 0));
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 0, 1));
 		printf("%u\n", get_first_encountered_bit_from_int256(x, 1, 0));
-		printf("%u\n", get_first_encountered_bit_from_int256(x, 1, 1));
+		printf("%u\n\n", get_first_encountered_bit_from_int256(x, 1, 1));
 	}
 
 	return 0;
