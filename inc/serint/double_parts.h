@@ -52,4 +52,18 @@ static inline double_parts decompose_double(double d)
 	return res;
 }
 
+static inline double compose_double(double_parts p)
+{
+	if(p.is_nan)
+		return p.is_neg ? (-NAN) : NAN;
+
+	if(p.is_inf)
+		return p.is_neg ? (-INFINITY) : INFINITY;
+
+	if(p.mant == 0)
+		return p.is_neg ? (-0.0) : 0.0;
+
+	return scalbn(p.mant, p.exp);
+}
+
 #endif
