@@ -224,6 +224,62 @@
 		return 1;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
+	static inline uint32_t get_first_encountered_bit_from_ ## large_uint(large_uint a, int from_msb, int bit_value)                                         \
+	{                                                                                                                                                       \
+		/* sanitize inputs to binary values */                                                                                                              \
+		from_msb = !!(from_msb);                                                                                                                            \
+		bit_value = !!(bit_value);                                                                                                                          \
+                                                                                                                                                            \
+		uint32_t result_bit_index = UINT32_MAX;                                                                                                             \
+                                                                                                                                                            \
+		if(!from_msb)                                                                                                                                       \
+		{                                                                                                                                                   \
+			for(uint32_t i = 0; i < LARGE_UINT_LIMBS_COUNT; i++)                                                                                            \
+			{                                                                                                                                               \
+				/* skip if no relevant bits here */                                                                                                         \
+				if(bit_value == 0 && a.limbs[i] == (~UINT64_C(0)))                                                                                          \
+					continue;                                                                                                                               \
+				else if(bit_value == 1 && a.limbs[i] == UINT64_C(0))                                                                                        \
+					continue;                                                                                                                               \
+                                                                                                                                                            \
+				for(uint32_t j = 0; j < BITS_PER_LIMB; j++)                                                                                                 \
+				{                                                                                                                                           \
+					if(((a.limbs[i] >> j) & 1) == bit_value)                                                                                                \
+					{                                                                                                                                       \
+						result_bit_index = (i * BITS_PER_LIMB) + j;                                                                                         \
+						break;                                                                                                                              \
+					}                                                                                                                                       \
+				}                                                                                                                                           \
+			}                                                                                                                                               \
+		}                                                                                                                                                   \
+		else                                                                                                                                                \
+		{                                                                                                                                                   \
+			for(uint32_t i = LARGE_UINT_LIMBS_COUNT; i > 0;)                                                                                                \
+			{                                                                                                                                               \
+				i--;                                                                                                                                        \
+                                                                                                                                                            \
+				/* skip if no relevant bits here */                                                                                                         \
+				if(bit_value == 0 && a.limbs[i] == (~UINT64_C(0)))                                                                                          \
+					continue;                                                                                                                               \
+				else if(bit_value == 1 && a.limbs[i] == UINT64_C(0))                                                                                        \
+					continue;                                                                                                                               \
+                                                                                                                                                            \
+				for(uint32_t j = BITS_PER_LIMB; j > 0;)                                                                                                     \
+				{                                                                                                                                           \
+					j--;                                                                                                                                    \
+                                                                                                                                                            \
+					if(((a.limbs[i] >> j) & 1) == bit_value)                                                                                                \
+					{                                                                                                                                       \
+						result_bit_index = (i * BITS_PER_LIMB) + j;                                                                                         \
+						break;                                                                                                                              \
+					}                                                                                                                                       \
+				}                                                                                                                                           \
+			}                                                                                                                                               \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		return result_bit_index;                                                                                                                            \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
 	static inline large_uint bitwise_not_ ## large_uint(large_uint a)                                                                                       \
 	{                                                                                                                                                       \
 		large_uint res;                                                                                                                                     \

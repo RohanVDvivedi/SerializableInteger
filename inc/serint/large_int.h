@@ -44,6 +44,9 @@
                                                                                                                                                             \
 	/* set byte at the byte_index in res */                                                                                                                 \
 	static inline int set_byte_in_ ## large_int(large_int* res, uint32_t byte_index, uint8_t byte);                                                         \
+	                                                                                                                                                        \
+	/* get first bit encountered as bit_value being 0 or 1, starting from (from_msb = 1) msb or lsb, if not found returns UINT32_MAX */                     \
+	static inline uint32_t get_first_encountered_bit_from_ ## large_int(large_int a, int from_msb, int bit_value);                                          \
                                                                                                                                                             \
 	/* returns ~a */                                                                                                                                        \
 	static inline large_int bitwise_not_ ## large_int(large_int a);                                                                                         \
@@ -209,6 +212,11 @@
 	static inline int set_byte_in_ ## large_int(large_int* res, uint32_t byte_index, uint8_t byte)                                                          \
 	{                                                                                                                                                       \
 		return set_byte_in_ ## large_uint(&(res->raw_uint_value), byte_index, byte);                                                                        \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline uint32_t get_first_encountered_bit_from_ ## large_int(large_int a, int from_msb, int bit_value)                                           \
+	{                                                                                                                                                       \
+		return get_first_encountered_bit_from_ ## large_uint(a->raw_uint_value, from_msb, bit_value);                                                       \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline large_int bitwise_not_ ## large_int(large_int a)                                                                                          \
