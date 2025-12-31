@@ -171,5 +171,30 @@ int main()
 		printf("%s\n\n", hex);
 	}
 
+	{
+		printf("uintb64 add and mul\n");
+
+		uintb64 x = {0xabcd333334567890};
+		printf("x = %"PRIu64"\n", x.limbs[0]);
+		uintb64 y = {0x9087654311111def};
+		printf("y = %"PRIu64"\n", y.limbs[0]);
+
+		char hex[65] = "";
+
+		// add
+		uintb64 res;
+		uint64_t carry = add_uintb64(&res, x, y);
+		uint128 z = {res.limbs[0], carry};
+		sprint_uint128(hex, z);
+		printf("sum = %s\n\n", hex);
+
+		// mul
+		uintb64 resl;
+		uintb64 resh = mul_uintb64(&resl, x, y);
+		uint128 w = {resl.limbs[0], resh.limbs[0]};
+		sprint_uint128(hex, w);
+		printf("sum = %s\n\n", hex);
+	}
+
 	return 0;
 }
