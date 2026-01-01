@@ -79,5 +79,51 @@ int main()
 
 	print_decomposed_doiuble(-0.0);
 
+
+
+
+
+
+	uint256 l[] = {
+		get_0_uint256(),
+		get_1_uint256(),
+		get_uint256(500),
+		get_uint256(501),
+		decimal_to_uint256("56575887454795"),
+		decimal_to_uint256("56575887454796"),
+		get_max_uint256(),
+	};
+
+	double d[] = {
+		-NAN,
+		+NAN,
+		-INFINITY,
+		-(0x1p256),
+		-(0x1.ffffffffffffep255),
+		-56575887454795.78165891658,
+		-7454795.78165891658,
+		-500.05445146,
+		-1.0,
+		-0.865682786,
+		-0.0,
+		0.0,
+		0.7645398988980,
+		1.0,
+		500.5747,
+		56575887454795.78165891658,
+		0x1.ffffffffffffep255,
+		0x1p256,
+		INFINITY,
+	};
+
+	for(int i = 0; i < sizeof(l)/sizeof(l[0]); i++)
+	{
+		for(int j = 0; j < sizeof(d)/sizeof(d[0]); j++)
+		{
+			compare_uint256_and_double(l[i], d[j]);
+		}
+		printf("\n\n");
+	}
+
 	return 0;
 }
