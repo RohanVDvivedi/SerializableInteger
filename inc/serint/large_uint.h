@@ -649,6 +649,57 @@
                                                                                                                                                             \
 		return compose_double(p);                                                                                                                           \
 	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int compare_ ## large_uint ## _double(large_uint l, double d)                                                                             \
+	{                                                                                                                                                       \
+		double_parts dp = decompose_double(d);                                                                                                              \
+                                                                                                                                                            \
+		/* nan never equals anything and is assumed to be lesser than any unsigned number */                                                                \
+		if(dp.is_nan)                                                                                                                                       \
+			return 2;                                                                                                                                       \
+                                                                                                                                                            \
+		/* negative infinity is the least and positive infinity is the greatest */                                                                          \
+		if(dp.is_inf)                                                                                                                                       \
+			return (dp.is_neg) ? 1 : -1;                                                                                                                    \
+                                                                                                                                                            \
+		/* for d == 0, d is always smaller unless l is also 0 */                                                                                            \
+		if(dp.mant == 0)                                                                                                                                    \
+			return is_zero_ ## large_uint(l) ? 0 : 1;                                                                                                       \
+                                                                                                                                                            \
+		/* for d < 0, d is always smaller */                                                                                                                \
+		if(dp.is_neg)                                                                                                                                       \
+			return 1;                                                                                                                                       \
+                                                                                                                                                            \
+		/* now we know that both l and d are positives */                                                                                                   \
+                                                                                                                                                            \
+		/* create locals for exact comparison */                                                                                                            \
+                                                                                                                                                            \
+		/* generate locals for d */                                                                                                                         \
+		int64_t d_exp = dp.exp;                                                                                                                             \
+		large_uint d_mant = get_ ## large_uint(dp.mant);                                                                                                    \
+		uint32_t d_msb_pos = get_first_encountered_bit_from_ ## large_uint(d_mant, 1, 1);                                                                   \
+                                                                                                                                                            \
+		/* generate locals for l */                                                                                                                         \
+		int64_t l_exp = 0;                                                                                                                                  \
+		large_uint l_mant = l;                                                                                                                              \
+		uint32_t l_msb_pos = get_first_encountered_bit_from_ ## large_uint(l_mant, 1, 1);                                                                   \
+                                                                                                                                                            \
+		if(d_msb_pos >= l_msb_pos)                                                                                                                          \
+		{                                                                                                                                                   \
+			l_mant = left_shift_ ## large_uint(l_mant, (d_msb_pos - l_msb_pos));                                                                            \
+			l_exp -= (d_msb_pos - l_msb_pos);                                                                                                               \
+		}                                                                                                                                                   \
+		else                                                                                                                                                \
+		{                                                                                                                                                   \
+			d_mant = left_shift_ ## large_uint(d_mant, (l_msb_pos - d_msb_pos));                                                                            \
+			d_exp -= (l_msb_pos - d_msb_pos);                                                                                                               \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		int exp_compare = compare_numbers(l_exp, d_exp);                                                                                                    \
+		if(exp_compare != 0)                                                                                                                                \
+			return exp_compare;                                                                                                                             \
+		return compare_ ## large_uint(l_mant, d_mant);                                                                                                      \
+	}                                                                                                                                                       \
 /* definitions complete */
 
 #endif
