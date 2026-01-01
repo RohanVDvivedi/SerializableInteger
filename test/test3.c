@@ -19,6 +19,7 @@ uint256 decimal_to_uint256(char* b)
 	{
 		mul_uint256(&l, l, get_uint256(10));
 		add_uint256(&l, l, get_uint256((*b) - '0'));
+		b++;
 	}
 	return l;
 }
