@@ -12,6 +12,17 @@ void print_as_decimal3(uint256 a)
 	printf("%s", buffer);
 }
 
+uint256 decimal_to_uint256(char* b)
+{
+	uint256 l = get_0_uint256();
+	while((*b) != 0)
+	{
+		mul_uint256(&l, l, get_uint256(10));
+		add_uint256(&l, l, get_uint256((*b) - '0'));
+	}
+	return l;
+}
+
 void print_decomposed_doiuble(double d)
 {
 	double_parts p = decompose_double(d);
