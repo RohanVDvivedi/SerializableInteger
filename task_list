@@ -1,7 +1,6 @@
 PICKED
  * make function to convert double to large_uint and large_int using bit shifting, fail if the number is nan or infinity or for large_uint if it is negative, never fail for a (+/-)0.0, and then finally fail if the integer component overflows, implement the large_uint first and then implement large_int version using it
    * write test cases for it
- * make a function to compare_large_uint_and_double and compare_large_int_and_double, using this bit shifting logic, return error only on a nan, and assume +0.0 and -0.0 are then same
 
 VAR_INT and VAR_UINT
  * build serialize_var_uint64 and deserialize_var_int64, with a layout similar to that of protobuf, to build VAR_INT and VAR_UINT on top of them in TupleIndexer, use get_min_bit_count_uintX/intX functionality to store only that many bits
