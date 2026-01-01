@@ -145,6 +145,9 @@
                                                                                                                                                             \
 	/* converts large_uint to an approximate double */                                                                                                      \
 	static inline double convert_to_double_ ## large_uint(large_uint l);                                                                                    \
+                                                                                                                                                            \
+	/* compares large_uint with double exactly without any truncation, if d == NAN, then return value will be 2 */                                          \
+	static inline int compare_ ## large_uint ## _double(large_uint l, double d);                                                                            \
 /* declarations complete */
 
 
