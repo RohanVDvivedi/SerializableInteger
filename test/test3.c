@@ -50,8 +50,8 @@ void compare_uint256_and_double(uint256 l, double d)
 		default :
 			printf(" <%d> ", res);break;
 	}
-	printf("%lf\n", d);
-	printf("%d\n\n", res);
+	printf("%a\n", d);
+	printf("\n\n");
 }
 
 int main()
@@ -139,6 +139,9 @@ int main()
 	printf("\n\n");
 
 	compare_uint256_and_double(decimal_to_uint256("115792089237316195423570985008687907853269984665640564039457584007913129639424"), 0x1.ffffffffffffep255);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("115792089237316182568066630936765703517573245936339743861833633745570447228928"), 0x1.ffffffffffffep255);
 	printf("\n\n");
 
 	compare_uint256_and_double(decimal_to_uint256("115792089237316195423570985008687907853269984665640564039457584007913129639934"), 0x1.ffffffffffffep255);
