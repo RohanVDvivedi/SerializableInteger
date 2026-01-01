@@ -670,6 +670,10 @@
 		if(dp.is_neg)                                                                                                                                       \
 			return 1;                                                                                                                                       \
                                                                                                                                                             \
+        /* fo d > 0, and l == 0, d > l always */                                                                                                            \
+		if(is_zero_ ## large_uint(l))                                                                                                                       \
+			return -1;                                                                                                                                      \
+                                                                                                                                                            \
 		/* now we know that both l and d are positives */                                                                                                   \
                                                                                                                                                             \
 		/* create locals for exact comparison */                                                                                                            \
