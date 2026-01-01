@@ -51,7 +51,7 @@ void compare_uint256_and_double(uint256 l, double d)
 			printf(" <%d> ", res);break;
 	}
 	printf("%lf\n", d);
-	printf("\n\n");
+	printf("%d\n\n", res);
 }
 
 int main()
@@ -125,6 +125,45 @@ int main()
 		}
 		printf("\n\n");
 	}
+
+	compare_uint256_and_double(decimal_to_uint256("1606938044258990275541962092341162602522202993782792835301376"), 0x1p200);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("1606938044258990275541962092341162602522202993782792835301375"), 0x1p200);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("1606938044258990275541962092341162602522202993782792835301377"), 0x1p200);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("115792089237316195423570985008687907853269984665640564039457584007913129639680"), 0x1.ffffffffffffep255);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("115792089237316195423570985008687907853269984665640564039457584007913129639934"), 0x1.ffffffffffffep255);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("115792089237316195423570985008687907853269984665640564039457584007913129639935"), 0x1p256);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("1"), 4.9406564584124654e-324);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("0"), 4.9406564584124654e-324);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("9007199254740992"), 9007199254740992.0);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("9007199254740993"), 9007199254740992.0);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("500"), 499.99999999999994);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("500"), 500.00000000000006);
+	printf("\n\n");
+
+	compare_uint256_and_double(decimal_to_uint256("18446744073709551617"), 18446744073709551616.0);
+	printf("\n\n");
 
 	return 0;
 }
