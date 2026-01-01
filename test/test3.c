@@ -1,5 +1,6 @@
 #include<serint/double_parts.h>
 #include<serint/large_uints.h>
+#include<serint/large_ints.h>
 
 #include<stdio.h>
 #include<inttypes.h>
@@ -8,6 +9,14 @@ void print_as_decimal3(uint256 a)
 {
 	char buffer[100];
 	uint32_t bytes = serialize_to_decimal_uint256(buffer, a);
+	buffer[bytes] = '\0';
+	printf("%s", buffer);
+}
+
+void print_as_decimal4(int256 a)
+{
+	char buffer[100];
+	uint32_t bytes = serialize_to_decimal_int256(buffer, a);
 	buffer[bytes] = '\0';
 	printf("%s", buffer);
 }
@@ -24,6 +33,26 @@ uint256 decimal_to_uint256(char* b)
 	return l;
 }
 
+int256 decimal_to_int256(char* b)
+{
+	int is_neg = 0;
+	int256 l = get_0_int256();
+	if((*b) == '-')
+	{
+		is_neg = 1;
+		b++;
+	}
+	while((*b) != 0)
+	{
+		mul_int256(&l, l, get_int256(10));
+		add_int256(&l, l, get_int256((*b) - '0'));
+		b++;
+	}
+	if(is_neg)
+		mul_int256(&l, l, get_int256(-1));
+	return l;
+}
+
 void print_decomposed_doiuble(double d)
 {
 	double_parts p = decompose_double(d);
@@ -37,6 +66,27 @@ void compare_uint256_and_double(uint256 l, double d)
 {
 	int res = compare_uint256_double(l, d);
 	print_as_decimal3(l);
+	switch(res)
+	{
+		case -1 :
+			printf(" < ");break;
+		case 0 :
+			printf(" == ");break;
+		case 1 :
+			printf(" > ");break;
+		case 2 :
+			printf(" !>! ");break;
+		default :
+			printf(" <%d> ", res);break;
+	}
+	printf("%a\n", d);
+	printf("\n\n");
+}
+
+void compare_int256_and_double(int256 l, double d)
+{
+	int res = compare_int256_double(l, d);
+	print_as_decimal4(l);
 	switch(res)
 	{
 		case -1 :
@@ -170,6 +220,31 @@ int main()
 
 	compare_uint256_and_double(decimal_to_uint256("18446744073709551617"), 18446744073709551616.0);
 	printf("\n\n");
+
+	int256 s[] = {
+		get_min_int256(),
+		get_int256(-501),
+		get_int256(-500),
+		decimal_to_int256("-56575887454796"),
+		decimal_to_int256("-56575887454795"),
+		get_int256(-1),
+		get_0_int256(),
+		get_1_int256(),
+		get_int256(500),
+		get_int256(501),
+		decimal_to_int256("56575887454795"),
+		decimal_to_int256("56575887454796"),
+		get_max_int256(),
+	};
+
+	for(int i = 0; i < sizeof(s)/sizeof(s[0]); i++)
+	{
+		for(int j = 0; j < sizeof(d)/sizeof(d[0]); j++)
+		{
+			compare_int256_and_double(s[i], d[j]);
+		}
+		printf("\n\n");
+	}
 
 	return 0;
 }
