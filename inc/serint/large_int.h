@@ -138,6 +138,9 @@
                                                                                                                                                             \
 	/* converts large_uint to an approximate double */                                                                                                      \
 	static inline double convert_to_double_ ## large_int(large_int l);                                                                                      \
+                                                                                                                                                            \
+	/* compares large_int with double exactly without any truncation, if d == NAN, then return value will be 2 */                                           \
+	static inline int compare_ ## large_int ## _double(large_int l, double d);                                                                              \
 /* declarations complete */
 
 
@@ -468,6 +471,25 @@
 		if(sign_bit_l)                                                                                                                                      \
 			return -res;                                                                                                                                    \
 		return res;                                                                                                                                         \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int compare_ ## large_int ## _double(large_int l, double d)                                                                               \
+	{                                                                                                                                                       \
+		/* NAN is never equal to anything but is considered lesser than any possible number */                                                              \
+		if(isnan(d))                                                                                                                                        \
+			return 2;                                                                                                                                       \
+                                                                                                                                                            \
+		int sign_bit_l = get_sign_bit_ ## large_int(l);                                                                                                     \
+		large_uint absolute_l = get_absolute_ ## large_int(l);                                                                                              \
+                                                                                                                                                            \
+		if(sign_bit_l == 1 && d < 0.0)                                                                                                                      \
+			return -compare_ ## large_uint ## _double(absolute_l, -d);                                                                                      \
+		else if(sign_bit_l == 0 && d >= 0.0)                                                                                                                \
+			return compare_ ## large_uint ## _double(absolute_l, d);                                                                                        \
+		else if(sign_bit_l == 1 && d >= 0.0)                                                                                                                \
+			return -1;                                                                                                                                      \
+		else /* if(sign_bit_l == 0 && d < 0.0) */                                                                                                           \
+			return 1;                                                                                                                                       \
 	}                                                                                                                                                       \
 /* definitions complete */
 
