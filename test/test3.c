@@ -45,7 +45,7 @@ void compare_uint256_and_double(uint256 l, double d)
 		case 1 :
 			printf(" > ");break;
 		case 2 :
-			printf(" !! ");break;
+			printf(" !>! ");break;
 		default :
 			printf(" <%d> ", res);break;
 	}
