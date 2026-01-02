@@ -139,7 +139,10 @@
 	/* converts large_uint to an approximate double */                                                                                                      \
 	static inline double convert_to_double_ ## large_int(large_int l);                                                                                      \
                                                                                                                                                             \
-	/* compares large_int with double exactly without any truncation, if d == NAN, then return value will be 2 */                                           \
+    /* safely convert from double to large_int, 0 implies failure due to NAN or INFINITY, OR an overflow/underflow */                                       \
+	static inline int convert_from_double_ ## large_int(large_int* res, double d);                                                                          \
+                                                                                                                                                            \
+   	/* compares large_int with double exactly without any truncation, if d == NAN, then return value will be 2 */                                           \
 	static inline int compare_ ## large_int ## _double(large_int l, double d);                                                                              \
 /* declarations complete */
 
@@ -471,6 +474,40 @@
 		if(sign_bit_l)                                                                                                                                      \
 			return -res;                                                                                                                                    \
 		return res;                                                                                                                                         \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int convert_from_double_ ## large_int(large_int* res, double d)                                                                           \
+	{                                                                                                                                                       \
+		/* directly fail if it is nan or infinity */                                                                                                        \
+		if(isnan(d) || isinf(d))                                                                                                                            \
+			return 0;                                                                                                                                       \
+                                                                                                                                                            \
+		/* figure out it's sign_bit value */                                                                                                                \
+		int sign_bit_l = (d < 0);                                                                                                                           \
+                                                                                                                                                            \
+		/* get absolute value of the number to be returned */                                                                                               \
+		large_uint absolute_l;                                                                                                                              \
+		if(!convert_from_double_ ## large_uint(&absolute_l, fabs(d)))                                                                                       \
+			return 0;                                                                                                                                       \
+                                                                                                                                                            \
+		if(sign_bit_l)                                                                                                                                      \
+		{                                                                                                                                                   \
+			/* for negative number ensure that it has less magnitude than the magnitiude of the min large_int */                                            \
+			if(compare_large_uint(absolute_l, get_absolute_ ## large_int(get_min_ ## large_int())) > 0)                                                     \
+				return 0;                                                                                                                                   \
+		}                                                                                                                                                   \
+		else                                                                                                                                                \
+		{                                                                                                                                                   \
+			/* for positive number ensure that it has less magnitude than the magnitude of the max large_int */                                             \
+			if(compare_large_uint(absolute_l, get_absolute_ ## large_int(get_max_ ## large_int())) > 0)                                                     \
+				return 0;                                                                                                                                   \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		(*res) = (large_int){.raw_uint_value = absolute_l};                                                                                                 \
+		if(sign_bit_l)                                                                                                                                      \
+			(*res) = get_2s_complement_ ## large_int((*res));                                                                                               \
+                                                                                                                                                            \
+		return 1;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int compare_ ## large_int ## _double(large_int l, double d)                                                                               \
