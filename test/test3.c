@@ -104,7 +104,7 @@ void compare_int256_and_double(int256 l, double d)
 	printf("\n\n");
 }
 
-void convert_and_back(double d)
+void convert_unsigned_and_back(double d)
 {
 	printf("%lf -> ", d);
 	uint256 l;
@@ -278,7 +278,7 @@ int main()
 
 	for(int i = 0 ; i < sizeof(d) / sizeof(d[0]); i++)
 	{
-		convert_and_back(d[i]);
+		convert_unsigned_and_back(d[i]);
 	}
 
 	return 0;
