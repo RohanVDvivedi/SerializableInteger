@@ -104,6 +104,19 @@ void compare_int256_and_double(int256 l, double d)
 	printf("\n\n");
 }
 
+void convert_and_back(double d)
+{
+	printf("%lf -> ", d);
+	uint256 l;
+	if(!convert_from_double_uint256(&l, d))
+	{
+		printf("errored\n\n");
+		return;
+	}
+	double r = convert_to_double_uint256(l);
+	printf("%lf => are equal => %d\n\n", r, (d == r));
+}
+
 int main()
 {
 	print_decomposed_double(NAN);
