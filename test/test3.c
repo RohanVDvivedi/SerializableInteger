@@ -121,6 +121,23 @@ void convert_unsigned_and_back(double d)
 	}
 }
 
+void convert_signed_and_back(double d)
+{
+	printf("%lf -> ", d);
+	int256 l;
+	if(!convert_from_double_int256(&l, d))
+	{
+		printf("errored\n\n");
+		return;
+	}
+	else
+	{
+		print_as_decimal4(l);
+		printf("\n\n");
+		return;
+	}
+}
+
 int main()
 {
 	print_decomposed_double(NAN);
@@ -280,6 +297,13 @@ int main()
 	{
 		convert_unsigned_and_back(d[i]);
 	}
+	printf("\n\n\n");
+
+	for(int i = 0 ; i < sizeof(d) / sizeof(d[0]); i++)
+	{
+		convert_signed_and_back(d[i]);
+	}
+	printf("\n\n\n");
 
 	return 0;
 }

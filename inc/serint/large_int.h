@@ -493,13 +493,13 @@
 		if(sign_bit_l)                                                                                                                                      \
 		{                                                                                                                                                   \
 			/* for negative number ensure that it has less magnitude than the magnitiude of the min large_int */                                            \
-			if(compare_large_uint(absolute_l, get_absolute_ ## large_int(get_min_ ## large_int())) > 0)                                                     \
+			if(compare_ ## large_uint(absolute_l, get_absolute_ ## large_int(get_min_ ## large_int())) > 0)                                                 \
 				return 0;                                                                                                                                   \
 		}                                                                                                                                                   \
 		else                                                                                                                                                \
 		{                                                                                                                                                   \
 			/* for positive number ensure that it has less magnitude than the magnitude of the max large_int */                                             \
-			if(compare_large_uint(absolute_l, get_absolute_ ## large_int(get_max_ ## large_int())) > 0)                                                     \
+			if(compare_ ## large_uint(absolute_l, get_absolute_ ## large_int(get_max_ ## large_int())) > 0)                                                 \
 				return 0;                                                                                                                                   \
 		}                                                                                                                                                   \
                                                                                                                                                             \
