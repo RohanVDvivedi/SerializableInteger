@@ -679,7 +679,7 @@
                                                                                                                                                             \
 		if(dp.exp < 0)                                                                                                                                      \
 		{                                                                                                                                                   \
-			if(msb_pos > (-dp.exp))                                                                                                                         \
+			if(msb_pos >= (-dp.exp))                                                                                                                        \
 				(*res) = right_shift_ ## large_uint((*res), (-dp.exp));                                                                                     \
 			else                                                                                                                                            \
 				(*res) = get_0_ ## large_uint();                                                                                                            \
