@@ -146,6 +146,9 @@
 	/* converts large_uint to an approximate double */                                                                                                      \
 	static inline double convert_to_double_ ## large_uint(large_uint l);                                                                                    \
                                                                                                                                                             \
+    /* safely convert from double to large_uint, 0 implies failure due to NAN, INFINITY, negative numbers OR an overflow */                                 \
+	static inline int convert_from_double_ ## large_uint(large_uint* res, double d);                                                                        \
+                                                                                                                                                            \
 	/* compares large_uint with double exactly without any truncation, if d == NAN, then return value will be 2 */                                          \
 	static inline int compare_ ## large_uint ## _double(large_uint l, double d);                                                                            \
 /* declarations complete */
@@ -648,6 +651,49 @@
 		}                                                                                                                                                   \
                                                                                                                                                             \
 		return compose_double(p);                                                                                                                           \
+	}                                                                                                                                                       \
+                                                                                                                                                            \
+	static inline int convert_from_double_ ## large_uint(large_uint* res, double d)                                                                         \
+	{                                                                                                                                                       \
+		double_parts dp = decompose_double(d);                                                                                                              \
+                                                                                                                                                            \
+		if(dp.is_nan || dp.is_inf) /* nan and infinity do not have corresponding large_uint */                                                              \
+			return 0;                                                                                                                                       \
+                                                                                                                                                            \
+		if(dp.mant == 0) /* this is 0 */                                                                                                                    \
+		{                                                                                                                                                   \
+			(*res) = get_0_ ## large_uint();                                                                                                                \
+			return 1;                                                                                                                                       \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		if(dp.is_neg) /* negative numbers not possible to become large_uint */                                                                              \
+			return 0;                                                                                                                                       \
+                                                                                                                                                            \
+		(*res) = get_ ## large_uint(dp.mant);                                                                                                               \
+                                                                                                                                                            \
+		if(dp.exp == 0) /* no scaling needed */                                                                                                             \
+			return 1;                                                                                                                                       \
+                                                                                                                                                            \
+		/* get msb pos of the res */                                                                                                                        \
+		uint32_t msb_pos = get_first_encountered_bit_from_ ## large_uint((*res), 1, 1);                                                                     \
+                                                                                                                                                            \
+		if(dp.exp < 0)                                                                                                                                      \
+		{                                                                                                                                                   \
+			if(msb_pos > (-dp.exp))                                                                                                                         \
+				(*res) = right_shift_ ## large_uint((*res), (-dp.exp));                                                                                     \
+			else                                                                                                                                            \
+				(*res) = get_0_ ## large_uint();                                                                                                            \
+		}                                                                                                                                                   \
+		else /* dp.exp > 0 */                                                                                                                               \
+		{                                                                                                                                                   \
+			/* overflow check */                                                                                                                            \
+			if(dp.exp + msb_pos >= (BITS_PER_LIMB * LARGE_UINT_LIMBS_COUNT))                                                                                \
+				return 0;                                                                                                                                   \
+                                                                                                                                                            \
+			(*res) = left_shift_ ## large_uint((*res), dp.exp);                                                                                             \
+		}                                                                                                                                                   \
+                                                                                                                                                            \
+		return 1;                                                                                                                                           \
 	}                                                                                                                                                       \
                                                                                                                                                             \
 	static inline int compare_ ## large_uint ## _double(large_uint l, double d)                                                                             \
