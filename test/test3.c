@@ -113,8 +113,12 @@ void convert_and_back(double d)
 		printf("errored\n\n");
 		return;
 	}
-	double r = convert_to_double_uint256(l);
-	printf("%lf => are equal => %d\n\n", r, (d == r));
+	else
+	{
+		print_as_decimal3(l);
+		printf("\n\n");
+		return;
+	}
 }
 
 int main()
@@ -257,6 +261,18 @@ int main()
 			compare_int256_and_double(s[i], d[j]);
 		}
 		printf("\n\n");
+	}
+
+
+
+
+
+
+
+
+	for(int i = 0 ; i < sizeof(d) / sizeof(d[0]); i++)
+	{
+		convert_and_back(d[i]);
 	}
 
 	return 0;
