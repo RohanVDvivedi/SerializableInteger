@@ -53,7 +53,7 @@ int256 decimal_to_int256(char* b)
 	return l;
 }
 
-void print_decomposed_doiuble(double d)
+void print_decomposed_double(double d)
 {
 	double_parts p = decompose_double(d);
 	printf("%lf\n", d);
@@ -106,29 +106,29 @@ void compare_int256_and_double(int256 l, double d)
 
 int main()
 {
-	print_decomposed_doiuble(NAN);
+	print_decomposed_double(NAN);
 
-	print_decomposed_doiuble(-NAN);
+	print_decomposed_double(-NAN);
 
-	print_decomposed_doiuble(INFINITY);
+	print_decomposed_double(INFINITY);
 
-	print_decomposed_doiuble(-INFINITY);
+	print_decomposed_double(-INFINITY);
 
-	print_decomposed_doiuble(0.5);
+	print_decomposed_double(0.5);
 
-	print_decomposed_doiuble(-0.5);
+	print_decomposed_double(-0.5);
 
-	print_decomposed_doiuble(50);
+	print_decomposed_double(50);
 
-	print_decomposed_doiuble(-50);
+	print_decomposed_double(-50);
 
-	print_decomposed_doiuble(125969.12345);
+	print_decomposed_double(125969.12345);
 
-	print_decomposed_doiuble(-125969.12345);
+	print_decomposed_double(-125969.12345);
 
-	print_decomposed_doiuble(0.0);
+	print_decomposed_double(0.0);
 
-	print_decomposed_doiuble(-0.0);
+	print_decomposed_double(-0.0);
 
 
 
