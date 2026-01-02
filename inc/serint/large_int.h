@@ -483,7 +483,7 @@
 			return 0;                                                                                                                                       \
                                                                                                                                                             \
 		/* figure out it's sign_bit value */                                                                                                                \
-		int sign_bit_l = (d < 0);                                                                                                                           \
+		int sign_bit_l = (d < 0.0);                                                                                                                         \
                                                                                                                                                             \
 		/* get absolute value of the number to be returned */                                                                                               \
 		large_uint absolute_l;                                                                                                                              \
