@@ -94,8 +94,8 @@ static inline uint64_t add_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t 
 
 static inline uint64_t mul_limbs_with_carry(uint64_t* res, uint64_t a, uint64_t b, uint64_t carry_in)
 {
-	uint64_t a_0 = a & ((UINT64_C(1) << BITS_PER_HALF_LIMB) - UINT64_C(1)); // upper 32 bits of a
-	uint64_t a_1 = a >> BITS_PER_HALF_LIMB; // lower 32 bits of a
+	uint64_t a_0 = a & ((UINT64_C(1) << BITS_PER_HALF_LIMB) - UINT64_C(1)); // lower 32 bits of a
+	uint64_t a_1 = a >> BITS_PER_HALF_LIMB; // upper 32 bits of a
 
 	// similarly extract upper and lower 32 bits of b
 	uint64_t b_0 = b & ((UINT64_C(1) << BITS_PER_HALF_LIMB) - UINT64_C(1));

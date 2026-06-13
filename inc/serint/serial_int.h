@@ -72,10 +72,7 @@ static inline void serialize_int64(void* data, uint32_t data_size, int64_t x);
 /*
 	get_significant_bit_count_uintX -> returns the number of significant bits required to represent a unsigned int number (discarding the most significant 0s), for 0, it will return 1
 	this is equivalent to 
-		if(x == 0)
-			return 1;
-		else
-			return (sizeof(uintX_t) * CHAR_BIT) - (number of most significant 0 bits)
+		return (sizeof(uintX_t) * CHAR_BIT) - (number of most significant 0 bits)
 	these are the minimum bit count required to represent a unsigned int number
 */
 
