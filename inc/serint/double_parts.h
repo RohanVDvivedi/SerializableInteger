@@ -8,11 +8,11 @@
 typedef struct double_parts double_parts;
 struct double_parts
 {
-	int is_neg:1; // this bit is always present, be the number 0, nan, inf or anything real
+	unsigned int is_neg:1; // this bit is always present, be the number 0, nan, inf or anything real
 
-	int is_nan:1; // if this is set, no attributes needed further
+	unsigned int is_nan:1; // if this is set, no attributes needed further
 
-	int is_inf:1; // if this is set, it is infinity, no attributes needed further
+	unsigned int is_inf:1; // if this is set, it is infinity, no attributes needed further
 
 	int64_t exp; // exponent of the corresponing float + number of bits in mantissa of the floating type
 	uint64_t mant; // mantissa as an integer
