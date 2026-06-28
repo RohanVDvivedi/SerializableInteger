@@ -280,7 +280,7 @@ static inline uint64_t get_UINT64_MAX(uint32_t data_size)		GET_UINT_MAX(64)
 		return 0;										\
 	data_size = min(data_size, sizeof(sint(X)));		\
 	sint(X) x = INT ## X ## _C(-1);						\
-	x = x << ((CHAR_BIT * data_size) - 1);				\
+	x = ((uint(X))x) << ((CHAR_BIT * data_size) - 1);   \
 	return x;											\
 }
 
